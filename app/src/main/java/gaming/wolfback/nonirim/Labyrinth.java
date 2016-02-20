@@ -2,6 +2,7 @@ package gaming.wolfback.nonirim;
 
 
 import android.util.Log;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +40,10 @@ public class Labyrinth {
         }
 
         Log.d("TESTLOG", theLabString);
+
+
+
+
         return theLabString;
     }
 }
