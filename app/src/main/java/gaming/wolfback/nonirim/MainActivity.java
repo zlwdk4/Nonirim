@@ -11,6 +11,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Card c1 = new Card(1, "red", "moon");
+        Labyrinth lab = new Labyrinth();
+        lab.addCard(c1);
+        lab.seeLab();
+
     }
 
     @Override
