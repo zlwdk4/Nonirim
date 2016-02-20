@@ -1,37 +1,44 @@
 package gaming.wolfback.nonirim;
 
 
+import android.util.Log;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Jarren on 2/19/2016.
  */
 public class Labyrinth {
-    private List<Card> labList;
+    private static List<Card> labList;
     public Labyrinth()
     {
+        labList = new ArrayList<Card>();
+
     }
     public void addCard(Card newCard)
     {
-        labList.add(newCard);
+       labList.add(newCard);
+
     }
 
-    void removeCard(Card toRemoveCard)
+    public void removeCard(Card toRemoveCard)
     {
         labList.remove(toRemoveCard);
     }
 
-    String seeLab()
+    public String getLabString()
     {
         //int i = 0;
-        String theLabString = "";
+        String theLabString = " ";
 
         for (int i = 0; i < labList.size(); ++i)
         {
-            theLabString.concat("Card #" + i + labList.get(i).getColor() +
-                    " " + labList.get(i).getType() + " ");
+            theLabString += ("Card #" + i + " " + labList.get(i).getColor() +
+                    " " + labList.get(i).getType() + "  -  ");
         }
-        System.out.println(theLabString);
+
+        Log.d("TESTLOG", theLabString);
         return theLabString;
     }
 }

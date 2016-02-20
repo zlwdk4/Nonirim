@@ -13,9 +13,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Card c1 = new Card(1, "red", "moon");
+        Card c2 = new Card(2, "blue", "moon");
         Labyrinth lab = new Labyrinth();
         lab.addCard(c1);
-        lab.seeLab();
+        lab.addCard(c2);
+        lab.getLabString();
 
     }
 
