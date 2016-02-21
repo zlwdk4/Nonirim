@@ -33,6 +33,7 @@ public class Card {
         this.isCardDiscarded = isCardDiscarded;
     }
 
+
     public int getId() {
         return id;
     }
@@ -54,5 +55,6 @@ public class Card {
         this.isCardDiscarded = false;
 
     }
+    public Card(){}
 
 }
