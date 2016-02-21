@@ -54,9 +54,8 @@
         android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/hand1"
         android:layout_toEndOf="@+id/hand1"
-        android:background="#444444"
-        android:height="22dp"
-        android:width="400dp"
+        android:background="#aaaada"
+
         />
 
     <TextView
