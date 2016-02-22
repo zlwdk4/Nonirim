@@ -7,14 +7,25 @@
 
 
     <Button
+        android:textSize="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/hand1"
+        android:id="@+id/hand0"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <Button
+        android:textSize="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/hand1"
+        android:layout_alignBottom="@+id/hand0"
+        android:layout_toRightOf="@+id/hand0"
+        android:layout_toEndOf="@+id/hand0" />
+
+    <Button
+        android:textSize="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/hand2"
@@ -23,6 +34,7 @@
         android:layout_toEndOf="@+id/hand1" />
 
     <Button
+        android:textSize="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/hand3"
@@ -31,6 +43,7 @@
         android:layout_toEndOf="@+id/hand2" />
 
     <Button
+        android:textSize="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/hand4"
@@ -38,24 +51,22 @@
         android:layout_toRightOf="@+id/hand3"
         android:layout_toEndOf="@+id/hand3" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/hand5"
-        android:layout_alignBottom="@+id/hand4"
-        android:layout_toRightOf="@+id/hand4"
-        android:layout_toEndOf="@+id/hand4" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/LabId"
         android:layout_centerVertical="true"
+<<<<<<< HEAD
         android:layout_toRightOf="@+id/hand1"
         android:layout_toEndOf="@+id/hand1"
         android:background="#aaaada"
 
+=======
+        android:layout_toRightOf="@+id/hand0"
+        android:layout_toEndOf="@+id/hand0"
+        android:background="#444444"
+>>>>>>> origin/master
         />
 
     <TextView
@@ -64,7 +75,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Deck"
         android:id="@+id/Deck"
-        android:layout_alignTop="@+id/hand5"
+        android:layout_alignTop="@+id/hand4"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 </RelativeLayout>
