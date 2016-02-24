@@ -57,6 +57,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/LabId"
         android:layout_centerVertical="true"
+
         android:layout_toRightOf="@+id/hand0"
         android:layout_toEndOf="@+id/hand0"
         android:background="#444444"
