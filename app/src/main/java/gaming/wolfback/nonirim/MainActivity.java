@@ -5,16 +5,18 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
     public Facade theFacade = new Facade();
-    public TextView c0;
-    public TextView c1;
-    public TextView c2;
-    public TextView c3;
-    public TextView c4;
+    public ImageButton c0;
+    public ImageButton c1;
+    public ImageButton c2;
+    public ImageButton c3;
+    public ImageButton c4;
+    public TextView discard;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,23 +25,52 @@ public class MainActivity extends AppCompatActivity {
         setInitialCardsInHand();
         setOnClickListenersForHand();
 
+        discard = (TextView) findViewById(R.id.discardPileId);
     }
 
     public void setInitialCardsInHand(){
-        c0 = (TextView) findViewById(R.id.hand0);
-        c0.setText(theFacade.getCardFromHand(0));
+        String theDoorString;
+        int resId;
 
-        c1 = (TextView) findViewById(R.id.hand1);
-        c1.setText(theFacade.getCardFromHand(1));
+        c0 = (ImageButton) findViewById(R.id.hand0);
+        theDoorString = theFacade.getCardFromHand(0);
+        if (theDoorString == "nightmarenightmare") {
+            theDoorString = "nightmare";
+        }
+        resId = getResources().getIdentifier(theDoorString, "drawable", getPackageName());
+        c0.setImageResource(resId);
 
-        c2 = (TextView) findViewById(R.id.hand2);
-        c2.setText(theFacade.getCardFromHand(2));
+        c1 = (ImageButton) findViewById(R.id.hand1);
+        theDoorString = theFacade.getCardFromHand(1);
+        if (theDoorString == "nightmarenightmare") {
+            theDoorString = "nightmare";
+        }
+        resId = getResources().getIdentifier(theDoorString, "drawable", getPackageName());
+        c1.setImageResource(resId);
 
-        c3 = (TextView) findViewById(R.id.hand3);
-        c3.setText(theFacade.getCardFromHand(3));
+        c2 = (ImageButton) findViewById(R.id.hand2);
+        theDoorString = theFacade.getCardFromHand(2);
+        if (theDoorString == "nightmarenightmare") {
+            theDoorString = "nightmare";
+        }
+        resId = getResources().getIdentifier(theDoorString, "drawable", getPackageName());
+        c2.setImageResource(resId);
 
-        c4 = (TextView) findViewById(R.id.hand4);
-        c4.setText(theFacade.getCardFromHand(4));
+        c3 = (ImageButton) findViewById(R.id.hand3);
+        theDoorString = theFacade.getCardFromHand(3);
+        if (theDoorString == "nightmarenightmare") {
+            theDoorString = "nightmare";
+        }
+        resId = getResources().getIdentifier(theDoorString, "drawable", getPackageName());
+        c3.setImageResource(resId);
+
+        c4 = (ImageButton) findViewById(R.id.hand4);
+        theDoorString = theFacade.getCardFromHand(4);
+        if (theDoorString == "nightmarenightmare") {
+            theDoorString = "nightmare";
+        }
+        resId = getResources().getIdentifier(theDoorString, "drawable", getPackageName());
+        c4.setImageResource(resId);
 
     }
 
@@ -47,12 +78,15 @@ public class MainActivity extends AppCompatActivity {
         c0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Takes the index of the card in the hand, removes the card from hand, and adds the card into the labyrinth
                 theFacade.playCardIntoLab(0);
                 String theLabString = theFacade.seeLab();
-                TextView t = (TextView) findViewById(R.id.LabId);
-                t.setText(theLabString);
+                TextView theLab = (TextView) findViewById(R.id.LabId);
+                //
+                theLab.setText(theLabString);
                 theFacade.drawFromDeckIntoHand();
-                c0.setText(theFacade.getCardFromHand(0));
+                //c0.setText(theFacade.getCardFromHand(0));
+
             }
         });
 
@@ -61,10 +95,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 theFacade.playCardIntoLab(1);
                 String theLabString = theFacade.seeLab();
-                TextView t = (TextView) findViewById(R.id.LabId);
-                t.setText(theLabString);
+                TextView theLab = (TextView) findViewById(R.id.LabId);
+                theLab.setText(theLabString);
                 theFacade.drawFromDeckIntoHand();
-                c1.setText(theFacade.getCardFromHand(1));
+                //c1.setText(theFacade.getCardFromHand(1));
             }
         });
 
@@ -73,10 +107,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 theFacade.playCardIntoLab(2);
                 String theLabString = theFacade.seeLab();
-                TextView t = (TextView) findViewById(R.id.LabId);
-                t.setText(theLabString);
+                TextView theLab = (TextView) findViewById(R.id.LabId);
+                theLab.setText(theLabString);
                 theFacade.drawFromDeckIntoHand();
-                c2.setText(theFacade.getCardFromHand(2));
+                //c2.setText(theFacade.getCardFromHand(2));
             }
         });
 
@@ -85,10 +119,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 theFacade.playCardIntoLab(3);
                 String theLabString = theFacade.seeLab();
-                TextView t = (TextView) findViewById(R.id.LabId);
-                t.setText(theLabString);
+                TextView theLab = (TextView) findViewById(R.id.LabId);
+                theLab.setText(theLabString);
                 theFacade.drawFromDeckIntoHand();
-                c3.setText(theFacade.getCardFromHand(3));
+                //c3.setText(theFacade.getCardFromHand(3));
             }
         });
 
@@ -97,10 +131,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 theFacade.playCardIntoLab(4);
                 String theLabString = theFacade.seeLab();
-                TextView t = (TextView) findViewById(R.id.LabId);
-                t.setText(theLabString);
+                TextView theLab = (TextView) findViewById(R.id.LabId);
+                theLab.setText(theLabString);
                 theFacade.drawFromDeckIntoHand();
-                c4.setText(theFacade.getCardFromHand(4));
+                //c4.setText(theFacade.getCardFromHand(4));
             }
         });
     }

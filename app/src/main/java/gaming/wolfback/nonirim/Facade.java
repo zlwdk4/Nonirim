@@ -93,7 +93,7 @@ public class Facade {
     }
 
     public String getCardFromHand(int indexOfCard){
-        return (hand.getCard(indexOfCard).getColor() + " " + hand.getCard(indexOfCard).getType());
+        return (hand.getCard(indexOfCard).getColor() + hand.getCard(indexOfCard).getType());
     }
 
     public void drawFromDeckIntoHand(){
