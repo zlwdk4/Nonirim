@@ -20,19 +20,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Card c1 = new Card(1, "red", "sun");
-        //Card c2 = new Card(2, "blue", "moon");
-        //Labyrinth lab = new Labyrinth();
-        //lab.addCard(c1);
-        //lab.addCard(c2);
-        //String theLabString = lab.getLabString();
+        setInitialCardsInHand();
+        setOnClickListenersForHand();
 
-        //TextView t = (TextView)findViewById(R.id.LabId);
-        //t.setText(theLabString);
+    }
 
-
-        //theFacade.drawFromDeckIntoHand();
-
+    public void setInitialCardsInHand(){
         c0 = (TextView) findViewById(R.id.hand0);
         c0.setText(theFacade.getCardFromHand(0));
 
@@ -48,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
         c4 = (TextView) findViewById(R.id.hand4);
         c4.setText(theFacade.getCardFromHand(4));
 
+    }
+
+    public void setOnClickListenersForHand(){
         c0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,14 +103,6 @@ public class MainActivity extends AppCompatActivity {
                 c4.setText(theFacade.getCardFromHand(4));
             }
         });
-
-
-        //theFacade.playCardIntoLab(1);
-
-
-
-
-
     }
 
     @Override

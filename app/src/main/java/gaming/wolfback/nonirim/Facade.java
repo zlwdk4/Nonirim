@@ -9,9 +9,7 @@ public class Facade {
                 green = "green", red = "red", nightmare = "nightmare", door = "door";
 
         int i = 1;
-        //Card c1 = new Card(1, "red", "key");
-        //drawPile.addCardToDeck(c1);
-
+        
         for (int j = 0; j < 9; j++) {
             Card c = new Card(i, red, sun);
             drawPile.addCardToDeck(c);
