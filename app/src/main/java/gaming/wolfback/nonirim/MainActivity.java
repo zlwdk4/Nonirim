@@ -34,43 +34,28 @@ public class MainActivity extends AppCompatActivity {
 
     public void setInitialCardsInHand(){
         c0 = (ImageButton) findViewById(R.id.hand0);
-        colorAndTypeOfCard = theFacade.getCardColorAndTypeFromHand(0);
-        if (colorAndTypeOfCard.equals("nightmarenightmare")) {
-            colorAndTypeOfCard = "nightmare";
-        }
-        cardResId = getResources().getIdentifier(colorAndTypeOfCard, "drawable", getPackageName());
+        colorAndTypeOfCard = getCardColorAndTypeFromHand(0);
+        cardResId = getCardImageResourceId(colorAndTypeOfCard);
         c0.setImageResource(cardResId);
 
         c1 = (ImageButton) findViewById(R.id.hand1);
-        colorAndTypeOfCard = theFacade.getCardColorAndTypeFromHand(1);
-        if (colorAndTypeOfCard.equals("nightmarenightmare")) {
-            colorAndTypeOfCard = "nightmare";
-        }
-        cardResId = getResources().getIdentifier(colorAndTypeOfCard, "drawable", getPackageName());
+        colorAndTypeOfCard = getCardColorAndTypeFromHand(1);
+        cardResId = getCardImageResourceId(colorAndTypeOfCard);
         c1.setImageResource(cardResId);
 
         c2 = (ImageButton) findViewById(R.id.hand2);
-        colorAndTypeOfCard = theFacade.getCardColorAndTypeFromHand(2);
-        if (colorAndTypeOfCard.equals("nightmarenightmare")) {
-            colorAndTypeOfCard = "nightmare";
-        }
-        cardResId = getResources().getIdentifier(colorAndTypeOfCard, "drawable", getPackageName());
+        colorAndTypeOfCard = getCardColorAndTypeFromHand(2);
+        cardResId = getCardImageResourceId(colorAndTypeOfCard);
         c2.setImageResource(cardResId);
 
         c3 = (ImageButton) findViewById(R.id.hand3);
-        colorAndTypeOfCard = theFacade.getCardColorAndTypeFromHand(3);
-        if (colorAndTypeOfCard.equals("nightmarenightmare")) {
-            colorAndTypeOfCard = "nightmare";
-        }
-        cardResId = getResources().getIdentifier(colorAndTypeOfCard, "drawable", getPackageName());
+        colorAndTypeOfCard = getCardColorAndTypeFromHand(3);
+        cardResId = getCardImageResourceId(colorAndTypeOfCard);
         c3.setImageResource(cardResId);
 
         c4 = (ImageButton) findViewById(R.id.hand4);
-        colorAndTypeOfCard = theFacade.getCardColorAndTypeFromHand(4);
-        if (colorAndTypeOfCard.equals("nightmarenightmare")) {
-            colorAndTypeOfCard = "nightmare";
-        }
-        cardResId = getResources().getIdentifier(colorAndTypeOfCard, "drawable", getPackageName());
+        colorAndTypeOfCard = getCardColorAndTypeFromHand(4);
+        cardResId = getCardImageResourceId(colorAndTypeOfCard);
         c4.setImageResource(cardResId);
 
     }
@@ -166,8 +151,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    
-    public int getCardImageResourceId (String colorAndType){
+
+    public int getCardImageResourceId (String colorAndType) {
         return getResources().getIdentifier(colorAndType, "drawable", getPackageName());
     }
 
