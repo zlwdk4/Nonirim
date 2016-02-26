@@ -92,7 +92,7 @@ public class Facade {
         drawPile.shuffle();
     }
 
-    public String getCardFromHand(int indexOfCard){
+    public String getCardColorAndTypeFromHand(int indexOfCard){
         return (hand.getCard(indexOfCard).getColor() + hand.getCard(indexOfCard).getType());
     }
 
@@ -102,7 +102,7 @@ public class Facade {
         hand.addCard(tempCard);
     }
 
-    public void playCardIntoLab(int indexOfCardInHand) {
+    public void playCardIntoLabAndRemoveCardFromHand(int indexOfCardInHand) {
         lab.addCard(hand.removeCard(indexOfCardInHand));
     }
 

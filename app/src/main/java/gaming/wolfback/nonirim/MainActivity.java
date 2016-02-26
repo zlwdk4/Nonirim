@@ -2,7 +2,6 @@ package gaming.wolfback.nonirim;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,8 +18,8 @@ public class MainActivity extends AppCompatActivity {
     public ImageButton c3;
     public ImageButton c4;
     public TextView discard;
-    public int resId;
-    public String theCardString;
+    public int cardResId;
+    public String colorAndTypeOfCard;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,179 +31,157 @@ public class MainActivity extends AppCompatActivity {
         discard = (TextView) findViewById(R.id.discardPileId);
     }
 
-    public void setInitialCardsInHand(){
-        //String theCardString;
-        //int resId;
 
+    public void setInitialCardsInHand(){
         c0 = (ImageButton) findViewById(R.id.hand0);
-        theCardString = theFacade.getCardFromHand(0);
-        if (theCardString.equals("nightmarenightmare")) {
-            theCardString = "nightmare";
+        colorAndTypeOfCard = theFacade.getCardColorAndTypeFromHand(0);
+        if (colorAndTypeOfCard.equals("nightmarenightmare")) {
+            colorAndTypeOfCard = "nightmare";
         }
-        resId = getResources().getIdentifier(theCardString, "drawable", getPackageName());
-        c0.setImageResource(resId);
+        cardResId = getResources().getIdentifier(colorAndTypeOfCard, "drawable", getPackageName());
+        c0.setImageResource(cardResId);
 
         c1 = (ImageButton) findViewById(R.id.hand1);
-        theCardString = theFacade.getCardFromHand(1);
-        if (theCardString.equals("nightmarenightmare")) {
-            theCardString = "nightmare";
+        colorAndTypeOfCard = theFacade.getCardColorAndTypeFromHand(1);
+        if (colorAndTypeOfCard.equals("nightmarenightmare")) {
+            colorAndTypeOfCard = "nightmare";
         }
-        resId = getResources().getIdentifier(theCardString, "drawable", getPackageName());
-        c1.setImageResource(resId);
+        cardResId = getResources().getIdentifier(colorAndTypeOfCard, "drawable", getPackageName());
+        c1.setImageResource(cardResId);
 
         c2 = (ImageButton) findViewById(R.id.hand2);
-        theCardString = theFacade.getCardFromHand(2);
-        if (theCardString.equals("nightmarenightmare")) {
-            theCardString = "nightmare";
+        colorAndTypeOfCard = theFacade.getCardColorAndTypeFromHand(2);
+        if (colorAndTypeOfCard.equals("nightmarenightmare")) {
+            colorAndTypeOfCard = "nightmare";
         }
-        resId = getResources().getIdentifier(theCardString, "drawable", getPackageName());
-        c2.setImageResource(resId);
+        cardResId = getResources().getIdentifier(colorAndTypeOfCard, "drawable", getPackageName());
+        c2.setImageResource(cardResId);
 
         c3 = (ImageButton) findViewById(R.id.hand3);
-        theCardString = theFacade.getCardFromHand(3);
-        if (theCardString.equals("nightmarenightmare")) {
-            theCardString = "nightmare";
+        colorAndTypeOfCard = theFacade.getCardColorAndTypeFromHand(3);
+        if (colorAndTypeOfCard.equals("nightmarenightmare")) {
+            colorAndTypeOfCard = "nightmare";
         }
-        resId = getResources().getIdentifier(theCardString, "drawable", getPackageName());
-        c3.setImageResource(resId);
+        cardResId = getResources().getIdentifier(colorAndTypeOfCard, "drawable", getPackageName());
+        c3.setImageResource(cardResId);
 
         c4 = (ImageButton) findViewById(R.id.hand4);
-        theCardString = theFacade.getCardFromHand(4);
-        if (theCardString.equals("nightmarenightmare")) {
-            theCardString = "nightmare";
+        colorAndTypeOfCard = theFacade.getCardColorAndTypeFromHand(4);
+        if (colorAndTypeOfCard.equals("nightmarenightmare")) {
+            colorAndTypeOfCard = "nightmare";
         }
-        resId = getResources().getIdentifier(theCardString, "drawable", getPackageName());
-        c4.setImageResource(resId);
+        cardResId = getResources().getIdentifier(colorAndTypeOfCard, "drawable", getPackageName());
+        c4.setImageResource(cardResId);
 
     }
 
     public void setOnClickListenersForHand(){
-        //String theCardString;
-        //int resId;
         c0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                theCardString = theFacade.getCardFromHand(0);
-                if (theCardString.equals("nightmarenightmare")) {
-                    theCardString = "nightmare";
-                }
+                int cNum = 0;
+                //Top half is for putting current card in hand into the Labyrinth
+                colorAndTypeOfCard = getCardColorAndTypeFromHand(cNum);
+                cardResId = getCardImageResourceId(colorAndTypeOfCard);
+                theFacade.playCardIntoLabAndRemoveCardFromHand(cNum);
+                updateLabImage(cardResId);
 
-                resId = getResources().getIdentifier(theCardString, "drawable", getPackageName());
-                //Takes the index of the card in the hand, removes the card from hand, and adds the card into the labyrinth
-                theFacade.playCardIntoLab(0);
-
-                ImageView theLab = (ImageView) findViewById(R.id.LabId);
-                theLab.setImageResource(resId);
-
+                //Bottom half is for drawing a new card from the deck and updating the hand
                 theFacade.drawFromDeckIntoHand();
-                theCardString = theFacade.getCardFromHand(0);
-                if (theCardString.equals("nightmarenightmare")) {
-                    theCardString = "nightmare";
-                }
-                resId = getResources().getIdentifier(theCardString, "drawable", getPackageName());
-                c0.setImageResource(resId);
+                colorAndTypeOfCard = getCardColorAndTypeFromHand(cNum);
+                cardResId = getCardImageResourceId(colorAndTypeOfCard);
+                c0.setImageResource(cardResId);
             }
         });
 
         c1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                theCardString = theFacade.getCardFromHand(1);
-                if (theCardString.equals("nightmarenightmare")) {
-                    theCardString = "nightmare";
-                }
+                int cNum = 1;
+                //Top half is for putting current card in hand into the Labyrinth
+                colorAndTypeOfCard = getCardColorAndTypeFromHand(cNum);
+                cardResId = getCardImageResourceId(colorAndTypeOfCard);
+                theFacade.playCardIntoLabAndRemoveCardFromHand(cNum);
+                updateLabImage(cardResId);
 
-                resId = getResources().getIdentifier(theCardString, "drawable", getPackageName());
-                //Takes the index of the card in the hand, removes the card from hand, and adds the card into the labyrinth
-                theFacade.playCardIntoLab(1);
-
-                ImageView theLab = (ImageView) findViewById(R.id.LabId);
-                theLab.setImageResource(resId);
-
+                //Bottom half is for drawing a new card from the deck and updating the hand
                 theFacade.drawFromDeckIntoHand();
-                theCardString = theFacade.getCardFromHand(1);
-                if (theCardString.equals("nightmarenightmare")) {
-                    theCardString = "nightmare";
-                }
-                resId = getResources().getIdentifier(theCardString, "drawable", getPackageName());
-                c1.setImageResource(resId);
+                colorAndTypeOfCard = getCardColorAndTypeFromHand(cNum);
+                cardResId = getCardImageResourceId(colorAndTypeOfCard);
+                c1.setImageResource(cardResId);
             }
         });
 
         c2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                theCardString = theFacade.getCardFromHand(2);
-                if (theCardString.equals("nightmarenightmare")) {
-                    theCardString = "nightmare";
-                }
+                int cNum = 2;
+                //Top half is for putting current card in hand into the Labyrinth
+                colorAndTypeOfCard = getCardColorAndTypeFromHand(cNum);
+                cardResId = getCardImageResourceId(colorAndTypeOfCard);
+                theFacade.playCardIntoLabAndRemoveCardFromHand(cNum);
+                updateLabImage(cardResId);
 
-                resId = getResources().getIdentifier(theCardString, "drawable", getPackageName());
-                //Takes the index of the card in the hand, removes the card from hand, and adds the card into the labyrinth
-                theFacade.playCardIntoLab(2);
-
-                ImageView theLab = (ImageView) findViewById(R.id.LabId);
-                theLab.setImageResource(resId);
-
+                //Bottom half is for drawing a new card from the deck and updating the hand
                 theFacade.drawFromDeckIntoHand();
-                theCardString = theFacade.getCardFromHand(2);
-                if (theCardString.equals("nightmarenightmare")) {
-                    theCardString = "nightmare";
-                }
-                resId = getResources().getIdentifier(theCardString, "drawable", getPackageName());
-                c2.setImageResource(resId);
+                colorAndTypeOfCard = getCardColorAndTypeFromHand(cNum);
+                cardResId = getCardImageResourceId(colorAndTypeOfCard);
+                c2.setImageResource(cardResId);
             }
         });
 
         c3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                theCardString = theFacade.getCardFromHand(3);
-                if (theCardString.equals("nightmarenightmare")) {
-                    theCardString = "nightmare";
-                }
+                int cNum = 3;
+                //Top half is for putting current card in hand into the Labyrinth
+                colorAndTypeOfCard = getCardColorAndTypeFromHand(cNum);
+                cardResId = getCardImageResourceId(colorAndTypeOfCard);
+                theFacade.playCardIntoLabAndRemoveCardFromHand(cNum);
+                updateLabImage(cardResId);
 
-                resId = getResources().getIdentifier(theCardString, "drawable", getPackageName());
-                //Takes the index of the card in the hand, removes the card from hand, and adds the card into the labyrinth
-                theFacade.playCardIntoLab(3);
-
-                ImageView theLab = (ImageView) findViewById(R.id.LabId);
-                theLab.setImageResource(resId);
-
+                //Bottom half is for drawing a new card from the deck and updating the hand
                 theFacade.drawFromDeckIntoHand();
-                theCardString = theFacade.getCardFromHand(3);
-                if (theCardString.equals("nightmarenightmare")) {
-                    theCardString = "nightmare";
-                }
-                resId = getResources().getIdentifier(theCardString, "drawable", getPackageName());
-                c3.setImageResource(resId);
+                colorAndTypeOfCard = getCardColorAndTypeFromHand(cNum);
+                cardResId = getCardImageResourceId(colorAndTypeOfCard);
+                c3.setImageResource(cardResId);
             }
         });
 
         c4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                theCardString = theFacade.getCardFromHand(4);
-                if (theCardString.equals("nightmarenightmare")) {
-                    theCardString = "nightmare";
-                }
+                int cNum = 4;
+                //Top half is for putting current card in hand into the Labyrinth
+                colorAndTypeOfCard = getCardColorAndTypeFromHand(cNum);
+                cardResId = getCardImageResourceId(colorAndTypeOfCard);
+                theFacade.playCardIntoLabAndRemoveCardFromHand(cNum);
+                updateLabImage(cardResId);
 
-                resId = getResources().getIdentifier(theCardString, "drawable", getPackageName());
-                //Takes the index of the card in the hand, removes the card from hand, and adds the card into the labyrinth
-                theFacade.playCardIntoLab(4);
-
-                ImageView theLab = (ImageView) findViewById(R.id.LabId);
-                theLab.setImageResource(resId);
-
+                //Bottom half is for drawing a new card from the deck and updating the hand
                 theFacade.drawFromDeckIntoHand();
-                theCardString = theFacade.getCardFromHand(4);
-                if (theCardString.equals("nightmarenightmare")) {
-                    theCardString = "nightmare";
-                }
-                resId = getResources().getIdentifier(theCardString, "drawable", getPackageName());
-                c4.setImageResource(resId);
+                colorAndTypeOfCard = getCardColorAndTypeFromHand(cNum);
+                cardResId = getCardImageResourceId(colorAndTypeOfCard);
+                c4.setImageResource(cardResId);
             }
         });
+    }
+    
+    public int getCardImageResourceId (String colorAndType){
+        return getResources().getIdentifier(colorAndType, "drawable", getPackageName());
+    }
+
+    public void updateLabImage(int cardResId){
+        ImageView theLab = (ImageView) findViewById(R.id.LabId);
+        theLab.setImageResource(cardResId);
+    }
+
+    public String getCardColorAndTypeFromHand(int cNum){
+        String colorAndTypeOfCard = theFacade.getCardColorAndTypeFromHand(cNum);
+        if (colorAndTypeOfCard.equals("nightmarenightmare")) {
+            colorAndTypeOfCard = "nightmare";
+        }
+        return colorAndTypeOfCard;
     }
 
     @Override

@@ -68,6 +68,16 @@
         android:layout_toEndOf="@+id/hand0"
         />
 
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="45dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/LabId1"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/LabId"
+        android:layout_toEndOf="@+id/LabId"
+        />
+
 
     <TextView
         android:layout_width="wrap_content"
