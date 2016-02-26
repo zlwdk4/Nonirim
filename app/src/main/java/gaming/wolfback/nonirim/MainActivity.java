@@ -10,16 +10,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-
     public Facade theFacade = new Facade();
     public ImageButton c0;
     public ImageButton c1;
     public ImageButton c2;
     public ImageButton c3;
     public ImageButton c4;
+    public int currentLabIndex = 0;
     public TextView discard;
     public int cardResId;
     public String colorAndTypeOfCard;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -156,9 +157,23 @@ public class MainActivity extends AppCompatActivity {
         return getResources().getIdentifier(colorAndType, "drawable", getPackageName());
     }
 
+    private int getLabResourceId (int indexOfLab){
+        String labIdName = "LabId" + indexOfLab;
+        int resID = getResources().getIdentifier(labIdName, "id", getPackageName());
+        return resID;
+    }
+
+    private void updateCurrentLabIndex(){
+        currentLabIndex++;
+        if (currentLabIndex == 7){
+            currentLabIndex = 0;
+        }
+    }
+
     public void updateLabImage(int cardResId){
-        ImageView theLab = (ImageView) findViewById(R.id.LabId);
+        ImageView theLab = (ImageView) findViewById(getLabResourceId(currentLabIndex));
         theLab.setImageResource(cardResId);
+        updateCurrentLabIndex();
     }
 
     public String getCardColorAndTypeFromHand(int cNum){
