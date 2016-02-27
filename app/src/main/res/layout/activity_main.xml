@@ -9,8 +9,8 @@
 
 
     <ImageButton
-        android:layout_width="30dp"
-        android:layout_height="45dp"
+        android:layout_width="50dp"
+        android:layout_height="75dp"
         android:id="@+id/hand0"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
@@ -19,8 +19,8 @@
         android:background="@drawable/backofcard"/>
 
     <ImageButton
-        android:layout_width="30dp"
-        android:layout_height="45dp"
+        android:layout_width="50dp"
+        android:layout_height="75dp"
         android:id="@+id/hand1"
         android:layout_alignBottom="@+id/hand0"
         android:layout_toRightOf="@+id/hand0"
@@ -29,8 +29,8 @@
         android:background="@drawable/backofcard"/>
 
     <ImageButton
-        android:layout_width="30dp"
-        android:layout_height="45dp"
+        android:layout_width="50dp"
+        android:layout_height="75dp"
         android:id="@+id/hand2"
         android:layout_alignBottom="@+id/hand1"
         android:layout_toRightOf="@+id/hand1"
@@ -39,8 +39,8 @@
         android:background="@drawable/backofcard"/>
 
     <ImageButton
-        android:layout_width="30dp"
-        android:layout_height="45dp"
+        android:layout_width="50dp"
+        android:layout_height="75dp"
         android:id="@+id/hand3"
         android:layout_alignBottom="@+id/hand2"
         android:layout_toRightOf="@+id/hand2"
@@ -49,8 +49,8 @@
         android:background="@drawable/backofcard"/>
 
     <ImageButton
-        android:layout_width="30dp"
-        android:layout_height="45dp"
+        android:layout_width="50dp"
+        android:layout_height="75dp"
         android:id="@+id/hand4"
         android:layout_alignBottom="@+id/hand3"
         android:layout_toRightOf="@+id/hand3"
@@ -59,8 +59,8 @@
         android:background="@drawable/backofcard"/>
 
     <ImageView
-        android:layout_width="30dp"
-        android:layout_height="45dp"
+        android:layout_width="50dp"
+        android:layout_height="75dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/LabId"
         android:layout_centerVertical="true"
