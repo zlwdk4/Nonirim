@@ -2,6 +2,7 @@ package gaming.wolfback.nonirim;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     public TextView discard;
     public int cardResId;
     public String colorAndTypeOfCard;
+    public Labyrinth theLab = new Labyrinth();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 cardResId = getCardImageResourceId(colorAndTypeOfCard);
                 theFacade.playCardIntoLabAndRemoveCardFromHand(cNum);
                 updateLabImage(cardResId);
+                updateCurrentLabIndex();
 
                 //Bottom half is for drawing a new card from the deck and updating the hand
                 theFacade.drawFromDeckIntoHand();
@@ -89,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
                 cardResId = getCardImageResourceId(colorAndTypeOfCard);
                 theFacade.playCardIntoLabAndRemoveCardFromHand(cNum);
                 updateLabImage(cardResId);
+                updateCurrentLabIndex();
 
                 //Bottom half is for drawing a new card from the deck and updating the hand
                 theFacade.drawFromDeckIntoHand();
@@ -107,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
                 cardResId = getCardImageResourceId(colorAndTypeOfCard);
                 theFacade.playCardIntoLabAndRemoveCardFromHand(cNum);
                 updateLabImage(cardResId);
+                updateCurrentLabIndex();
 
                 //Bottom half is for drawing a new card from the deck and updating the hand
                 theFacade.drawFromDeckIntoHand();
@@ -125,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
                 cardResId = getCardImageResourceId(colorAndTypeOfCard);
                 theFacade.playCardIntoLabAndRemoveCardFromHand(cNum);
                 updateLabImage(cardResId);
+                updateCurrentLabIndex();
 
                 //Bottom half is for drawing a new card from the deck and updating the hand
                 theFacade.drawFromDeckIntoHand();
@@ -143,6 +149,7 @@ public class MainActivity extends AppCompatActivity {
                 cardResId = getCardImageResourceId(colorAndTypeOfCard);
                 theFacade.playCardIntoLabAndRemoveCardFromHand(cNum);
                 updateLabImage(cardResId);
+                updateCurrentLabIndex();
 
                 //Bottom half is for drawing a new card from the deck and updating the hand
                 theFacade.drawFromDeckIntoHand();
@@ -166,14 +173,26 @@ public class MainActivity extends AppCompatActivity {
     private void updateCurrentLabIndex(){
         currentLabIndex++;
         if (currentLabIndex == 7){
-            currentLabIndex = 0;
+            theLab.shiftLeft();
+            for (currentLabIndex = 0; currentLabIndex < 7; ++currentLabIndex){
+                colorAndTypeOfCard = getCardColorAndTypeFromLab(currentLabIndex);
+                cardResId = getCardImageResourceId(colorAndTypeOfCard);
+                updateLabImage(cardResId);
+            }
+            theFacade.removeCardFromLab(6);
+            clearLabImage(6);
+            currentLabIndex = 6;
         }
     }
 
     public void updateLabImage(int cardResId){
         ImageView theLab = (ImageView) findViewById(getLabResourceId(currentLabIndex));
         theLab.setImageResource(cardResId);
-        updateCurrentLabIndex();
+    }
+
+    public void clearLabImage(int indexOfCardInLab){
+        ImageView theLab = (ImageView) findViewById(getLabResourceId(indexOfCardInLab));
+        theLab.setImageDrawable(null);
     }
 
     public String getCardColorAndTypeFromHand(int cNum){
@@ -183,6 +202,15 @@ public class MainActivity extends AppCompatActivity {
         }
         return colorAndTypeOfCard;
     }
+
+    public String getCardColorAndTypeFromLab(int cNum){
+        String colorAndTypeOfCard = theFacade.getCardColorAndTypeFromLab(cNum);
+        if (colorAndTypeOfCard.equals("nightmarenightmare")) {
+            colorAndTypeOfCard = "nightmare";
+        }
+        return colorAndTypeOfCard;
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

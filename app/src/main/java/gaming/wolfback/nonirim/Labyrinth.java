@@ -23,9 +23,18 @@ public class Labyrinth {
 
     }
 
-    public void removeCard(Card toRemoveCard)
+    public void shiftLeft(){
+        for (int i = 0; i < 6; ++i){
+            labList.set(i,labList.get(i+1));
+        }
+    }
+
+    public void removeCard(int index)
     {
-        labList.remove(toRemoveCard);
+        labList.remove(index);
+    }
+
+    public Card getCard (int index){return labList.get(index);
     }
 
     public String getLabString()
