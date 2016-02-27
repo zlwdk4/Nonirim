@@ -2,7 +2,6 @@ package gaming.wolfback.nonirim;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     public ImageButton c4;
     public int currentLabIndex = 0;
     public TextView discard;
-    public int cardResId;
+    public int cardImageResourceId;
     public String colorAndTypeOfCard;
     public Labyrinth theLab = new Labyrinth();
 
@@ -38,28 +37,28 @@ public class MainActivity extends AppCompatActivity {
     public void setInitialCardsInHand(){
         c0 = (ImageButton) findViewById(R.id.hand0);
         colorAndTypeOfCard = getCardColorAndTypeFromHand(0);
-        cardResId = getCardImageResourceId(colorAndTypeOfCard);
-        c0.setImageResource(cardResId);
+        cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
+        c0.setImageResource(cardImageResourceId);
 
         c1 = (ImageButton) findViewById(R.id.hand1);
         colorAndTypeOfCard = getCardColorAndTypeFromHand(1);
-        cardResId = getCardImageResourceId(colorAndTypeOfCard);
-        c1.setImageResource(cardResId);
+        cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
+        c1.setImageResource(cardImageResourceId);
 
         c2 = (ImageButton) findViewById(R.id.hand2);
         colorAndTypeOfCard = getCardColorAndTypeFromHand(2);
-        cardResId = getCardImageResourceId(colorAndTypeOfCard);
-        c2.setImageResource(cardResId);
+        cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
+        c2.setImageResource(cardImageResourceId);
 
         c3 = (ImageButton) findViewById(R.id.hand3);
         colorAndTypeOfCard = getCardColorAndTypeFromHand(3);
-        cardResId = getCardImageResourceId(colorAndTypeOfCard);
-        c3.setImageResource(cardResId);
+        cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
+        c3.setImageResource(cardImageResourceId);
 
         c4 = (ImageButton) findViewById(R.id.hand4);
         colorAndTypeOfCard = getCardColorAndTypeFromHand(4);
-        cardResId = getCardImageResourceId(colorAndTypeOfCard);
-        c4.setImageResource(cardResId);
+        cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
+        c4.setImageResource(cardImageResourceId);
 
     }
 
@@ -70,16 +69,16 @@ public class MainActivity extends AppCompatActivity {
                 int cNum = 0;
                 //Top half is for putting current card in hand into the Labyrinth
                 colorAndTypeOfCard = getCardColorAndTypeFromHand(cNum);
-                cardResId = getCardImageResourceId(colorAndTypeOfCard);
+                cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
                 theFacade.playCardIntoLabAndRemoveCardFromHand(cNum);
-                updateLabImage(cardResId);
+                updateLabImage(cardImageResourceId);
                 updateCurrentLabIndex();
 
                 //Bottom half is for drawing a new card from the deck and updating the hand
                 theFacade.drawFromDeckIntoHand();
                 colorAndTypeOfCard = getCardColorAndTypeFromHand(cNum);
-                cardResId = getCardImageResourceId(colorAndTypeOfCard);
-                c0.setImageResource(cardResId);
+                cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
+                c0.setImageResource(cardImageResourceId);
             }
         });
 
@@ -89,16 +88,16 @@ public class MainActivity extends AppCompatActivity {
                 int cNum = 1;
                 //Top half is for putting current card in hand into the Labyrinth
                 colorAndTypeOfCard = getCardColorAndTypeFromHand(cNum);
-                cardResId = getCardImageResourceId(colorAndTypeOfCard);
+                cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
                 theFacade.playCardIntoLabAndRemoveCardFromHand(cNum);
-                updateLabImage(cardResId);
+                updateLabImage(cardImageResourceId);
                 updateCurrentLabIndex();
 
                 //Bottom half is for drawing a new card from the deck and updating the hand
                 theFacade.drawFromDeckIntoHand();
                 colorAndTypeOfCard = getCardColorAndTypeFromHand(cNum);
-                cardResId = getCardImageResourceId(colorAndTypeOfCard);
-                c1.setImageResource(cardResId);
+                cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
+                c1.setImageResource(cardImageResourceId);
             }
         });
 
@@ -108,16 +107,16 @@ public class MainActivity extends AppCompatActivity {
                 int cNum = 2;
                 //Top half is for putting current card in hand into the Labyrinth
                 colorAndTypeOfCard = getCardColorAndTypeFromHand(cNum);
-                cardResId = getCardImageResourceId(colorAndTypeOfCard);
+                cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
                 theFacade.playCardIntoLabAndRemoveCardFromHand(cNum);
-                updateLabImage(cardResId);
+                updateLabImage(cardImageResourceId);
                 updateCurrentLabIndex();
 
                 //Bottom half is for drawing a new card from the deck and updating the hand
                 theFacade.drawFromDeckIntoHand();
                 colorAndTypeOfCard = getCardColorAndTypeFromHand(cNum);
-                cardResId = getCardImageResourceId(colorAndTypeOfCard);
-                c2.setImageResource(cardResId);
+                cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
+                c2.setImageResource(cardImageResourceId);
             }
         });
 
@@ -127,16 +126,16 @@ public class MainActivity extends AppCompatActivity {
                 int cNum = 3;
                 //Top half is for putting current card in hand into the Labyrinth
                 colorAndTypeOfCard = getCardColorAndTypeFromHand(cNum);
-                cardResId = getCardImageResourceId(colorAndTypeOfCard);
+                cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
                 theFacade.playCardIntoLabAndRemoveCardFromHand(cNum);
-                updateLabImage(cardResId);
+                updateLabImage(cardImageResourceId);
                 updateCurrentLabIndex();
 
                 //Bottom half is for drawing a new card from the deck and updating the hand
                 theFacade.drawFromDeckIntoHand();
                 colorAndTypeOfCard = getCardColorAndTypeFromHand(cNum);
-                cardResId = getCardImageResourceId(colorAndTypeOfCard);
-                c3.setImageResource(cardResId);
+                cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
+                c3.setImageResource(cardImageResourceId);
             }
         });
 
@@ -146,16 +145,16 @@ public class MainActivity extends AppCompatActivity {
                 int cNum = 4;
                 //Top half is for putting current card in hand into the Labyrinth
                 colorAndTypeOfCard = getCardColorAndTypeFromHand(cNum);
-                cardResId = getCardImageResourceId(colorAndTypeOfCard);
+                cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
                 theFacade.playCardIntoLabAndRemoveCardFromHand(cNum);
-                updateLabImage(cardResId);
+                updateLabImage(cardImageResourceId);
                 updateCurrentLabIndex();
 
                 //Bottom half is for drawing a new card from the deck and updating the hand
                 theFacade.drawFromDeckIntoHand();
                 colorAndTypeOfCard = getCardColorAndTypeFromHand(cNum);
-                cardResId = getCardImageResourceId(colorAndTypeOfCard);
-                c4.setImageResource(cardResId);
+                cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
+                c4.setImageResource(cardImageResourceId);
             }
         });
     }
@@ -172,16 +171,16 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateCurrentLabIndex(){
         currentLabIndex++;
-        if (currentLabIndex == 7){
+        if (currentLabIndex == 8){
             theLab.shiftLeft();
-            for (currentLabIndex = 0; currentLabIndex < 7; ++currentLabIndex){
+            for (currentLabIndex = 0; currentLabIndex < 8; ++currentLabIndex){
                 colorAndTypeOfCard = getCardColorAndTypeFromLab(currentLabIndex);
-                cardResId = getCardImageResourceId(colorAndTypeOfCard);
-                updateLabImage(cardResId);
+                cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
+                updateLabImage(cardImageResourceId);
             }
-            theFacade.removeCardFromLab(6);
-            clearLabImage(6);
-            currentLabIndex = 6;
+            theFacade.removeCardFromLab(7);
+            clearLabImage(7);
+            currentLabIndex = 7;
         }
     }
 

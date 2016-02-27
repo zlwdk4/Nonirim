@@ -24,7 +24,7 @@ public class Labyrinth {
     }
 
     public void shiftLeft(){
-        for (int i = 0; i < 6; ++i){
+        for (int i = 0; i < 7; ++i){
             labList.set(i,labList.get(i+1));
         }
     }
