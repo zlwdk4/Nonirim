@@ -203,6 +203,7 @@ public class MainActivity extends AppCompatActivity {
         return colorAndTypeOfCard;
     }
 
+    //!!! is this repeated code?
     public String getCardColorAndTypeFromLab(int cNum){
         String colorAndTypeOfCard = theFacade.getCardColorAndTypeFromLab(cNum);
         if (colorAndTypeOfCard.equals("nightmarenightmare")) {
