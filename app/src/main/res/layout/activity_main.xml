@@ -62,10 +62,67 @@
         android:layout_width="50dp"
         android:layout_height="75dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/LabId"
+        android:id="@+id/LabId0"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/hand0"
         android:layout_toEndOf="@+id/hand0"
+        />
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="45dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/LabId1"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/LabId0"
+        android:layout_toEndOf="@+id/LabId0"
+        />
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="45dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/LabId2"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/LabId1"
+        android:layout_toEndOf="@+id/LabId1"
+        />
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="45dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/LabId3"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/LabId2"
+        android:layout_toEndOf="@+id/LabId2"
+        />
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="45dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/LabId4"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/LabId3"
+        android:layout_toEndOf="@+id/LabId3"
+        />
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="45dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/LabId5"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/LabId4"
+        android:layout_toEndOf="@+id/LabId4"
+        />
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="45dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/LabId6"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/LabId5"
+        android:layout_toEndOf="@+id/LabId5"
         />
 
 
