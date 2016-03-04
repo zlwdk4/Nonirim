@@ -168,7 +168,6 @@
     <ImageView
         android:layout_width="20dp"
         android:layout_height="30dp"
-        android:background="@drawable/reddoor"
         android:id="@+id/doorIdR1"
         android:layout_alignBottom="@+id/hand4"
         android:layout_alignLeft="@+id/LabId5"
@@ -177,7 +176,7 @@
     <ImageView
         android:layout_width="20dp"
         android:layout_height="30dp"
-        android:background="@drawable/reddoor"
+
         android:id="@+id/doorIdR2"
         android:layout_above="@+id/doorIdR1"
         android:layout_alignLeft="@+id/doorIdR1"
@@ -186,7 +185,6 @@
     <ImageView
         android:layout_width="20dp"
         android:layout_height="30dp"
-        android:background="@drawable/bluedoor"
         android:id="@+id/doorIdB1"
         android:layout_alignBottom="@+id/doorIdR1"
         android:layout_toRightOf="@+id/doorIdR1"
@@ -195,7 +193,6 @@
     <ImageView
         android:layout_width="20dp"
         android:layout_height="30dp"
-        android:background="@drawable/bluedoor"
         android:id="@+id/doorIdB2"
         android:layout_above="@+id/doorIdB1"
         android:layout_alignLeft="@+id/doorIdB1"
@@ -204,7 +201,6 @@
     <ImageView
         android:layout_width="20dp"
         android:layout_height="30dp"
-        android:background="@drawable/greendoor"
         android:id="@+id/doorIdG1"
         android:layout_alignBottom="@+id/doorIdB1"
         android:layout_toRightOf="@+id/doorIdB1"
@@ -212,7 +208,6 @@
     <ImageView
         android:layout_width="20dp"
         android:layout_height="30dp"
-        android:background="@drawable/greendoor"
         android:id="@+id/doorIdG2"
         android:layout_above="@+id/doorIdG1"
         android:layout_alignLeft="@+id/doorIdG1"
@@ -221,7 +216,6 @@
     <ImageView
         android:layout_width="20dp"
         android:layout_height="30dp"
-        android:background="@drawable/browndoor"
         android:id="@+id/doorIdBr1"
         android:layout_alignBottom="@+id/doorIdG1"
         android:layout_toRightOf="@+id/doorIdG1"
@@ -230,7 +224,6 @@
     <ImageView
         android:layout_width="20dp"
         android:layout_height="30dp"
-        android:background="@drawable/browndoor"
         android:id="@+id/doorIdBr2"
         android:layout_above="@+id/doorIdBr1"
         android:layout_alignLeft="@+id/doorIdBr1"

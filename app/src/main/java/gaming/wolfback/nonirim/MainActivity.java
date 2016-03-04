@@ -16,11 +16,23 @@ public class MainActivity extends AppCompatActivity {
     public ImageButton c2;
     public ImageButton c3;
     public ImageButton c4;
+    public ImageView dR1;
+    public ImageView dR2;
+    public ImageView dB1;
+    public ImageView dB2;
+    public ImageView dG1;
+    public ImageView dG2;
+    public ImageView dBr1;
+    public ImageView dBr2;
     public int currentLabIndex = 0;
     public ImageView discard;
     public int cardImageResourceId;
     public String colorAndTypeOfCard;
     public Labyrinth theLab = new Labyrinth();
+    public int redDoorCount = 0;
+    public int greenDoorCount = 0;
+    public int blueDoorCount = 0;
+    public int brownDoorCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +43,14 @@ public class MainActivity extends AppCompatActivity {
         setOnClickListenersForHand();
 
         discard = (ImageView) findViewById(R.id.discardPileId);
+        dR1 = (ImageView) findViewById(R.id.doorIdR1);
+        dR2 = (ImageView) findViewById(R.id.doorIdR2);
+        dB1 = (ImageView) findViewById(R.id.doorIdB1);
+        dB2 = (ImageView) findViewById(R.id.doorIdB2);
+        dG1 = (ImageView) findViewById(R.id.doorIdG1);
+        dG2 = (ImageView) findViewById(R.id.doorIdG2);
+        dBr1 = (ImageView) findViewById(R.id.doorIdBr1);
+        dBr2 = (ImageView) findViewById(R.id.doorIdBr2);
 
     }
 
@@ -71,9 +91,11 @@ public class MainActivity extends AppCompatActivity {
                 //Top half is for putting current card in hand into the Labyrinth
                 colorAndTypeOfCard = getCardColorAndTypeFromHand(cNum);
                 cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
+                addDoor(cNum);
                 //uncomment these two to see the discard pile in action
                 //theFacade.discardCardFromHand(cNum);
                 //discard.setImageResource(cardImageResourceId);
+
                 theFacade.playCardIntoLabAndRemoveCardFromHand(cNum);
                 updateLabImage(cardImageResourceId);
                 updateCurrentLabIndex();
@@ -93,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
                 //Top half is for putting current card in hand into the Labyrinth
                 colorAndTypeOfCard = getCardColorAndTypeFromHand(cNum);
                 cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
+                addDoor(cNum);
                 theFacade.playCardIntoLabAndRemoveCardFromHand(cNum);
                 updateLabImage(cardImageResourceId);
                 updateCurrentLabIndex();
@@ -112,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
                 //Top half is for putting current card in hand into the Labyrinth
                 colorAndTypeOfCard = getCardColorAndTypeFromHand(cNum);
                 cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
+                addDoor(cNum);
                 theFacade.playCardIntoLabAndRemoveCardFromHand(cNum);
                 updateLabImage(cardImageResourceId);
                 updateCurrentLabIndex();
@@ -131,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
                 //Top half is for putting current card in hand into the Labyrinth
                 colorAndTypeOfCard = getCardColorAndTypeFromHand(cNum);
                 cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
+                addDoor(cNum);
                 theFacade.playCardIntoLabAndRemoveCardFromHand(cNum);
                 updateLabImage(cardImageResourceId);
                 updateCurrentLabIndex();
@@ -150,6 +175,7 @@ public class MainActivity extends AppCompatActivity {
                 //Top half is for putting current card in hand into the Labyrinth
                 colorAndTypeOfCard = getCardColorAndTypeFromHand(cNum);
                 cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
+                addDoor(cNum);
                 theFacade.playCardIntoLabAndRemoveCardFromHand(cNum);
                 updateLabImage(cardImageResourceId);
                 updateCurrentLabIndex();
@@ -161,6 +187,39 @@ public class MainActivity extends AppCompatActivity {
                 c4.setImageResource(cardImageResourceId);
             }
         });
+    }
+    public void addDoor(int cNum){
+        if(theFacade.getCardTypeFromHand(cNum).equals("door")){
+            if(theFacade.getCardColorFromHand(cNum).equals("red")){
+                redDoorCount++;
+                if (redDoorCount == 1){
+                    dR1.setImageResource(cardImageResourceId);
+                }
+                else dR2.setImageResource(cardImageResourceId);
+            }
+            else if(theFacade.getCardColorFromHand(cNum).equals("blue")){
+                blueDoorCount++;
+                if (blueDoorCount == 1){
+                    dB1.setImageResource(cardImageResourceId);
+                }
+                else dB2.setImageResource(cardImageResourceId);
+            }
+            else if(theFacade.getCardColorFromHand(cNum).equals("green")){
+                greenDoorCount++;
+                if (greenDoorCount == 1){
+                    dG1.setImageResource(cardImageResourceId);
+                }
+                else dG2.setImageResource(cardImageResourceId);
+            }
+            else if(theFacade.getCardColorFromHand(cNum).equals("brown")){
+                brownDoorCount++;
+                if (brownDoorCount == 1){
+                    dBr1.setImageResource(cardImageResourceId);
+                }
+                else dBr2.setImageResource(cardImageResourceId);
+            }
+        }
+
     }
 
     public int getCardImageResourceId (String colorAndType) {

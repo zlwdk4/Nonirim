@@ -100,6 +100,14 @@ public class Facade {
         return (lab.getCard(indexOfCard).getColor()+ lab.getCard(indexOfCard).getType());
     }
 
+    public String getCardTypeFromHand(int indexOfCard){
+        return (hand.getCard(indexOfCard).getType());
+    }
+
+    public String getCardColorFromHand(int indexOfCard){
+        return (hand.getCard(indexOfCard).getColor());
+    }
+
     public void drawFromDeckIntoHand(){
         Card tempCard = drawPile.draw();
         tempCard.setIsCardDrawn(true);
@@ -116,6 +124,7 @@ public class Facade {
     public void discardCardFromHand(int indexOfCardInHand){
         discardPile.addCardToDiscard(hand.removeCard(indexOfCardInHand));
     }
+
     public String seeLab(){
         return lab.getLabString();
     }
