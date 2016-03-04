@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     public ImageView dG2;
     public ImageView dBr1;
     public ImageView dBr2;
+    public TextView nightmareView;
     public int currentLabIndex = 0;
     public ImageView discard;
     public int cardImageResourceId;
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     public int greenDoorCount = 0;
     public int blueDoorCount = 0;
     public int brownDoorCount = 0;
+    public int nightmareCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         dG2 = (ImageView) findViewById(R.id.doorIdG2);
         dBr1 = (ImageView) findViewById(R.id.doorIdBr1);
         dBr2 = (ImageView) findViewById(R.id.doorIdBr2);
+        nightmareView = (TextView) findViewById(R.id.nightmareId);
 
     }
 
@@ -92,6 +95,8 @@ public class MainActivity extends AppCompatActivity {
                 colorAndTypeOfCard = getCardColorAndTypeFromHand(cNum);
                 cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
                 addDoor(cNum);
+                updateNightmareCount();
+                
                 //uncomment these two to see the discard pile in action
                 //theFacade.discardCardFromHand(cNum);
                 //discard.setImageResource(cardImageResourceId);
@@ -116,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
                 colorAndTypeOfCard = getCardColorAndTypeFromHand(cNum);
                 cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
                 addDoor(cNum);
+                updateNightmareCount();
                 theFacade.playCardIntoLabAndRemoveCardFromHand(cNum);
                 updateLabImage(cardImageResourceId);
                 updateCurrentLabIndex();
@@ -136,6 +142,7 @@ public class MainActivity extends AppCompatActivity {
                 colorAndTypeOfCard = getCardColorAndTypeFromHand(cNum);
                 cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
                 addDoor(cNum);
+                updateNightmareCount();
                 theFacade.playCardIntoLabAndRemoveCardFromHand(cNum);
                 updateLabImage(cardImageResourceId);
                 updateCurrentLabIndex();
@@ -156,6 +163,7 @@ public class MainActivity extends AppCompatActivity {
                 colorAndTypeOfCard = getCardColorAndTypeFromHand(cNum);
                 cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
                 addDoor(cNum);
+                updateNightmareCount();
                 theFacade.playCardIntoLabAndRemoveCardFromHand(cNum);
                 updateLabImage(cardImageResourceId);
                 updateCurrentLabIndex();
@@ -176,6 +184,7 @@ public class MainActivity extends AppCompatActivity {
                 colorAndTypeOfCard = getCardColorAndTypeFromHand(cNum);
                 cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
                 addDoor(cNum);
+                updateNightmareCount();
                 theFacade.playCardIntoLabAndRemoveCardFromHand(cNum);
                 updateLabImage(cardImageResourceId);
                 updateCurrentLabIndex();
@@ -188,6 +197,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void updateNightmareCount(){
+        if (colorAndTypeOfCard.equals("nightmare")){
+            nightmareCount++;
+            nightmareView.setText(Integer.toString(nightmareCount));
+        }
+    }
+
     public void addDoor(int cNum){
         if(theFacade.getCardTypeFromHand(cNum).equals("door")){
             if(theFacade.getCardColorFromHand(cNum).equals("red")){

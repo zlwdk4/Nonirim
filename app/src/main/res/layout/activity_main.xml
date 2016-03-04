@@ -163,7 +163,7 @@
     <ImageView
         android:layout_width="30dp"
         android:layout_height="45dp"
-        />
+        android:id="@+id/imageView2" />
 
     <ImageView
         android:layout_width="20dp"
@@ -229,6 +229,18 @@
         android:layout_alignLeft="@+id/doorIdBr1"
         android:layout_alignStart="@+id/doorIdBr1" />
 
+    <TextView
+        android:layout_width="40dp"
+        android:layout_height="60dp"
+        android:id="@+id/nightmareId"
+        android:background="@drawable/nightmare"
+        android:text="0"
+        android:textSize="20dp"
+        android:textColor="#32cd32"
+        android:paddingLeft="2dp"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/doorIdB2"
+        android:layout_toStartOf="@+id/doorIdB2" />
 
 
 </RelativeLayout>
