@@ -113,6 +113,9 @@ public class Facade {
         lab.addCard(hand.removeCard(indexOfCardInHand));
     }
 
+    public void discardCardFromHand(int indexOfCardInHand){
+        discardPile.addCardToDiscard(hand.removeCard(indexOfCardInHand));
+    }
     public String seeLab(){
         return lab.getLabString();
     }
@@ -120,4 +123,5 @@ public class Facade {
     private DrawPile drawPile = new DrawPile();
     private Hand hand = new Hand();
     private Labyrinth lab = new Labyrinth();
+    private DiscardPile discardPile = new DiscardPile();
 }

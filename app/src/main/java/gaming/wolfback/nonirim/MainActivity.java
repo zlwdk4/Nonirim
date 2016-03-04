@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     public ImageButton c3;
     public ImageButton c4;
     public int currentLabIndex = 0;
-    public TextView discard;
+    public ImageView discard;
     public int cardImageResourceId;
     public String colorAndTypeOfCard;
     public Labyrinth theLab = new Labyrinth();
@@ -30,7 +30,8 @@ public class MainActivity extends AppCompatActivity {
         setInitialCardsInHand();
         setOnClickListenersForHand();
 
-        discard = (TextView) findViewById(R.id.discardPileId);
+        discard = (ImageView) findViewById(R.id.discardPileId);
+
     }
 
 
@@ -70,6 +71,9 @@ public class MainActivity extends AppCompatActivity {
                 //Top half is for putting current card in hand into the Labyrinth
                 colorAndTypeOfCard = getCardColorAndTypeFromHand(cNum);
                 cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
+                //uncomment these two to see the discard pile in action
+                //theFacade.discardCardFromHand(cNum);
+                //discard.setImageResource(cardImageResourceId);
                 theFacade.playCardIntoLabAndRemoveCardFromHand(cNum);
                 updateLabImage(cardImageResourceId);
                 updateCurrentLabIndex();
