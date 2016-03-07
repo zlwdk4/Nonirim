@@ -8,14 +8,16 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.view.View.OnClickListener;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnClickListener {
     public Facade theFacade = new Facade();
     public ImageButton c0;
     public ImageButton c1;
     public ImageButton c2;
     public ImageButton c3;
     public ImageButton c4;
+    public ImageButton[] imageButtons;
     public ImageView dR1;
     public ImageView dR2;
     public ImageView dB1;
@@ -41,8 +43,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        setInitialCardsInHand();
         setOnClickListenersForHand();
+        setInitialCardsInHand();
 
         discard = (ImageView) findViewById(R.id.discardPileId);
         dR1 = (ImageView) findViewById(R.id.doorIdR1);
@@ -56,47 +58,28 @@ public class MainActivity extends AppCompatActivity {
         nightmareView = (TextView) findViewById(R.id.nightmareId);
 
     }
-
-
-    public void setInitialCardsInHand(){
-        c0 = (ImageButton) findViewById(R.id.hand0);
-        colorAndTypeOfCard = getCardColorAndTypeFromHand(0);
-        cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
-        c0.setImageResource(cardImageResourceId);
-
-        c1 = (ImageButton) findViewById(R.id.hand1);
-        colorAndTypeOfCard = getCardColorAndTypeFromHand(1);
-        cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
-        c1.setImageResource(cardImageResourceId);
-
-        c2 = (ImageButton) findViewById(R.id.hand2);
-        colorAndTypeOfCard = getCardColorAndTypeFromHand(2);
-        cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
-        c2.setImageResource(cardImageResourceId);
-
-        c3 = (ImageButton) findViewById(R.id.hand3);
-        colorAndTypeOfCard = getCardColorAndTypeFromHand(3);
-        cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
-        c3.setImageResource(cardImageResourceId);
-
-        c4 = (ImageButton) findViewById(R.id.hand4);
-        colorAndTypeOfCard = getCardColorAndTypeFromHand(4);
-        cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
-        c4.setImageResource(cardImageResourceId);
-
+public void setOnClickListenersForHand(){
+    imageButtons = new ImageButton[5];
+    for (int i = 0; i < imageButtons.length; ++i){
+        String buttonID = "hand" + (i);
+        int resID = getResources().getIdentifier(buttonID, "id", getPackageName());
+        imageButtons[i] = ((ImageButton) findViewById(resID));
+        imageButtons[i].setOnClickListener(this);
     }
+}
 
-    public void setOnClickListenersForHand(){
-        c0.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int cNum = 0;
+
+    @Override
+    public void onClick(View v) {
+        for (int i = 0; i < imageButtons.length; i++) {
+            if (imageButtons[i].getId() == v.getId()) {
+                int cNum = i;
                 //Top half is for putting current card in hand into the Labyrinth
                 colorAndTypeOfCard = getCardColorAndTypeFromHand(cNum);
                 cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
                 addDoor(cNum);
                 updateNightmareCount();
-                
+
                 //uncomment these two to see the discard pile in action
                 //theFacade.discardCardFromHand(cNum);
                 //discard.setImageResource(cardImageResourceId);
@@ -109,94 +92,21 @@ public class MainActivity extends AppCompatActivity {
                 theFacade.drawFromDeckIntoHand();
                 colorAndTypeOfCard = getCardColorAndTypeFromHand(cNum);
                 cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
-                c0.setImageResource(cardImageResourceId);
+                imageButtons[i].setImageResource(cardImageResourceId);
+                break;
             }
-        });
-
-        c1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int cNum = 1;
-                //Top half is for putting current card in hand into the Labyrinth
-                colorAndTypeOfCard = getCardColorAndTypeFromHand(cNum);
-                cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
-                addDoor(cNum);
-                updateNightmareCount();
-                theFacade.playCardIntoLabAndRemoveCardFromHand(cNum);
-                updateLabImage(cardImageResourceId);
-                updateCurrentLabIndex();
-
-                //Bottom half is for drawing a new card from the deck and updating the hand
-                theFacade.drawFromDeckIntoHand();
-                colorAndTypeOfCard = getCardColorAndTypeFromHand(cNum);
-                cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
-                c1.setImageResource(cardImageResourceId);
-            }
-        });
-
-        c2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int cNum = 2;
-                //Top half is for putting current card in hand into the Labyrinth
-                colorAndTypeOfCard = getCardColorAndTypeFromHand(cNum);
-                cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
-                addDoor(cNum);
-                updateNightmareCount();
-                theFacade.playCardIntoLabAndRemoveCardFromHand(cNum);
-                updateLabImage(cardImageResourceId);
-                updateCurrentLabIndex();
-
-                //Bottom half is for drawing a new card from the deck and updating the hand
-                theFacade.drawFromDeckIntoHand();
-                colorAndTypeOfCard = getCardColorAndTypeFromHand(cNum);
-                cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
-                c2.setImageResource(cardImageResourceId);
-            }
-        });
-
-        c3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int cNum = 3;
-                //Top half is for putting current card in hand into the Labyrinth
-                colorAndTypeOfCard = getCardColorAndTypeFromHand(cNum);
-                cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
-                addDoor(cNum);
-                updateNightmareCount();
-                theFacade.playCardIntoLabAndRemoveCardFromHand(cNum);
-                updateLabImage(cardImageResourceId);
-                updateCurrentLabIndex();
-
-                //Bottom half is for drawing a new card from the deck and updating the hand
-                theFacade.drawFromDeckIntoHand();
-                colorAndTypeOfCard = getCardColorAndTypeFromHand(cNum);
-                cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
-                c3.setImageResource(cardImageResourceId);
-            }
-        });
-
-        c4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int cNum = 4;
-                //Top half is for putting current card in hand into the Labyrinth
-                colorAndTypeOfCard = getCardColorAndTypeFromHand(cNum);
-                cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
-                addDoor(cNum);
-                updateNightmareCount();
-                theFacade.playCardIntoLabAndRemoveCardFromHand(cNum);
-                updateLabImage(cardImageResourceId);
-                updateCurrentLabIndex();
-
-                //Bottom half is for drawing a new card from the deck and updating the hand
-                theFacade.drawFromDeckIntoHand();
-                colorAndTypeOfCard = getCardColorAndTypeFromHand(cNum);
-                cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
-                c4.setImageResource(cardImageResourceId);
-            }
-        });
+        }
     }
+
+    public void setInitialCardsInHand() {
+
+        for (int i = 0; i < imageButtons.length; ++i) {
+            colorAndTypeOfCard = getCardColorAndTypeFromHand(i);
+            cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
+            imageButtons[i].setImageResource(cardImageResourceId);
+        }
+    }
+
 
     private void updateNightmareCount(){
         if (colorAndTypeOfCard.equals("nightmare")){
