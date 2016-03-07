@@ -12,12 +12,8 @@ import android.view.View.OnClickListener;
 
 public class MainActivity extends AppCompatActivity implements OnClickListener {
     public Facade theFacade = new Facade();
-    public ImageButton c0;
-    public ImageButton c1;
-    public ImageButton c2;
-    public ImageButton c3;
-    public ImageButton c4;
-    public ImageButton[] imageButtons;
+    public ImageButton[] handButtons;
+    public ImageView [] labViews;
     public ImageView dR1;
     public ImageView dR2;
     public ImageView dB1;
@@ -45,6 +41,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
         setOnClickListenersForHand();
         setInitialCardsInHand();
+        setHeightAndWidthOfHandButtons(45,30);
+        setHeightAndWidthOfLab(90, 60);
+
 
         discard = (ImageView) findViewById(R.id.discardPileId);
         dR1 = (ImageView) findViewById(R.id.doorIdR1);
@@ -59,20 +58,40 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
     }
 public void setOnClickListenersForHand(){
-    imageButtons = new ImageButton[5];
-    for (int i = 0; i < imageButtons.length; ++i){
+    handButtons = new ImageButton[5];
+    for (int i = 0; i < handButtons.length; ++i){
         String buttonID = "hand" + (i);
         int resID = getResources().getIdentifier(buttonID, "id", getPackageName());
-        imageButtons[i] = ((ImageButton) findViewById(resID));
-        imageButtons[i].setOnClickListener(this);
+        handButtons[i] = ((ImageButton) findViewById(resID));
+        handButtons[i].setOnClickListener(this);
     }
 }
+
+    public void setHeightAndWidthOfHandButtons(int h, int w){
+        for (int i = 0; i < handButtons.length; ++i){
+            handButtons[i].getLayoutParams().width = w;
+            handButtons[i].getLayoutParams().height = h;
+        }
+    }
+
+    public void setHeightAndWidthOfLab(int h, int w){
+        labViews = new ImageView[8];
+        for (int i = 0; i < labViews.length; ++i){
+            String labID = "LabId" + (i);
+            int resID = getResources().getIdentifier(labID, "id", getPackageName());
+            labViews[i] = ((ImageView) findViewById(resID));
+            labViews[i].getLayoutParams().width = w;
+            labViews[i].getLayoutParams().height = h;
+
+        }
+
+    }
 
 
     @Override
     public void onClick(View v) {
-        for (int i = 0; i < imageButtons.length; i++) {
-            if (imageButtons[i].getId() == v.getId()) {
+        for (int i = 0; i < handButtons.length; i++) {
+            if (handButtons[i].getId() == v.getId()) {
                 int cNum = i;
                 //Top half is for putting current card in hand into the Labyrinth
                 colorAndTypeOfCard = getCardColorAndTypeFromHand(cNum);
@@ -92,7 +111,7 @@ public void setOnClickListenersForHand(){
                 theFacade.drawFromDeckIntoHand();
                 colorAndTypeOfCard = getCardColorAndTypeFromHand(cNum);
                 cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
-                imageButtons[i].setImageResource(cardImageResourceId);
+                handButtons[i].setImageResource(cardImageResourceId);
                 break;
             }
         }
@@ -100,10 +119,10 @@ public void setOnClickListenersForHand(){
 
     public void setInitialCardsInHand() {
 
-        for (int i = 0; i < imageButtons.length; ++i) {
+        for (int i = 0; i < handButtons.length; ++i) {
             colorAndTypeOfCard = getCardColorAndTypeFromHand(i);
             cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
-            imageButtons[i].setImageResource(cardImageResourceId);
+            handButtons[i].setImageResource(cardImageResourceId);
         }
     }
 
