@@ -9,8 +9,8 @@
 
 
     <ImageButton
-        android:layout_width="50dp"
-        android:layout_height="75dp"
+        android:layout_width="40dp"
+        android:layout_height="60dp"
         android:id="@+id/hand0"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
@@ -19,8 +19,8 @@
         android:background="@drawable/backofcard"/>
 
     <ImageButton
-        android:layout_width="50dp"
-        android:layout_height="75dp"
+        android:layout_width="40dp"
+        android:layout_height="60dp"
         android:id="@+id/hand1"
         android:layout_alignBottom="@+id/hand0"
         android:layout_toRightOf="@+id/hand0"
@@ -29,8 +29,8 @@
         android:background="@drawable/backofcard"/>
 
     <ImageButton
-        android:layout_width="50dp"
-        android:layout_height="75dp"
+        android:layout_width="40dp"
+        android:layout_height="60dp"
         android:id="@+id/hand2"
         android:layout_alignBottom="@+id/hand1"
         android:layout_toRightOf="@+id/hand1"
@@ -39,8 +39,8 @@
         android:background="@drawable/backofcard"/>
 
     <ImageButton
-        android:layout_width="50dp"
-        android:layout_height="75dp"
+        android:layout_width="40dp"
+        android:layout_height="60dp"
         android:id="@+id/hand3"
         android:layout_alignBottom="@+id/hand2"
         android:layout_toRightOf="@+id/hand2"
@@ -49,8 +49,8 @@
         android:background="@drawable/backofcard"/>
 
     <ImageButton
-        android:layout_width="50dp"
-        android:layout_height="75dp"
+        android:layout_width="40dp"
+        android:layout_height="60dp"
         android:id="@+id/hand4"
         android:layout_alignBottom="@+id/hand3"
         android:layout_toRightOf="@+id/hand3"
@@ -59,18 +59,19 @@
         android:background="@drawable/backofcard"/>
 
     <ImageView
-        android:layout_width="90dp"
-        android:layout_height="122dp"
+        android:layout_width="40dp"
+        android:layout_height="60dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/LabId0"
         android:background="#bbbbbb"
         android:layout_below="@+id/discardPileId"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="21dp" />
 
     <ImageView
-        android:layout_width="75dp"
-        android:layout_height="102dp"
+        android:layout_width="40dp"
+        android:layout_height="60dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/LabId1"
         android:background="#c33333"
@@ -79,30 +80,30 @@
         android:layout_toEndOf="@+id/LabId0" />
 
     <ImageView
-        android:layout_width="75dp"
-        android:layout_height="102dp"
+        android:layout_width="40dp"
+        android:layout_height="60dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/LabId2"
-        android:layout_marginLeft="-25dp"
+        android:layout_marginLeft="-10dp"
         android:background="#bbbbbb"
         android:layout_alignTop="@+id/LabId1"
         android:layout_toRightOf="@+id/LabId1"
         android:layout_toEndOf="@+id/LabId1" />
 
     <ImageView
-        android:layout_width="75dp"
-        android:layout_height="102dp"
+        android:layout_width="40dp"
+        android:layout_height="60dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/LabId3"
         android:background="#c33333"
-        android:layout_marginLeft="-25dp"
+        android:layout_marginLeft="-10dp"
         android:layout_alignTop="@+id/LabId2"
         android:layout_toRightOf="@+id/LabId2"
         android:layout_toEndOf="@+id/LabId2" />
     <ImageView
-        android:layout_width="75dp"
-        android:layout_height="102dp"
-        android:layout_marginLeft="-25dp"
+        android:layout_width="40dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="-10dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/LabId4"
         android:background="#bbbbbb"
@@ -110,19 +111,19 @@
         android:layout_toRightOf="@+id/LabId3"
         android:layout_toEndOf="@+id/LabId3" />
     <ImageView
-        android:layout_width="75dp"
-        android:layout_height="102dp"
+        android:layout_width="40dp"
+        android:layout_height="60dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_marginLeft="-25dp"
+        android:layout_marginLeft="-10dp"
         android:id="@+id/LabId5"
         android:background="#c33333"
         android:layout_alignTop="@+id/LabId4"
         android:layout_toRightOf="@+id/LabId4"
         android:layout_toEndOf="@+id/LabId4" />
     <ImageView
-        android:layout_width="75dp"
-        android:layout_height="102dp"
-        android:layout_marginLeft="-25dp"
+        android:layout_width="40dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="-10dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/LabId6"
         android:layout_alignTop="@+id/LabId5"
@@ -130,14 +131,14 @@
         android:layout_toEndOf="@+id/LabId5" />
 
     <ImageView
-        android:layout_width="30dp"
-        android:layout_height="45dp"
+        android:layout_width="40dp"
+        android:layout_height="60dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/LabId7"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/LabId6"
-        android:layout_toEndOf="@+id/LabId6"
-        />
+        android:layout_alignTop="@+id/LabId6"
+        android:layout_alignRight="@+id/LabId6"
+        android:layout_alignEnd="@+id/LabId6"
+        android:layout_alignBottom="@+id/LabId6" />
 
 
     <ImageView
@@ -160,87 +161,72 @@
         android:layout_alignRight="@+id/Deck"
         android:layout_alignEnd="@+id/Deck" />
 
-    <ImageView
-        android:layout_width="30dp"
-        android:layout_height="45dp"
-        android:id="@+id/imageView2" />
-
-    <ImageView
+    <TextView
         android:layout_width="20dp"
         android:layout_height="30dp"
-        android:id="@+id/doorIdR1"
-        android:layout_alignBottom="@+id/hand4"
-        android:layout_alignLeft="@+id/LabId5"
-        android:layout_alignStart="@+id/LabId5" />
-
-    <ImageView
-        android:layout_width="20dp"
-        android:layout_height="30dp"
-
-        android:id="@+id/doorIdR2"
-        android:layout_above="@+id/doorIdR1"
-        android:layout_alignLeft="@+id/doorIdR1"
-        android:layout_alignStart="@+id/doorIdR1" />
-
-    <ImageView
-        android:layout_width="20dp"
-        android:layout_height="30dp"
-        android:id="@+id/doorIdB1"
-        android:layout_alignBottom="@+id/doorIdR1"
-        android:layout_toRightOf="@+id/doorIdR1"
-        android:layout_toEndOf="@+id/doorIdR1" />
-
-    <ImageView
-        android:layout_width="20dp"
-        android:layout_height="30dp"
-        android:id="@+id/doorIdB2"
-        android:layout_above="@+id/doorIdB1"
-        android:layout_alignLeft="@+id/doorIdB1"
-        android:layout_alignStart="@+id/doorIdB1" />
-
-    <ImageView
-        android:layout_width="20dp"
-        android:layout_height="30dp"
-        android:id="@+id/doorIdG1"
-        android:layout_alignBottom="@+id/doorIdB1"
-        android:layout_toRightOf="@+id/doorIdB1"
-        android:layout_toEndOf="@+id/doorIdB1" />
-    <ImageView
-        android:layout_width="20dp"
-        android:layout_height="30dp"
-        android:id="@+id/doorIdG2"
-        android:layout_above="@+id/doorIdG1"
-        android:layout_alignLeft="@+id/doorIdG1"
-        android:layout_alignStart="@+id/doorIdG1" />
-
-    <ImageView
-        android:layout_width="20dp"
-        android:layout_height="30dp"
-        android:id="@+id/doorIdBr1"
-        android:layout_alignBottom="@+id/doorIdG1"
-        android:layout_toRightOf="@+id/doorIdG1"
-        android:layout_toEndOf="@+id/doorIdG1" />
-
-    <ImageView
-        android:layout_width="20dp"
-        android:layout_height="30dp"
-        android:id="@+id/doorIdBr2"
-        android:layout_above="@+id/doorIdBr1"
-        android:layout_alignLeft="@+id/doorIdBr1"
-        android:layout_alignStart="@+id/doorIdBr1" />
+        android:text="0"
+        android:textSize="10dp"
+        android:textColor="#32cd32"
+        android:paddingLeft="2dp"
+        android:id="@+id/doorIdRed"
+        android:background="@drawable/reddoor"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    
 
     <TextView
-        android:layout_width="40dp"
-        android:layout_height="60dp"
+        android:layout_width="20dp"
+        android:layout_height="30dp"
+        android:text="0"
+        android:textSize="10dp"
+        android:textColor="#32cd32"
+        android:paddingLeft="2dp"
+        android:id="@+id/doorIdBlue"
+        android:background="@drawable/bluedoor"
+        android:layout_below="@+id/doorIdRed"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="20dp"
+        android:layout_height="30dp"
+        android:text="0"
+        android:textSize="10dp"
+        android:textColor="#32cd32"
+        android:paddingLeft="2dp"
+        android:id="@+id/doorIdGreen"
+        android:background="@drawable/greendoor"
+        android:layout_alignBottom="@+id/doorIdBlue"
+        android:layout_toRightOf="@+id/doorIdBlue"
+        android:layout_toEndOf="@+id/doorIdBlue" />
+
+    <TextView
+        android:layout_width="20dp"
+        android:layout_height="30dp"
+        android:text="0"
+        android:textSize="10dp"
+        android:textColor="#32cd32"
+        android:paddingLeft="2dp"
+        android:background="@drawable/browndoor"
+        android:id="@+id/doorIdBrown"
+        android:layout_above="@+id/doorIdBlue"
+        android:layout_toRightOf="@+id/doorIdRed"
+        android:layout_toEndOf="@+id/doorIdRed" />
+    
+
+    <TextView
+        android:layout_width="20dp"
+        android:layout_height="30dp"
         android:id="@+id/nightmareId"
         android:background="@drawable/nightmare"
         android:text="0"
-        android:textSize="20dp"
+        android:textSize="10dp"
         android:textColor="#32cd32"
         android:paddingLeft="2dp"
-        android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/doorIdB2"
-        android:layout_toStartOf="@+id/doorIdB2" />
+        android:layout_alignTop="@+id/doorIdBrown"
+        android:layout_toLeftOf="@+id/LabId2"
+        android:layout_toStartOf="@+id/LabId2" />
 
 
 </RelativeLayout>

@@ -88,8 +88,11 @@ public class Facade {
             drawPile.addCardToDeck(c2);
             drawPile.addCardToDeck(c3);
         }
-        hand = new Hand(drawPile.draw(), drawPile.draw(),drawPile.draw(),drawPile.draw(),drawPile.draw());
         drawPile.shuffle();
+        drawPile.shuffle();
+        drawPile.shuffle();
+        hand = new Hand(drawPile.draw(), drawPile.draw(),drawPile.draw(),drawPile.draw(),drawPile.draw());
+
     }
 
     public String getCardColorAndTypeFromHand(int indexOfCard){

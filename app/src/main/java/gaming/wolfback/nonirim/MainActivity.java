@@ -14,14 +14,10 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     public Facade theFacade = new Facade();
     public ImageButton[] handButtons;
     public ImageView [] labViews;
-    public ImageView dR1;
-    public ImageView dR2;
-    public ImageView dB1;
-    public ImageView dB2;
-    public ImageView dG1;
-    public ImageView dG2;
-    public ImageView dBr1;
-    public ImageView dBr2;
+    public TextView doorRed;
+    public TextView doorBlue;
+    public TextView doorGreen;
+    public TextView doorBrown;
     public TextView nightmareView;
     public int currentLabIndex = 0;
     public ImageView discard;
@@ -41,19 +37,15 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
         setOnClickListenersForHand();
         setInitialCardsInHand();
-        setHeightAndWidthOfHandButtons(45,30);
+        setHeightAndWidthOfHandButtons(90,60);
         setHeightAndWidthOfLab(90, 60);
 
 
         discard = (ImageView) findViewById(R.id.discardPileId);
-        dR1 = (ImageView) findViewById(R.id.doorIdR1);
-        dR2 = (ImageView) findViewById(R.id.doorIdR2);
-        dB1 = (ImageView) findViewById(R.id.doorIdB1);
-        dB2 = (ImageView) findViewById(R.id.doorIdB2);
-        dG1 = (ImageView) findViewById(R.id.doorIdG1);
-        dG2 = (ImageView) findViewById(R.id.doorIdG2);
-        dBr1 = (ImageView) findViewById(R.id.doorIdBr1);
-        dBr2 = (ImageView) findViewById(R.id.doorIdBr2);
+        doorRed = (TextView) findViewById(R.id.doorIdRed);
+        doorBlue = (TextView) findViewById(R.id.doorIdBlue);
+        doorGreen = (TextView) findViewById(R.id.doorIdGreen);
+        doorBrown = (TextView) findViewById(R.id.doorIdBrown);
         nightmareView = (TextView) findViewById(R.id.nightmareId);
 
     }
@@ -87,7 +79,6 @@ public void setOnClickListenersForHand(){
 
     }
 
-
     @Override
     public void onClick(View v) {
         for (int i = 0; i < handButtons.length; i++) {
@@ -96,7 +87,7 @@ public void setOnClickListenersForHand(){
                 //Top half is for putting current card in hand into the Labyrinth
                 colorAndTypeOfCard = getCardColorAndTypeFromHand(cNum);
                 cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
-                addDoor(cNum);
+                updateDoorCount(cNum);
                 updateNightmareCount();
 
                 //uncomment these two to see the discard pile in action
@@ -134,40 +125,27 @@ public void setOnClickListenersForHand(){
         }
     }
 
-    public void addDoor(int cNum){
+    private void updateDoorCount(int cNum){
         if(theFacade.getCardTypeFromHand(cNum).equals("door")){
             if(theFacade.getCardColorFromHand(cNum).equals("red")){
                 redDoorCount++;
-                if (redDoorCount == 1){
-                    dR1.setImageResource(cardImageResourceId);
-                }
-                else dR2.setImageResource(cardImageResourceId);
+                doorRed.setText(Integer.toString(redDoorCount));
             }
             else if(theFacade.getCardColorFromHand(cNum).equals("blue")){
                 blueDoorCount++;
-                if (blueDoorCount == 1){
-                    dB1.setImageResource(cardImageResourceId);
-                }
-                else dB2.setImageResource(cardImageResourceId);
+                doorBlue.setText(Integer.toString(blueDoorCount));
             }
             else if(theFacade.getCardColorFromHand(cNum).equals("green")){
                 greenDoorCount++;
-                if (greenDoorCount == 1){
-                    dG1.setImageResource(cardImageResourceId);
-                }
-                else dG2.setImageResource(cardImageResourceId);
+                doorGreen.setText(Integer.toString(greenDoorCount));
             }
             else if(theFacade.getCardColorFromHand(cNum).equals("brown")){
                 brownDoorCount++;
-                if (brownDoorCount == 1){
-                    dBr1.setImageResource(cardImageResourceId);
-                }
-                else dBr2.setImageResource(cardImageResourceId);
+                doorBrown.setText(Integer.toString(brownDoorCount));
             }
         }
 
     }
-
     public int getCardImageResourceId (String colorAndType) {
         return getResources().getIdentifier(colorAndType, "drawable", getPackageName());
     }
