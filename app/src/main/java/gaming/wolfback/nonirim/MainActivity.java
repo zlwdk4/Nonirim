@@ -85,7 +85,7 @@ public void setOnClickListenersForHand(){
             if (handButtons[i].getId() == v.getId()) {
                 int cNum = i;
                 //Top half is for putting current card in hand into the Labyrinth
-                colorAndTypeOfCard = getCardColorAndTypeFromHand(cNum);
+                colorAndTypeOfCard = theFacade.getCardColorAndTypeFromHand(cNum);
                 cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
                 updateDoorCount(cNum);
                 updateNightmareCount();
@@ -100,10 +100,9 @@ public void setOnClickListenersForHand(){
                 if (currentIndexOfLabUI == 8){
                     shiftCardsInLab();
                 }
-
                 //Bottom half is for drawing a new card from the deck and updating the hand
                 theFacade.drawFromDeckIntoHand();
-                colorAndTypeOfCard = getCardColorAndTypeFromHand(cNum);
+                colorAndTypeOfCard = theFacade.getCardColorAndTypeFromHand(cNum);
                 cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
                 handButtons[i].setImageResource(cardImageResourceId);
                 break;
@@ -113,18 +112,15 @@ public void setOnClickListenersForHand(){
 
     public void setInitialCardsInHand() {
         for (int i = 0; i < handButtons.length; ++i) {
-            colorAndTypeOfCard = getCardColorAndTypeFromHand(i);
+            colorAndTypeOfCard = theFacade.getCardColorAndTypeFromHand(i);
             cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
             handButtons[i].setImageResource(cardImageResourceId);
         }
     }
 
-
     private void updateNightmareCount(){
-        if (colorAndTypeOfCard.equals("nightmare")){
-            nightmareCount++;
-            nightmareView.setText(Integer.toString(nightmareCount));
-        }
+        theFacade.updateNightmareCount(colorAndTypeOfCard);
+        nightmareView.setText(Integer.toString(theFacade.getNightmareCount()));
     }
 
     private void updateDoorCount(int cNum){
@@ -146,43 +142,25 @@ public void setOnClickListenersForHand(){
 
     private void shiftCardsInLab(){
         currentIndexOfLabToBePulledFrom++;
+        displayCardsInLab();
+        currentIndexOfLabUI = 7;
+    }
+
+    private void displayCardsInLab(){
         int i = currentIndexOfLabToBePulledFrom;
         for (currentIndexOfLabUI = 0; currentIndexOfLabUI < 7; ++currentIndexOfLabUI){
-            colorAndTypeOfCard = getCardColorAndTypeFromLab(i);
+            colorAndTypeOfCard = theFacade.getCardColorAndTypeFromLab(i);
             cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
             updateLabImage(cardImageResourceId);
             i++;
         }
-        currentIndexOfLabUI = 7;
     }
+
 
     public void updateLabImage(int cardResId){
         ImageView theLab = (ImageView) findViewById(getLabResourceId(currentIndexOfLabUI));
         theLab.setImageResource(cardResId);
     }
-
-    public void clearLabImage(int indexOfCardInLab){
-        ImageView theLab = (ImageView) findViewById(getLabResourceId(indexOfCardInLab));
-        theLab.setImageDrawable(null);
-    }
-
-    public String getCardColorAndTypeFromHand(int cNum){
-        String colorAndTypeOfCard = theFacade.getCardColorAndTypeFromHand(cNum);
-        if (colorAndTypeOfCard.equals("nightmarenightmare")) {
-            colorAndTypeOfCard = "nightmare";
-        }
-        return colorAndTypeOfCard;
-    }
-
-    //!!! is this repeated code?
-    public String getCardColorAndTypeFromLab(int cNum){
-        String colorAndTypeOfCard = theFacade.getCardColorAndTypeFromLab(cNum);
-        if (colorAndTypeOfCard.equals("nightmarenightmare")) {
-            colorAndTypeOfCard = "nightmare";
-        }
-        return colorAndTypeOfCard;
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -205,6 +183,5 @@ public void setOnClickListenersForHand(){
 
         return super.onOptionsItemSelected(item);
     }
-
-
+    
 }

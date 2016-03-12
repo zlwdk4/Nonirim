@@ -96,11 +96,19 @@ public class Facade {
     }
 
     public String getCardColorAndTypeFromHand(int indexOfCard){
-        return (hand.getCard(indexOfCard).getColor() + hand.getCard(indexOfCard).getType());
+        String colorAndTypeOfCard = (hand.getCard(indexOfCard).getColor() + hand.getCard(indexOfCard).getType());
+        if (colorAndTypeOfCard.equals("nightmarenightmare")) {
+            colorAndTypeOfCard = "nightmare";
+        }
+        return colorAndTypeOfCard;
     }
 
     public String getCardColorAndTypeFromLab(int indexOfCard){
-        return (lab.getCard(indexOfCard).getColor()+ lab.getCard(indexOfCard).getType());
+        String colorAndTypeOfCard = (lab.getCard(indexOfCard).getColor()+ lab.getCard(indexOfCard).getType());
+        if (colorAndTypeOfCard.equals("nightmarenightmare")) {
+            colorAndTypeOfCard = "nightmare";
+        }
+        return colorAndTypeOfCard;
     }
 
     public String getCardTypeFromHand(int indexOfCard){
@@ -120,16 +128,13 @@ public class Facade {
     public void removeCardFromLab(int index){
         lab.removeCard(index);
     }
+
     public void playCardIntoLabAndRemoveCardFromHand(int indexOfCardInHand) {
         lab.addCard(hand.removeCard(indexOfCardInHand));
     }
 
     public void discardCardFromHand(int indexOfCardInHand){
         discardPile.addCardToDiscard(hand.removeCard(indexOfCardInHand));
-    }
-
-    public int getNightmareCount(){
-        return nightmareCount;
     }
 
     public int getRedDoorCount() {
@@ -152,25 +157,37 @@ public class Facade {
         if(getCardTypeFromHand(indexOfCurrentCard).equals("door")){
             if(getCardColorFromHand(indexOfCurrentCard).equals("red")){
                 doorCount.incrementRedDoorCount();
+                return;
             }
             else if(getCardColorFromHand(indexOfCurrentCard).equals("blue")){
                 doorCount.incrementBlueDoorCount();
-
+                return;
             }
             else if(getCardColorFromHand(indexOfCurrentCard).equals("green")){
                 doorCount.incrementGreenDoorCount();
-
+                return;
             }
             else if(getCardColorFromHand(indexOfCurrentCard).equals("brown")){
                 doorCount.incrementBrownDoorCount();
+                return;
             }
         }
+    }
+
+    public void updateNightmareCount(String colorAndTypeOfCard){
+        if (colorAndTypeOfCard.equals("nightmare")){
+            nightmareCount.incrementNightmareCount();
+        }
+    }
+
+    public int getNightmareCount(){
+        return nightmareCount.getNightmareCount();
     }
 
     private DrawPile drawPile = new DrawPile();
     private Hand hand = new Hand();
     private Labyrinth lab = new Labyrinth();
     private DiscardPile discardPile = new DiscardPile();
-    private int nightmareCount = 0;
     private DoorCount doorCount = new DoorCount();
+    NightmareCount nightmareCount = new NightmareCount();
 }
