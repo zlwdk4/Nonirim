@@ -2,6 +2,7 @@ package gaming.wolfback.nonirim;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,24 +12,27 @@ import android.widget.TextView;
 import android.view.View.OnClickListener;
 
 public class MainActivity extends AppCompatActivity implements OnClickListener {
-    public Facade theFacade = new Facade();
-    public ImageButton[] handButtons;
-    public ImageView [] labViews;
-    public TextView doorRed;
-    public TextView doorBlue;
-    public TextView doorGreen;
-    public TextView doorBrown;
-    public TextView nightmareView;
-    public int currentLabIndex = 0;
-    public ImageView discard;
-    public int cardImageResourceId;
-    public String colorAndTypeOfCard;
-    public Labyrinth theLab = new Labyrinth();
-    public int redDoorCount = 0;
-    public int greenDoorCount = 0;
-    public int blueDoorCount = 0;
-    public int brownDoorCount = 0;
-    public int nightmareCount = 0;
+    private Facade theFacade = new Facade();
+    private ImageButton[] handButtons;
+    private ImageView [] labViews;
+    private TextView doorRed;
+    private TextView doorBlue;
+    private TextView doorGreen;
+    private TextView doorBrown;
+    private TextView nightmareView;
+    //currentIndexOfLabUI keeps track of where the next image to be placed in the lab should be
+    private int currentIndexOfLabUI = 0;
+    //currentIndexOfLabToBePulledFrom keeps track of which index in the lab we should be pulling from
+    private int currentIndexOfLabToBePulledFrom;
+    private ImageView discard;
+    private int cardImageResourceId;
+    private String colorAndTypeOfCard;
+    private Labyrinth theLab = new Labyrinth();
+    private int redDoorCount = 0;
+    private int greenDoorCount = 0;
+    private int blueDoorCount = 0;
+    private int brownDoorCount = 0;
+    private int nightmareCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +100,10 @@ public void setOnClickListenersForHand(){
 
                 theFacade.playCardIntoLabAndRemoveCardFromHand(cNum);
                 updateLabImage(cardImageResourceId);
-                updateCurrentLabIndex();
+                currentIndexOfLabUI++;
+                if (currentIndexOfLabUI == 8){
+                    shiftCardsInLab();
+                }
 
                 //Bottom half is for drawing a new card from the deck and updating the hand
                 theFacade.drawFromDeckIntoHand();
@@ -156,23 +163,20 @@ public void setOnClickListenersForHand(){
         return resID;
     }
 
-    private void updateCurrentLabIndex(){
-        currentLabIndex++;
-        if (currentLabIndex == 8){
-            theLab.shiftLeft();
-            for (currentLabIndex = 0; currentLabIndex < 8; ++currentLabIndex){
-                colorAndTypeOfCard = getCardColorAndTypeFromLab(currentLabIndex);
-                cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
-                updateLabImage(cardImageResourceId);
-            }
-            theFacade.removeCardFromLab(7);
-            clearLabImage(7);
-            currentLabIndex = 7;
+    private void shiftCardsInLab(){
+        currentIndexOfLabToBePulledFrom++;
+        int i = currentIndexOfLabToBePulledFrom;
+        for (currentIndexOfLabUI = 0; currentIndexOfLabUI < 7; ++currentIndexOfLabUI){
+            colorAndTypeOfCard = getCardColorAndTypeFromLab(i);
+            cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
+            updateLabImage(cardImageResourceId);
+            i++;
         }
+        currentIndexOfLabUI = 7;
     }
 
     public void updateLabImage(int cardResId){
-        ImageView theLab = (ImageView) findViewById(getLabResourceId(currentLabIndex));
+        ImageView theLab = (ImageView) findViewById(getLabResourceId(currentIndexOfLabUI));
         theLab.setImageResource(cardResId);
     }
 
