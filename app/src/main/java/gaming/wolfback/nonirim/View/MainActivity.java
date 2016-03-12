@@ -1,8 +1,7 @@
-package gaming.wolfback.nonirim;
+package gaming.wolfback.nonirim.View;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,6 +9,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
+
+import gaming.wolfback.nonirim.Controller.Facade;
+import gaming.wolfback.nonirim.R;
 
 public class MainActivity extends AppCompatActivity implements OnClickListener {
     private Facade theFacade = new Facade();
@@ -27,8 +29,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     private ImageView discard;
     private int cardImageResourceId;
     private String colorAndTypeOfCard;
-    private Labyrinth theLab = new Labyrinth();
-    private int nightmareCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -150,12 +150,13 @@ public void setOnClickListenersForHand(){
         int i = currentIndexOfLabToBePulledFrom;
         for (currentIndexOfLabUI = 0; currentIndexOfLabUI < 7; ++currentIndexOfLabUI){
             colorAndTypeOfCard = theFacade.getCardColorAndTypeFromLab(i);
+            if (colorAndTypeOfCard.equals("null"))
+                break;
             cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
             updateLabImage(cardImageResourceId);
             i++;
         }
     }
-
 
     public void updateLabImage(int cardResId){
         ImageView theLab = (ImageView) findViewById(getLabResourceId(currentIndexOfLabUI));

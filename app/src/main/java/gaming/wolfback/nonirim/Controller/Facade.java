@@ -1,4 +1,12 @@
-package gaming.wolfback.nonirim;
+package gaming.wolfback.nonirim.Controller;
+
+import gaming.wolfback.nonirim.Model.DoorCount;
+import gaming.wolfback.nonirim.Model.Hand;
+import gaming.wolfback.nonirim.Model.Labyrinth;
+import gaming.wolfback.nonirim.Model.NightmareCount;
+import gaming.wolfback.nonirim.Utility.Card;
+import gaming.wolfback.nonirim.Model.DiscardPile;
+import gaming.wolfback.nonirim.Model.DrawPile;
 
 /**
  * Created by Jarren on 2/20/2016.
@@ -105,6 +113,9 @@ public class Facade {
 
     public String getCardColorAndTypeFromLab(int indexOfCard){
         String colorAndTypeOfCard = (lab.getCard(indexOfCard).getColor()+ lab.getCard(indexOfCard).getType());
+        if (colorAndTypeOfCard.equals("nullnull")){
+            return "null";
+        }
         if (colorAndTypeOfCard.equals("nightmarenightmare")) {
             colorAndTypeOfCard = "nightmare";
         }
@@ -125,10 +136,6 @@ public class Facade {
         hand.addCard(tempCard);
     }
 
-    public void removeCardFromLab(int index){
-        lab.removeCard(index);
-    }
-
     public void playCardIntoLabAndRemoveCardFromHand(int indexOfCardInHand) {
         lab.addCard(hand.removeCard(indexOfCardInHand));
     }
@@ -137,6 +144,8 @@ public class Facade {
         discardPile.addCardToDiscard(hand.removeCard(indexOfCardInHand));
     }
 
+
+    //*********************door stuff*****************************//
     public int getRedDoorCount() {
         return doorCount.getRedDoorCount();
     }
@@ -174,6 +183,7 @@ public class Facade {
         }
     }
 
+    //*********************nightmare stuff*****************************//
     public void updateNightmareCount(String colorAndTypeOfCard){
         if (colorAndTypeOfCard.equals("nightmare")){
             nightmareCount.incrementNightmareCount();

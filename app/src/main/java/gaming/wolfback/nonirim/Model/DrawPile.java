@@ -1,16 +1,17 @@
-package gaming.wolfback.nonirim;
+package gaming.wolfback.nonirim.Model;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Vector;
+
+import gaming.wolfback.nonirim.Utility.Card;
 
 /**
  * Created by ZWolf on 2/19/2016.
  */
 public class DrawPile {
     private static List<Card> deck;
-    DrawPile(){
+    public DrawPile(){
         deck = new ArrayList<Card>();
     }
 

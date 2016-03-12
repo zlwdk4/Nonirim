@@ -1,4 +1,4 @@
-package gaming.wolfback.nonirim;
+package gaming.wolfback.nonirim.Model;
 
 /**
  * Created by Jarren on 3/12/2016.

@@ -1,9 +1,9 @@
-package gaming.wolfback.nonirim;
+package gaming.wolfback.nonirim.Model;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import gaming.wolfback.nonirim.Card;
+import gaming.wolfback.nonirim.Utility.Card;
 
 /**
  * Created by Jarren on 2/24/2016.

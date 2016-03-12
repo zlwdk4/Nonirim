@@ -1,11 +1,12 @@
-package gaming.wolfback.nonirim;
+package gaming.wolfback.nonirim.Model;
 
 
 import android.util.Log;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import gaming.wolfback.nonirim.Utility.Card;
 
 /**
  * Created by Jarren on 2/19/2016.
@@ -34,7 +35,14 @@ public class Labyrinth {
         labList.remove(index);
     }
 
-    public Card getCard (int index){return labList.get(index);
+    public Card getCard (int index){
+        if (index >= 0 && index < labList.size())
+        return labList.get(index);
+        else{
+            Card nullCard = new Card(0, "null", "null");
+            return nullCard;
+        }
+
     }
 
     public int getNumberOfCardsInLab(){
