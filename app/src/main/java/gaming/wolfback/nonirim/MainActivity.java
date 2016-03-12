@@ -28,10 +28,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     private int cardImageResourceId;
     private String colorAndTypeOfCard;
     private Labyrinth theLab = new Labyrinth();
-    private int redDoorCount = 0;
-    private int greenDoorCount = 0;
-    private int blueDoorCount = 0;
-    private int brownDoorCount = 0;
     private int nightmareCount = 0;
 
     @Override
@@ -116,7 +112,6 @@ public void setOnClickListenersForHand(){
     }
 
     public void setInitialCardsInHand() {
-
         for (int i = 0; i < handButtons.length; ++i) {
             colorAndTypeOfCard = getCardColorAndTypeFromHand(i);
             cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
@@ -133,25 +128,11 @@ public void setOnClickListenersForHand(){
     }
 
     private void updateDoorCount(int cNum){
-        if(theFacade.getCardTypeFromHand(cNum).equals("door")){
-            if(theFacade.getCardColorFromHand(cNum).equals("red")){
-                redDoorCount++;
-                doorRed.setText(Integer.toString(redDoorCount));
-            }
-            else if(theFacade.getCardColorFromHand(cNum).equals("blue")){
-                blueDoorCount++;
-                doorBlue.setText(Integer.toString(blueDoorCount));
-            }
-            else if(theFacade.getCardColorFromHand(cNum).equals("green")){
-                greenDoorCount++;
-                doorGreen.setText(Integer.toString(greenDoorCount));
-            }
-            else if(theFacade.getCardColorFromHand(cNum).equals("brown")){
-                brownDoorCount++;
-                doorBrown.setText(Integer.toString(brownDoorCount));
-            }
-        }
-
+        theFacade.updateDoorCount(cNum);
+        doorRed.setText(Integer.toString(theFacade.getRedDoorCount()));
+        doorBlue.setText(Integer.toString(theFacade.getBlueDoorCount()));
+        doorGreen.setText(Integer.toString(theFacade.getGreenDoorCount()));
+        doorBrown.setText(Integer.toString(theFacade.getBrownDoorCount()));
     }
     public int getCardImageResourceId (String colorAndType) {
         return getResources().getIdentifier(colorAndType, "drawable", getPackageName());

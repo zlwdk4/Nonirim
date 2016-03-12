@@ -132,10 +132,45 @@ public class Facade {
         return nightmareCount;
     }
 
+    public int getRedDoorCount() {
+        return doorCount.getRedDoorCount();
+    }
+
+    public int getBlueDoorCount() {
+        return doorCount.getBlueDoorCount();
+    }
+
+    public int getGreenDoorCount() {
+        return doorCount.getGreenDoorCount();
+    }
+
+    public int getBrownDoorCount() {
+        return doorCount.getBrownDoorCount();
+    }
+
+    public void updateDoorCount (int indexOfCurrentCard){
+        if(getCardTypeFromHand(indexOfCurrentCard).equals("door")){
+            if(getCardColorFromHand(indexOfCurrentCard).equals("red")){
+                doorCount.incrementRedDoorCount();
+            }
+            else if(getCardColorFromHand(indexOfCurrentCard).equals("blue")){
+                doorCount.incrementBlueDoorCount();
+
+            }
+            else if(getCardColorFromHand(indexOfCurrentCard).equals("green")){
+                doorCount.incrementGreenDoorCount();
+
+            }
+            else if(getCardColorFromHand(indexOfCurrentCard).equals("brown")){
+                doorCount.incrementBrownDoorCount();
+            }
+        }
+    }
+
     private DrawPile drawPile = new DrawPile();
     private Hand hand = new Hand();
     private Labyrinth lab = new Labyrinth();
     private DiscardPile discardPile = new DiscardPile();
     private int nightmareCount = 0;
-    private int firstCardIndexInLab = 0;
+    private DoorCount doorCount = new DoorCount();
 }
