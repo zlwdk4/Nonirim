@@ -132,8 +132,25 @@ public class Facade {
         return lab.getLabString();
     }
 
+    public int getCurrentIndexOfLab(){
+        int sizeOfLab = lab.getNumberOfCardsInLab();
+        if (sizeOfLab >= largestSizeOfLab){
+            return (largestSizeOfLab-1);
+        }
+        else return (sizeOfLab-1);
+    }
+    public void shiftLabLeft(){
+        lab.shiftLeft();
+    }
+
+    public int getNightmareCount(){
+        return nightmareCount;
+    }
+
     private DrawPile drawPile = new DrawPile();
     private Hand hand = new Hand();
     private Labyrinth lab = new Labyrinth();
     private DiscardPile discardPile = new DiscardPile();
+    private int nightmareCount = 0;
+    private final int largestSizeOfLab = 7;
 }

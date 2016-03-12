@@ -37,6 +37,10 @@ public class Labyrinth {
     public Card getCard (int index){return labList.get(index);
     }
 
+    public int getNumberOfCardsInLab(){
+        return labList.size();
+    }
+
     public String getLabString()
     {
         //int i = 0;
@@ -49,10 +53,6 @@ public class Labyrinth {
         }
 
         Log.d("TESTLOG", theLabString);
-
-
-
-
         return theLabString;
     }
 }
