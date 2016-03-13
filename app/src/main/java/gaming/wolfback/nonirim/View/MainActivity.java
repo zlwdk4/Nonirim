@@ -1,5 +1,7 @@
 package gaming.wolfback.nonirim.View;
 
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -78,36 +80,66 @@ public void setOnClickListenersForHand(){
         }
 
     }
-
+    public int cNum;
+    public int onClickCounter;
     @Override
     public void onClick(View v) {
-        for (int i = 0; i < handButtons.length; i++) {
-            if (handButtons[i].getId() == v.getId()) {
-                int cNum = i;
-                //Top half is for putting current card in hand into the Labyrinth
-                colorAndTypeOfCard = theFacade.getCardColorAndTypeFromHand(cNum);
-                cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
-                updateDoorCount(cNum);
-                updateNightmareCount();
-
-                //uncomment these two to see the discard pile in action
-                //theFacade.discardCardFromHand(cNum);
-                //discard.setImageResource(cardImageResourceId);
-
-                theFacade.playCardIntoLabAndRemoveCardFromHand(cNum);
-                updateLabImage(cardImageResourceId);
-                currentIndexOfLabUI++;
-                if (currentIndexOfLabUI == 8){
-                    shiftCardsInLab();
+        for (onClickCounter = 0; onClickCounter < handButtons.length; onClickCounter++) {
+            if (handButtons[onClickCounter].getId() == v.getId()) {
+                cNum = onClickCounter;
+                if(theFacade.isValidPlay(cNum)) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.setTitle("Play or Discard");
+                    builder.setMessage("Do you want to play or discard this card?");
+                    builder.setCancelable(true);
+                    builder.setPositiveButton("Play", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            putCardInLab();
+                        }
+                    });
+                    builder.setNegativeButton("Discard", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            discardCard();
+                        }
+                    });
+                    builder.show();
+                    break;
                 }
-                //Bottom half is for drawing a new card from the deck and updating the hand
-                theFacade.drawFromDeckIntoHand();
-                colorAndTypeOfCard = theFacade.getCardColorAndTypeFromHand(cNum);
-                cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
-                handButtons[i].setImageResource(cardImageResourceId);
-                break;
+                else{
+                    discardCard();
+                    break;
+                }
             }
         }
+    }
+
+    public void putCardInLab(){
+        colorAndTypeOfCard = theFacade.getCardColorAndTypeFromHand(cNum);
+        cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
+        updateNightmareCount();
+
+        theFacade.playCardIntoLabAndRemoveCardFromHand(cNum);
+        updateDoorCount(cNum);
+        updateLabImage(cardImageResourceId);
+        currentIndexOfLabUI++;
+        if (currentIndexOfLabUI == 8) {
+            shiftCardsInLab();
+        }
+        drawNewCard();
+    }
+    public void discardCard(){
+        cNum = onClickCounter;
+        colorAndTypeOfCard = theFacade.getCardColorAndTypeFromHand(cNum);
+        cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
+        theFacade.discardCardFromHand(cNum);
+        discard.setImageResource(cardImageResourceId);
+        drawNewCard();
+    }
+    private void drawNewCard(){
+        theFacade.drawFromDeckIntoHand();
+        colorAndTypeOfCard = theFacade.getCardColorAndTypeFromHand(cNum);
+        cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
+        handButtons[onClickCounter].setImageResource(cardImageResourceId);
     }
 
     public void setInitialCardsInHand() {

@@ -27,12 +27,18 @@ public class DrawPile {
         Collections.shuffle(deck);
     }
 
-    public Card draw(){
-        Card tempCard = new Card(deck.get(deck.size()-1).getId(),
-                deck.get(deck.size()-1).getColor(),
-                deck.get(deck.size()-1).getType());
+    public Card top(int offset){
+        offset++;
+        return deck.get(deck.size()-offset);
+    }
 
-        deck.remove(deck.size() - 1);
+    public Card draw(int offset){
+        offset++;
+        Card tempCard = new Card(deck.get(deck.size()-offset).getId(),
+                deck.get(deck.size()-offset).getColor(),
+                deck.get(deck.size()-offset).getType());
+
+        deck.remove(deck.size() - offset);
         return tempCard;
     }
 

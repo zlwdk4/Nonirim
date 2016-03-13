@@ -1,5 +1,7 @@
 package gaming.wolfback.nonirim.Controller;
 
+import android.util.Log;
+
 import gaming.wolfback.nonirim.Model.DoorCount;
 import gaming.wolfback.nonirim.Model.Hand;
 import gaming.wolfback.nonirim.Model.Labyrinth;
@@ -13,7 +15,7 @@ import gaming.wolfback.nonirim.Model.DrawPile;
  */
 public class Facade {
     public Facade(){
-         String sun = "sun", moon = "moon", key = "key", blue = "blue", brown = "brown",
+        String sun = "sun", moon = "moon", key = "key", blue = "blue", brown = "brown",
                 green = "green", red = "red", nightmare = "nightmare", door = "door";
 
         int i = 1;
@@ -25,7 +27,7 @@ public class Facade {
         }
 
 
-       for (int j = 0; j < 8; j++) {
+        for (int j = 0; j < 8; j++) {
             Card c = new Card(i, blue, sun);
             drawPile.addCardToDeck(c);
             i++;
@@ -99,23 +101,17 @@ public class Facade {
         drawPile.shuffle();
         drawPile.shuffle();
         drawPile.shuffle();
-        hand = new Hand(drawPile.draw(), drawPile.draw(),drawPile.draw(),drawPile.draw(),drawPile.draw());
+        //hand = new Hand(drawPile.draw(), drawPile.draw(),drawPile.draw(),drawPile.draw(),drawPile.draw());
+        int j = 0;
+        while (j!=5){
+            drawFromDeckIntoHandInitial();
+            j++;
+        }
 
     }
-
+    //**************************Hand stuff***********************************************//
     public String getCardColorAndTypeFromHand(int indexOfCard){
         String colorAndTypeOfCard = (hand.getCard(indexOfCard).getColor() + hand.getCard(indexOfCard).getType());
-        if (colorAndTypeOfCard.equals("nightmarenightmare")) {
-            colorAndTypeOfCard = "nightmare";
-        }
-        return colorAndTypeOfCard;
-    }
-
-    public String getCardColorAndTypeFromLab(int indexOfCard){
-        String colorAndTypeOfCard = (lab.getCard(indexOfCard).getColor()+ lab.getCard(indexOfCard).getType());
-        if (colorAndTypeOfCard.equals("nullnull")){
-            return "null";
-        }
         if (colorAndTypeOfCard.equals("nightmarenightmare")) {
             colorAndTypeOfCard = "nightmare";
         }
@@ -130,18 +126,59 @@ public class Facade {
         return (hand.getCard(indexOfCard).getColor());
     }
 
-    public void drawFromDeckIntoHand(){
-        Card tempCard = drawPile.draw();
+    public void discardCardFromHand(int indexOfCardInHand){
+        discardPile.addCardToDiscard(hand.removeCard(indexOfCardInHand));
+    }
+
+    //****************************Lab stuff**********************************//
+    public String getCardColorAndTypeFromLab(int indexOfCard){
+        String colorAndTypeOfCard = (lab.getCard(indexOfCard).getColor()+ lab.getCard(indexOfCard).getType());
+        if (colorAndTypeOfCard.equals("nullnull")){
+            return "null";
+        }
+        if (colorAndTypeOfCard.equals("nightmarenightmare")) {
+            colorAndTypeOfCard = "nightmare";
+        }
+        return colorAndTypeOfCard;
+    }
+    //************************Deck stuff*******************************//
+    public String getCardTypeFromDeck(int offset){
+        return drawPile.top(offset).getType();
+    }
+    //**********************Interaction stuff**************************//
+
+    public void drawFromDeckIntoHandInitial(){
+        int offset = 0;
+        boolean nightmareOrDoorWasDrawn = false;
+        while (getCardTypeFromDeck(offset).equals("nightmare") || getCardTypeFromDeck(offset).equals("door") ){
+            offset++;
+            nightmareOrDoorWasDrawn = true;
+        }
+        Card tempCard = drawPile.draw(offset);
         tempCard.setIsCardDrawn(true);
         hand.addCard(tempCard);
+
+        if(nightmareOrDoorWasDrawn)
+            drawPile.shuffle();
+    }
+
+    public void drawFromDeckIntoHand(){
+        int offset = 0;
+        boolean doorWasDrawn = false;
+        while (getCardTypeFromDeck(offset).equals("door") ){
+            offset++;
+            doorWasDrawn = true;
+        }
+        Card tempCard = drawPile.draw(offset);
+        tempCard.setIsCardDrawn(true);
+        hand.addCard(tempCard);
+        if(doorWasDrawn){
+            drawPile.shuffle();
+        }
     }
 
     public void playCardIntoLabAndRemoveCardFromHand(int indexOfCardInHand) {
         lab.addCard(hand.removeCard(indexOfCardInHand));
-    }
-
-    public void discardCardFromHand(int indexOfCardInHand){
-        discardPile.addCardToDiscard(hand.removeCard(indexOfCardInHand));
     }
 
 
@@ -163,22 +200,49 @@ public class Facade {
     }
 
     public void updateDoorCount (int indexOfCurrentCard){
-        if(getCardTypeFromHand(indexOfCurrentCard).equals("door")){
-            if(getCardColorFromHand(indexOfCurrentCard).equals("red")){
-                doorCount.incrementRedDoorCount();
-                return;
-            }
-            else if(getCardColorFromHand(indexOfCurrentCard).equals("blue")){
-                doorCount.incrementBlueDoorCount();
-                return;
-            }
-            else if(getCardColorFromHand(indexOfCurrentCard).equals("green")){
-                doorCount.incrementGreenDoorCount();
-                return;
-            }
-            else if(getCardColorFromHand(indexOfCurrentCard).equals("brown")){
-                doorCount.incrementBrownDoorCount();
-                return;
+        Log.d("TESTLOG size of lab", Integer.toString(lab.getSize()));
+        lab.getLabString();
+        int size = lab.getSize();
+        if (lab.getSize() < 3){
+            return;
+        }
+        else {
+            boolean score = false;
+            Log.d("TESTLOG", "updateDoorCount else");
+            String c1Color = lab.getCard(lab.getSize() - 1).getColor();
+            String c2Color = lab.getCard(lab.getSize() - 2).getColor();
+            String c3Color = lab.getCard(lab.getSize() - 3).getColor();
+
+            Log.d("TESTLOG c1", c1Color);
+            Log.d("TESTLOG c2", c2Color);
+            Log.d("TESTLOG c3", c3Color);
+
+            if(rules.isSequenceOfThree(c1Color, c2Color, c3Color)) {
+                score = true;
+                if (size >= 4 && lab.getCard(size - 4).getColor().equals(c1Color)) {
+                    score = false;
+                    if (size >= 5 && lab.getCard(size - 5).getColor().equals(c1Color)) {
+                        score = false;
+                        if (size>= 6 && lab.getCard(size - 6).getColor().equals(c1Color)) {
+                            score = true;
+                        }
+                    }
+                }
+                if (score) {
+                    if (c1Color.equals("red") && doorCount.getRedDoorCount() <= 1) {
+                        doorCount.incrementRedDoorCount();
+                        return;
+                    } else if (c1Color.equals("blue")&& doorCount.getBlueDoorCount() <= 1) {
+                        doorCount.incrementBlueDoorCount();
+                        return;
+                    } else if (c1Color.equals("green")&& doorCount.getGreenDoorCount() <= 1) {
+                        doorCount.incrementGreenDoorCount();
+                        return;
+                    } else if (c1Color.equals("brown")&& doorCount.getBrownDoorCount() <= 1) {
+                        doorCount.incrementBrownDoorCount();
+                        return;
+                    }
+                }
             }
         }
     }
@@ -193,11 +257,18 @@ public class Facade {
     public int getNightmareCount(){
         return nightmareCount.getNightmareCount();
     }
+    //*******************rules stuff*********************************//
+    public boolean isValidPlay(int indexOfCardInHand){
+        String curLabType = lab.getCard(lab.getSize()-1).getType();
+        String curHandType = hand.getCard(indexOfCardInHand).getType();
+        return (rules.playIntoLabType(curLabType,curHandType));
+    }
 
     private DrawPile drawPile = new DrawPile();
     private Hand hand = new Hand();
     private Labyrinth lab = new Labyrinth();
     private DiscardPile discardPile = new DiscardPile();
     private DoorCount doorCount = new DoorCount();
-    NightmareCount nightmareCount = new NightmareCount();
+    private Rules rules = new Rules();
+    private NightmareCount nightmareCount = new NightmareCount();
 }

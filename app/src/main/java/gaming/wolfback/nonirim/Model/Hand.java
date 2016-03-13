@@ -1,5 +1,7 @@
 package gaming.wolfback.nonirim.Model;
 
+import android.util.Log;
+
 import gaming.wolfback.nonirim.Utility.Card;
 
 /**
@@ -7,6 +9,7 @@ import gaming.wolfback.nonirim.Utility.Card;
  */
 public class Hand {
     private static Card[] hand;
+    private final int maxCardsInHand = 5;
 
     public Hand(){
        hand = new Card[5];
@@ -28,10 +31,17 @@ public class Hand {
 
     public void addCard(Card newCard){
         int i = 0;
-        while(hand[i] != null){
+        while(i!=maxCardsInHand && hand[i] != null){
             i++;
         }
+        if (i==5){
+            Log.d("TESTLOG", "i==5");
+            return;
+        }
+        else
         hand[i] = newCard;
+
+        Log.d("TESTLOG", Integer.toString(i));
     }
 
 
@@ -41,7 +51,12 @@ public class Hand {
         return tempCard;
     }
     public Card getCard (int index){
-        return hand[index];
+        if (index >= 0 && index < hand.length)
+            return hand[index];
+        else{
+            Card nullCard = new Card(0, "null", "null");
+            return nullCard;
+        }
     }
 }
 

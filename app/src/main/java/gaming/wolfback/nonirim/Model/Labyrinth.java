@@ -24,12 +24,6 @@ public class Labyrinth {
 
     }
 
-    public void shiftLeft(){
-        for (int i = 0; i < 7; ++i){
-            labList.set(i,labList.get(i+1));
-        }
-    }
-
     public void removeCard(int index)
     {
         labList.remove(index);
@@ -45,11 +39,11 @@ public class Labyrinth {
 
     }
 
-    public int getNumberOfCardsInLab(){
+    public int getSize(){
         return labList.size();
     }
 
-    public String getLabString()
+    public void getLabString()
     {
         //int i = 0;
         String theLabString = " ";
@@ -61,6 +55,5 @@ public class Labyrinth {
         }
 
         Log.d("TESTLOG", theLabString);
-        return theLabString;
     }
 }
