@@ -258,6 +258,15 @@ public class Facade {
         return (rules.isValidPlayRegardingType(curLabType, curHandType));
     }
 
+    //*****************Discard Pile stuff***************************//
+    public String getColorAndTypeOfTopDiscard(){
+        String colorAndType = (discardPile.top().getColor() + discardPile.top().getType());
+        if (colorAndType.equals("nightmarenightmare")){
+            colorAndType = "nightmare";
+        }
+        return colorAndType;
+    }
+    //****************Private Variables***************************///
     private DrawPile drawPile = new DrawPile();
     private Hand hand = new Hand();
     private Labyrinth lab = new Labyrinth();

@@ -28,9 +28,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     private int currentIndexOfLabUI = 0;
     //currentIndexOfLabToBePulledFrom keeps track of which index in the lab we should be pulling from
     private int currentIndexOfLabToBePulledFrom;
-    private ImageView discard;
-    private int cardImageResourceId;
-    private String colorAndTypeOfCard;
+    private ImageView discardPileView;
+    private int cardNum;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         setHeightAndWidthOfLab(90, 60);
 
 
-        discard = (ImageView) findViewById(R.id.discardPileId);
+        discardPileView = (ImageView) findViewById(R.id.discardPileId);
         doorRed = (TextView) findViewById(R.id.doorIdRed);
         doorBlue = (TextView) findViewById(R.id.doorIdBlue);
         doorGreen = (TextView) findViewById(R.id.doorIdGreen);
@@ -51,24 +51,24 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         nightmareView = (TextView) findViewById(R.id.nightmareId);
 
     }
-public void setOnClickListenersForHand(){
-    handButtons = new ImageButton[5];
-    for (int i = 0; i < handButtons.length; ++i){
-        String buttonID = "hand" + (i);
-        int resID = getResources().getIdentifier(buttonID, "id", getPackageName());
-        handButtons[i] = ((ImageButton) findViewById(resID));
-        handButtons[i].setOnClickListener(this);
+    private void setOnClickListenersForHand(){
+        handButtons = new ImageButton[5];
+        for (int i = 0; i < handButtons.length; ++i){
+            String buttonID = "hand" + (i);
+            int resID = getResources().getIdentifier(buttonID, "id", getPackageName());
+            handButtons[i] = ((ImageButton) findViewById(resID));
+            handButtons[i].setOnClickListener(this);
+        }
     }
-}
 
-    public void setHeightAndWidthOfHandButtons(int h, int w){
+    private void setHeightAndWidthOfHandButtons(int h, int w){
         for (int i = 0; i < handButtons.length; ++i){
             handButtons[i].getLayoutParams().width = w;
             handButtons[i].getLayoutParams().height = h;
         }
     }
 
-    public void setHeightAndWidthOfLab(int h, int w){
+    private void setHeightAndWidthOfLab(int h, int w){
         labViews = new ImageView[8];
         for (int i = 0; i < labViews.length; ++i){
             String labID = "LabId" + (i);
@@ -80,77 +80,78 @@ public void setOnClickListenersForHand(){
         }
 
     }
-    public int cNum;
-    public int onClickCounter;
     @Override
     public void onClick(View v) {
-        for (onClickCounter = 0; onClickCounter < handButtons.length; onClickCounter++) {
-            if (handButtons[onClickCounter].getId() == v.getId()) {
-                cNum = onClickCounter;
-                if(theFacade.isValidPlay(cNum)) {
+        for (cardNum = 0; cardNum < handButtons.length; cardNum++) {
+            if (handButtons[cardNum].getId() == v.getId()) {
+                if(theFacade.isValidPlay(cardNum)) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
                     builder.setTitle("Play or Discard");
                     builder.setMessage("Do you want to play or discard this card?");
                     builder.setCancelable(true);
                     builder.setPositiveButton("Play", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            putCardInLab();
+                            putCardInLab(cardNum);
+                            incrementIndexOfLabUI();
+                            shiftCardsInLab();
+                            updateDoorCount();
+                            displayCardsInLab();
+                            drawNewCard();
+                            updateImageOfHand(cardNum);
                         }
                     });
                     builder.setNegativeButton("Discard", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            discardCard();
+                            discardCard(cardNum);
+                            updateImageOfDiscard();
+                            drawNewCard();
+                            updateImageOfHand(cardNum);
                         }
                     });
                     builder.show();
                     break;
                 }
                 else{
-                    discardCard();
+                    discardCard(cardNum);
+                    updateImageOfDiscard();
+                    drawNewCard();
+                    updateImageOfHand(cardNum);
                     break;
                 }
             }
         }
     }
 
-    public void putCardInLab(){
-        colorAndTypeOfCard = theFacade.getCardColorAndTypeFromHand(cNum);
-        cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
-        updateNightmareCount();
-
-        theFacade.playCardIntoLabAndRemoveCardFromHand(cNum);
-        updateDoorCount();
-        updateLabImage(cardImageResourceId);
-        currentIndexOfLabUI++;
-        if (currentIndexOfLabUI == 8) {
-            shiftCardsInLab();
-        }
-        drawNewCard();
+//*************************Discard UI Stuff*******************************************************************************//////
+    private void discardCard(int cardNum){
+        theFacade.discardCardFromHand(cardNum);
     }
-    public void discardCard(){
-        cNum = onClickCounter;
-        colorAndTypeOfCard = theFacade.getCardColorAndTypeFromHand(cNum);
-        cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
-        theFacade.discardCardFromHand(cNum);
-        discard.setImageResource(cardImageResourceId);
-        drawNewCard();
+    private void updateImageOfDiscard(){
+        String colorAndTypeOfCard = theFacade.getColorAndTypeOfTopDiscard();
+        int cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
+        discardPileView.setImageResource(cardImageResourceId);
     }
+//*****************************Hand UI stuff************************************************************************************////
     private void drawNewCard(){
         theFacade.drawFromDeckIntoHand();
-        colorAndTypeOfCard = theFacade.getCardColorAndTypeFromHand(cNum);
-        cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
-        handButtons[onClickCounter].setImageResource(cardImageResourceId);
     }
 
-    public void setInitialCardsInHand() {
+    private void updateImageOfHand(int cardNum){
+        String colorAndTypeOfCard = theFacade.getCardColorAndTypeFromHand(cardNum);
+        int cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
+        handButtons[cardNum].setImageResource(cardImageResourceId);
+    }
+
+    private void setInitialCardsInHand() {
         for (int i = 0; i < handButtons.length; ++i) {
-            colorAndTypeOfCard = theFacade.getCardColorAndTypeFromHand(i);
-            cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
+            String colorAndTypeOfCard = theFacade.getCardColorAndTypeFromHand(i);
+            int cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
             handButtons[i].setImageResource(cardImageResourceId);
         }
     }
+//************************************************************************************************************************************
 
-    private void updateNightmareCount(){
+    private void updateNightmareCount(String colorAndTypeOfCard){
         theFacade.updateNightmareCount(colorAndTypeOfCard);
         nightmareView.setText(Integer.toString(theFacade.getNightmareCount()));
     }
@@ -163,7 +164,7 @@ public void setOnClickListenersForHand(){
             doorBrown.setText(Integer.toString(theFacade.getBrownDoorCount()));
         }
     }
-    public int getCardImageResourceId (String colorAndType) {
+    private int getCardImageResourceId (String colorAndType) {
         return getResources().getIdentifier(colorAndType, "drawable", getPackageName());
     }
 
@@ -173,28 +174,46 @@ public void setOnClickListenersForHand(){
         return resID;
     }
 
-    private void shiftCardsInLab(){
-        currentIndexOfLabToBePulledFrom++;
-        displayCardsInLab();
-        currentIndexOfLabUI = 7;
+    //*********************Lab UI stuff*********************************************************************************************************************///
+    private void putCardInLab(int cardNum){
+        theFacade.playCardIntoLabAndRemoveCardFromHand(cardNum);
     }
 
+    private void incrementIndexOfLabUI(){
+        currentIndexOfLabUI++;
+    }
+
+    //The end result of calling this function is that all of the cards in the lab are shifted to the left if necessary
+    //preconditions: the lab is full (currently that is when there are 8 cards in the lab)
+    //post conditions: the cards in the lab will all be shifted left. The card that was in the 0th place is out of view. And the next place
+    //that a card will be places is in the 8th spot (index 7)
+    private void shiftCardsInLab(){
+        if (currentIndexOfLabUI == 8) {
+            currentIndexOfLabToBePulledFrom++;
+            displayCardsInLab();
+            currentIndexOfLabUI = 7;
+        }
+    }
+
+    //preconditions: none
+    //post conditions: up to seven cards will be displayed on the screen
     private void displayCardsInLab(){
         int i = currentIndexOfLabToBePulledFrom;
         for (currentIndexOfLabUI = 0; currentIndexOfLabUI < 7; ++currentIndexOfLabUI){
-            colorAndTypeOfCard = theFacade.getCardColorAndTypeFromLab(i);
+            String colorAndTypeOfCard = theFacade.getCardColorAndTypeFromLab(i);
             if (colorAndTypeOfCard.equals("null"))
                 break;
-            cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
+            int cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
             updateLabImage(cardImageResourceId);
             i++;
         }
     }
 
-    public void updateLabImage(int cardResId){
+    private void updateLabImage(int cardResId){
         ImageView theLab = (ImageView) findViewById(getLabResourceId(currentIndexOfLabUI));
         theLab.setImageResource(cardResId);
     }
+//**************************************************************************************************
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -217,5 +236,5 @@ public void setOnClickListenersForHand(){
 
         return super.onOptionsItemSelected(item);
     }
-    
+
 }

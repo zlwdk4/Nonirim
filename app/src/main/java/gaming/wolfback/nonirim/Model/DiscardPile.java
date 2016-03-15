@@ -15,7 +15,10 @@ public class DiscardPile {
         discardPile = new ArrayList<Card>();
     }
     public void addCardToDiscard(Card c){
-        discardPile.remove(c);
+        discardPile.add(c);
+    }
+    public Card top(){
+        return discardPile.get(discardPile.size() - 1);
     }
 
     public String getDiscardString(){
