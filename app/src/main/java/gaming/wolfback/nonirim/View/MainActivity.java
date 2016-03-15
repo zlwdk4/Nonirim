@@ -119,7 +119,7 @@ public void setOnClickListenersForHand(){
         updateNightmareCount();
 
         theFacade.playCardIntoLabAndRemoveCardFromHand(cNum);
-        updateDoorCount(cNum);
+        updateDoorCount();
         updateLabImage(cardImageResourceId);
         currentIndexOfLabUI++;
         if (currentIndexOfLabUI == 8) {
@@ -155,12 +155,13 @@ public void setOnClickListenersForHand(){
         nightmareView.setText(Integer.toString(theFacade.getNightmareCount()));
     }
 
-    private void updateDoorCount(int cNum){
-        theFacade.updateDoorCount(cNum);
-        doorRed.setText(Integer.toString(theFacade.getRedDoorCount()));
-        doorBlue.setText(Integer.toString(theFacade.getBlueDoorCount()));
-        doorGreen.setText(Integer.toString(theFacade.getGreenDoorCount()));
-        doorBrown.setText(Integer.toString(theFacade.getBrownDoorCount()));
+    private void updateDoorCount(){
+        if(theFacade.updateDoorCount()) {
+            doorRed.setText(Integer.toString(theFacade.getRedDoorCount()));
+            doorBlue.setText(Integer.toString(theFacade.getBlueDoorCount()));
+            doorGreen.setText(Integer.toString(theFacade.getGreenDoorCount()));
+            doorBrown.setText(Integer.toString(theFacade.getBrownDoorCount()));
+        }
     }
     public int getCardImageResourceId (String colorAndType) {
         return getResources().getIdentifier(colorAndType, "drawable", getPackageName());

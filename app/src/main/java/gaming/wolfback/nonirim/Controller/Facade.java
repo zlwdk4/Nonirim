@@ -1,7 +1,5 @@
 package gaming.wolfback.nonirim.Controller;
 
-import android.util.Log;
-
 import gaming.wolfback.nonirim.Model.DoorCount;
 import gaming.wolfback.nonirim.Model.Hand;
 import gaming.wolfback.nonirim.Model.Labyrinth;
@@ -199,54 +197,50 @@ public class Facade {
         return doorCount.getBrownDoorCount();
     }
 
-    public void updateDoorCount (int indexOfCurrentCard){
-        Log.d("TESTLOG size of lab", Integer.toString(lab.getSize()));
-        lab.getLabString();
-        int size = lab.getSize();
-        if (lab.getSize() < 3){
-            return;
-        }
-        else {
-            boolean score = false;
-            Log.d("TESTLOG", "updateDoorCount else");
-            String c1Color = lab.getCard(lab.getSize() - 1).getColor();
-            String c2Color = lab.getCard(lab.getSize() - 2).getColor();
-            String c3Color = lab.getCard(lab.getSize() - 3).getColor();
+    public boolean updateDoorCount (){
+        int numCardsToGiveToDidScore = numCardColorsToGiveToDidScore();
+        String[] colorsOfCards = colorsOfCards(numCardsToGiveToDidScore);
 
-            Log.d("TESTLOG c1", c1Color);
-            Log.d("TESTLOG c2", c2Color);
-            Log.d("TESTLOG c3", c3Color);
-
-            if(rules.isSequenceOfThree(c1Color, c2Color, c3Color)) {
-                score = true;
-                if (size >= 4 && lab.getCard(size - 4).getColor().equals(c1Color)) {
-                    score = false;
-                    if (size >= 5 && lab.getCard(size - 5).getColor().equals(c1Color)) {
-                        score = false;
-                        if (size>= 6 && lab.getCard(size - 6).getColor().equals(c1Color)) {
-                            score = true;
-                        }
-                    }
-                }
-                if (score) {
-                    if (c1Color.equals("red") && doorCount.getRedDoorCount() <= 1) {
-                        doorCount.incrementRedDoorCount();
-                        return;
-                    } else if (c1Color.equals("blue")&& doorCount.getBlueDoorCount() <= 1) {
-                        doorCount.incrementBlueDoorCount();
-                        return;
-                    } else if (c1Color.equals("green")&& doorCount.getGreenDoorCount() <= 1) {
-                        doorCount.incrementGreenDoorCount();
-                        return;
-                    } else if (c1Color.equals("brown")&& doorCount.getBrownDoorCount() <= 1) {
-                        doorCount.incrementBrownDoorCount();
-                        return;
-                    }
-                }
+        if(rules.didScore(colorsOfCards, numCardsToGiveToDidScore)) {
+            String colorOfCard = lab.getCard(lab.getSize() - 1).getColor();
+            if (colorOfCard.equals("red") && doorCount.getRedDoorCount() <= 1) {
+                doorCount.incrementRedDoorCount();
+                return true;
+            } else if (colorOfCard.equals("blue")&& doorCount.getBlueDoorCount() <= 1) {
+                doorCount.incrementBlueDoorCount();
+                return true;
+            } else if (colorOfCard.equals("green")&& doorCount.getGreenDoorCount() <= 1) {
+                doorCount.incrementGreenDoorCount();
+                return true;
+            } else if (colorOfCard.equals("brown")&& doorCount.getBrownDoorCount() <= 1) {
+                doorCount.incrementBrownDoorCount();
+                return true;
             }
         }
+        return false;
+    }
+    
+    private int numCardColorsToGiveToDidScore(){
+        int labSize = lab.getSize();
+        if (labSize < 3){
+            return 0;
+        }
+        else if (labSize==3){
+            return 3;
+        }
+        else if (labSize >=6){
+            return 6;
+        }
+        else return 4;
     }
 
+    private String[] colorsOfCards (int numCardsToGiveToDidScore){
+        String[] colorsOfCards = new String[6];
+        for (int i = 0; i < numCardsToGiveToDidScore; ++i) {
+            colorsOfCards[i] = (lab.getCard(lab.getSize() - i - 1).getColor());
+        }
+        return colorsOfCards;
+    }
     //*********************nightmare stuff*****************************//
     public void updateNightmareCount(String colorAndTypeOfCard){
         if (colorAndTypeOfCard.equals("nightmare")){
@@ -261,7 +255,7 @@ public class Facade {
     public boolean isValidPlay(int indexOfCardInHand){
         String curLabType = lab.getCard(lab.getSize()-1).getType();
         String curHandType = hand.getCard(indexOfCardInHand).getType();
-        return (rules.playIntoLabType(curLabType,curHandType));
+        return (rules.isValidPlayRegardingType(curLabType, curHandType));
     }
 
     private DrawPile drawPile = new DrawPile();
