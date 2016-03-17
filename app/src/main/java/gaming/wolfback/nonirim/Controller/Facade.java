@@ -15,7 +15,7 @@ public class Facade {
     public Facade(){
         String sun = "sun", moon = "moon", key = "key", blue = "blue", brown = "brown",
                 green = "green", red = "red", nightmare = "nightmare", door = "door";
-
+//;lkjhlkjhgkjgbkjgiufviyfyctfjdhgjdchdth
         int i = 1;
 
         for (int j = 0; j < 9; j++) {
