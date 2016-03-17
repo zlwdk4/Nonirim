@@ -14,7 +14,7 @@ import android.view.View.OnClickListener;
 
 import gaming.wolfback.nonirim.Controller.Facade;
 import gaming.wolfback.nonirim.R;
-
+//please for the love of god
 public class MainActivity extends AppCompatActivity implements OnClickListener {
     private Facade theFacade = new Facade();
     private ImageButton[] handButtons;
