@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
 
+import com.squareup.picasso.Picasso;
+
 import gaming.wolfback.nonirim.Controller.Facade;
 import gaming.wolfback.nonirim.R;
 
@@ -62,14 +64,14 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     }
 
     private void setHeightAndWidthOfHandButtons(int h, int w){
-        for (int i = 0; i < handButtons.length; ++i){
+       /* for (int i = 0; i < handButtons.length; ++i){
             handButtons[i].getLayoutParams().width = w;
             handButtons[i].getLayoutParams().height = h;
-        }
+        } */
     }
 
     private void setHeightAndWidthOfLab(int h, int w){
-        labViews = new ImageView[8];
+       /* labViews = new ImageView[8];
         for (int i = 0; i < labViews.length; ++i){
             String labID = "LabId" + (i);
             int resID = getResources().getIdentifier(labID, "id", getPackageName());
@@ -77,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
             labViews[i].getLayoutParams().width = w;
             labViews[i].getLayoutParams().height = h;
 
-        }
+        } */
 
     }
     @Override
@@ -130,7 +132,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     private void updateImageOfDiscard(){
         String colorAndTypeOfCard = theFacade.getColorAndTypeOfTopDiscard();
         int cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
-        discardPileView.setImageResource(cardImageResourceId);
+        Picasso.with(this).load(cardImageResourceId).fit().into(discardPileView);
+        //discardPileView.setImageResource(cardImageResourceId);
     }
 //*****************************Hand UI stuff************************************************************************************////
 private void drawNewCard(){
@@ -140,15 +143,17 @@ private void drawNewCard(){
     private void updateImageOfHand(int cardNum){
         String colorAndTypeOfCard = theFacade.getCardColorAndTypeFromHand(cardNum);
         int cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
-        handButtons[cardNum].setImageResource(cardImageResourceId);
+        Picasso.with(this).load(cardImageResourceId).fit().into(handButtons[cardNum]);
+        //handButtons[cardNum].setImageResource(cardImageResourceId);
     }
 
     private void setInitialCardsInHand() {
         for (int i = 0; i < handButtons.length; ++i) {
             String colorAndTypeOfCard = theFacade.getCardColorAndTypeFromHand(i);
             int cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
-            handButtons[i].setImageResource(cardImageResourceId);
+            Picasso.with(this).load(cardImageResourceId).fit().into(handButtons[cardNum]);
         }
+
     }
 //************************************************************************************************************************************
 
@@ -212,7 +217,8 @@ private void drawNewCard(){
 
     private void updateLabImage(int cardResId){
         ImageView theLab = (ImageView) findViewById(getLabResourceId(currentIndexOfLabUI));
-        theLab.setImageResource(cardResId);
+        Picasso.with(this).load(cardResId).fit().into(theLab);
+        //theLab.setImageResource(cardResId);
     }
 //**************************************************************************************************
 
