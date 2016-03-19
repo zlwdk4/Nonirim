@@ -94,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                             putCardInLab(cardNum);
                             incrementIndexOfLabUI();
                             shiftCardsInLab();
+                            updateNightmareCount();
                             updateDoorCount();
                             displayCardsInLab();
                             drawNewCard();
@@ -132,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         discardPileView.setImageResource(cardImageResourceId);
     }
 //*****************************Hand UI stuff************************************************************************************////
-    private void drawNewCard(){
+private void drawNewCard(){
         theFacade.drawFromDeckIntoHand();
     }
 
@@ -151,8 +152,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     }
 //************************************************************************************************************************************
 
-    private void updateNightmareCount(String colorAndTypeOfCard){
-        theFacade.updateNightmareCount(colorAndTypeOfCard);
+    private void updateNightmareCount(){
+        theFacade.updateNightmareCount();
         nightmareView.setText(Integer.toString(theFacade.getNightmareCount()));
     }
 

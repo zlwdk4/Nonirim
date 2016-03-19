@@ -219,7 +219,7 @@ public class Facade {
         }
         return false;
     }
-    
+
     private int numCardColorsToGiveToDidScore(){
         int labSize = lab.getSize();
         if (labSize < 3){
@@ -242,8 +242,8 @@ public class Facade {
         return colorsOfCards;
     }
     //*********************nightmare stuff*****************************//
-    public void updateNightmareCount(String colorAndTypeOfCard){
-        if (colorAndTypeOfCard.equals("nightmare")){
+    public void updateNightmareCount(){
+        if ((lab.getCard(lab.getSize()-1)).getType().equals("nightmare")){
             nightmareCount.incrementNightmareCount();
         }
     }

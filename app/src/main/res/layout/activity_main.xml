@@ -63,7 +63,6 @@
         android:layout_height="60dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/LabId0"
-        android:background="#bbbbbb"
         android:layout_below="@+id/discardPileId"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -74,7 +73,6 @@
         android:layout_height="60dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/LabId1"
-        android:background="#c33333"
         android:layout_alignBottom="@+id/LabId0"
         android:layout_toRightOf="@+id/LabId0"
         android:layout_toEndOf="@+id/LabId0" />
@@ -85,7 +83,6 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/LabId2"
         android:layout_marginLeft="-10dp"
-        android:background="#bbbbbb"
         android:layout_alignTop="@+id/LabId1"
         android:layout_toRightOf="@+id/LabId1"
         android:layout_toEndOf="@+id/LabId1" />
@@ -95,7 +92,6 @@
         android:layout_height="60dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/LabId3"
-        android:background="#c33333"
         android:layout_marginLeft="-10dp"
         android:layout_alignTop="@+id/LabId2"
         android:layout_toRightOf="@+id/LabId2"
@@ -106,7 +102,6 @@
         android:layout_marginLeft="-10dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/LabId4"
-        android:background="#bbbbbb"
         android:layout_alignTop="@+id/LabId3"
         android:layout_toRightOf="@+id/LabId3"
         android:layout_toEndOf="@+id/LabId3" />
@@ -116,7 +111,6 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_marginLeft="-10dp"
         android:id="@+id/LabId5"
-        android:background="#c33333"
         android:layout_alignTop="@+id/LabId4"
         android:layout_toRightOf="@+id/LabId4"
         android:layout_toEndOf="@+id/LabId4" />
@@ -166,21 +160,21 @@
         android:layout_height="30dp"
         android:text="0"
         android:textSize="10dp"
-        android:textColor="#32cd32"
+        android:textColor="#ffffff"
         android:paddingLeft="2dp"
         android:id="@+id/doorIdRed"
         android:background="@drawable/reddoor"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
-    
+
 
     <TextView
         android:layout_width="20dp"
         android:layout_height="30dp"
         android:text="0"
         android:textSize="10dp"
-        android:textColor="#32cd32"
+        android:textColor="#ffffff"
         android:paddingLeft="2dp"
         android:id="@+id/doorIdBlue"
         android:background="@drawable/bluedoor"
@@ -193,7 +187,7 @@
         android:layout_height="30dp"
         android:text="0"
         android:textSize="10dp"
-        android:textColor="#32cd32"
+        android:textColor="#ffffff"
         android:paddingLeft="2dp"
         android:id="@+id/doorIdGreen"
         android:background="@drawable/greendoor"
@@ -206,14 +200,14 @@
         android:layout_height="30dp"
         android:text="0"
         android:textSize="10dp"
-        android:textColor="#32cd32"
+        android:textColor="#ffffff"
         android:paddingLeft="2dp"
         android:background="@drawable/browndoor"
         android:id="@+id/doorIdBrown"
         android:layout_above="@+id/doorIdBlue"
         android:layout_toRightOf="@+id/doorIdRed"
         android:layout_toEndOf="@+id/doorIdRed" />
-    
+
 
     <TextView
         android:layout_width="20dp"
@@ -222,7 +216,7 @@
         android:background="@drawable/nightmare"
         android:text="0"
         android:textSize="10dp"
-        android:textColor="#32cd32"
+        android:textColor="#ffffff"
         android:paddingLeft="2dp"
         android:layout_alignTop="@+id/doorIdBrown"
         android:layout_toLeftOf="@+id/LabId2"
