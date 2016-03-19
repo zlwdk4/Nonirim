@@ -1,5 +1,7 @@
 package gaming.wolfback.nonirim.Controller;
 
+import android.util.Log;
+
 import gaming.wolfback.nonirim.Model.DoorCount;
 import gaming.wolfback.nonirim.Model.Hand;
 import gaming.wolfback.nonirim.Model.Labyrinth;
@@ -139,6 +141,18 @@ public class Facade {
         }
         return colorAndTypeOfCard;
     }
+    public int getLabSize(){
+        return lab.getSize();
+    }
+    public String getLabColor(int indexOfCard){
+        return lab.getCard(indexOfCard).getColor();
+    }
+    public String getLabType(int indexOfCard){
+        return lab.getCard(indexOfCard).getType();
+    }
+    public void getLabString(){
+        lab.getLabString();
+    }
     //************************Deck stuff*******************************//
     public String getCardTypeFromDeck(int offset){
         return drawPile.top(offset).getType();
@@ -197,49 +211,28 @@ public class Facade {
         return doorCount.getBrownDoorCount();
     }
 
-    public boolean updateDoorCount (){
-        int numCardsToGiveToDidScore = numCardColorsToGiveToDidScore();
-        String[] colorsOfCards = colorsOfCards(numCardsToGiveToDidScore);
-
-        if(rules.didScore(colorsOfCards, numCardsToGiveToDidScore)) {
-            String colorOfCard = lab.getCard(lab.getSize() - 1).getColor();
-            if (colorOfCard.equals("red") && doorCount.getRedDoorCount() <= 1) {
-                doorCount.incrementRedDoorCount();
-                return true;
-            } else if (colorOfCard.equals("blue")&& doorCount.getBlueDoorCount() <= 1) {
-                doorCount.incrementBlueDoorCount();
-                return true;
-            } else if (colorOfCard.equals("green")&& doorCount.getGreenDoorCount() <= 1) {
-                doorCount.incrementGreenDoorCount();
-                return true;
-            } else if (colorOfCard.equals("brown")&& doorCount.getBrownDoorCount() <= 1) {
-                doorCount.incrementBrownDoorCount();
-                return true;
-            }
+    public void updateDoorCount (){
+        String colorOfCard = lab.getCard(lab.getSize() - 1).getColor();
+        Log.d("TESTLOG colorOfCard", colorOfCard);
+        if (colorOfCard.equals("red") && doorCount.getRedDoorCount() <= 1) {
+            doorCount.incrementRedDoorCount();
+            return;
+        } else if (colorOfCard.equals("blue")&& doorCount.getBlueDoorCount() <= 1) {
+            doorCount.incrementBlueDoorCount();
+            return;
+        } else if (colorOfCard.equals("green")&& doorCount.getGreenDoorCount() <= 1) {
+            doorCount.incrementGreenDoorCount();
+            return;
+        } else if (colorOfCard.equals("brown")&& doorCount.getBrownDoorCount() <= 1) {
+            doorCount.incrementBrownDoorCount();
+            return;
         }
-        return false;
     }
-
-    private int numCardColorsToGiveToDidScore(){
-        int labSize = lab.getSize();
-        if (labSize < 3){
-            return 0;
-        }
-        else if (labSize==3){
-            return 3;
-        }
-        else if (labSize >=6){
-            return 6;
-        }
-        else return 4;
-    }
-
-    private String[] colorsOfCards (int numCardsToGiveToDidScore){
-        String[] colorsOfCards = new String[6];
-        for (int i = 0; i < numCardsToGiveToDidScore; ++i) {
-            colorsOfCards[i] = (lab.getCard(lab.getSize() - i - 1).getColor());
-        }
-        return colorsOfCards;
+    public void displayDoorCounts(){
+        Log.d("TESTLOG red: ", Integer.toString(getRedDoorCount()));
+        Log.d("TESTLOG blue: ", Integer.toString(getBlueDoorCount()));
+        Log.d("TESTLOG green: ", Integer.toString(getGreenDoorCount()));
+        Log.d("TESTLOG brown: ", Integer.toString(getBrownDoorCount()));
     }
     //*********************nightmare stuff*****************************//
     public void updateNightmareCount(){

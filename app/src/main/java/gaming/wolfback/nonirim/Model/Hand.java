@@ -35,13 +35,10 @@ public class Hand {
             i++;
         }
         if (i==5){
-            Log.d("TESTLOG", "i==5");
             return;
         }
         else
         hand[i] = newCard;
-
-        Log.d("TESTLOG", Integer.toString(i));
     }
 
 

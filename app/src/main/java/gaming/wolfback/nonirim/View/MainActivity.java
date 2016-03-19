@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,11 +13,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
 
+import gaming.wolfback.nonirim.Controller.Controller;
 import gaming.wolfback.nonirim.Controller.Facade;
 import gaming.wolfback.nonirim.R;
 
 public class MainActivity extends AppCompatActivity implements OnClickListener {
     private Facade theFacade = new Facade();
+    private Controller controller = new Controller();
     private ImageButton[] handButtons;
     private ImageView [] labViews;
     private TextView doorRed;
@@ -84,20 +87,18 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     public void onClick(View v) {
         for (cardNum = 0; cardNum < handButtons.length; cardNum++) {
             if (handButtons[cardNum].getId() == v.getId()) {
-                if(theFacade.isValidPlay(cardNum)) {
+                if(controller.isValidPlay(cardNum)) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
                     builder.setTitle("Play or Discard");
                     builder.setMessage("Do you want to play or discard this card?");
                     builder.setCancelable(true);
                     builder.setPositiveButton("Play", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            putCardInLab(cardNum);
+                            controller.playCard(cardNum);
+                            updateDoorCount();
                             incrementIndexOfLabUI();
                             shiftCardsInLab();
-                            updateNightmareCount();
-                            updateDoorCount();
                             displayCardsInLab();
-                            drawNewCard();
                             updateImageOfHand(cardNum);
                         }
                     });
@@ -158,12 +159,10 @@ private void drawNewCard(){
     }
 
     private void updateDoorCount(){
-        if(theFacade.updateDoorCount()) {
-            doorRed.setText(Integer.toString(theFacade.getRedDoorCount()));
-            doorBlue.setText(Integer.toString(theFacade.getBlueDoorCount()));
-            doorGreen.setText(Integer.toString(theFacade.getGreenDoorCount()));
-            doorBrown.setText(Integer.toString(theFacade.getBrownDoorCount()));
-        }
+        doorRed.setText(Integer.toString(controller.getRedDoorCount()));
+        doorBlue.setText(Integer.toString(controller.getBlueDoorCount()));
+        doorGreen.setText(Integer.toString(controller.getGreenDoorCount()));
+        doorBrown.setText(Integer.toString(controller.getBrownDoorCount()));
     }
     private int getCardImageResourceId (String colorAndType) {
         return getResources().getIdentifier(colorAndType, "drawable", getPackageName());
