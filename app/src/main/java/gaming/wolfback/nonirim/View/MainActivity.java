@@ -90,33 +90,38 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                     builder.setCancelable(true);
                     builder.setPositiveButton("Play", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            controller.playCard(cardNum);
-                            updateDoorCount();
-                            updateNightmareCount();
-                            incrementIndexOfLabUI();
-                            shiftCardsInLab();
-                            displayCardsInLab();
-                            updateImageOfHand(cardNum);
+                            playCard(cardNum);
                         }
                     });
                     builder.setNegativeButton("Discard", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            controller.discardCard(cardNum);
-                            updateImageOfDiscard();
-                            updateImageOfHand(cardNum);
+                        discardCard(cardNum);
                         }
                     });
                     builder.show();
                     break;
                 }
                 else{
-                    controller.discardCard(cardNum);
-                    updateImageOfDiscard();
-                    updateImageOfHand(cardNum);
+                    discardCard(cardNum);
                     break;
                 }
             }
         }
+    }
+    private void playCard(int cardNum){
+        controller.playCard(cardNum);
+        displayDoorCounts();
+        displayNightmareCount();
+        incrementIndexOfLabUI();
+        shiftCardsInLab();
+        displayCardsInLab();
+        updateImageOfHand(cardNum);
+    }
+
+    private void discardCard(int cardNum){
+        controller.discardCard(cardNum);
+        updateImageOfDiscard();
+        updateImageOfHand(cardNum);
     }
 
 //*************************Discard UI Stuff*******************************************************************************//////
@@ -141,11 +146,11 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     }
 //************************************************************************************************************************************
 
-    private void updateNightmareCount(){
+    private void displayNightmareCount(){
         nightmareView.setText(Integer.toString(controller.getNightmareCount()));
     }
 
-    private void updateDoorCount(){
+    private void displayDoorCounts(){
         doorRed.setText(Integer.toString(controller.getRedDoorCount()));
         doorBlue.setText(Integer.toString(controller.getBlueDoorCount()));
         doorGreen.setText(Integer.toString(controller.getGreenDoorCount()));
