@@ -28,7 +28,6 @@ public class Controller {
     public boolean didScore(){
         int numCards = numCardsToGiveToRules();
         String [] cardColors;
-        facade.getLabString();
         cardColors = getArrayOfCardColorsFromLab(numCards);
         return rules.didScore(cardColors, numCards);
     }

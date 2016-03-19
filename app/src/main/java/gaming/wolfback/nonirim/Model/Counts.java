@@ -1,9 +1,20 @@
 package gaming.wolfback.nonirim.Model;
 
 /**
- * Created by Jarren on 3/12/2016.
+ * Created by Jarren on 3/19/2016.
  */
-public class DoorCount {
+public class Counts {
+    //**************Nightmare stuff******************************************//
+    public int getNightmareCount() {
+        return nightmareCount;
+    }
+
+    public void incrementNightmareCount() {
+        this.nightmareCount++;
+    }
+    private int nightmareCount = 0;
+
+//********************Door stuff************************************************//
     public int getRedDoorCount() {
         return redDoorCount;
     }

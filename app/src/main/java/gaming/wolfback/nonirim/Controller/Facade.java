@@ -1,9 +1,8 @@
 package gaming.wolfback.nonirim.Controller;
 
-import gaming.wolfback.nonirim.Model.DoorCount;
+import gaming.wolfback.nonirim.Model.Counts;
 import gaming.wolfback.nonirim.Model.Hand;
 import gaming.wolfback.nonirim.Model.Labyrinth;
-import gaming.wolfback.nonirim.Model.NightmareCount;
 import gaming.wolfback.nonirim.Utility.Card;
 import gaming.wolfback.nonirim.Model.DiscardPile;
 import gaming.wolfback.nonirim.Model.DrawPile;
@@ -147,9 +146,6 @@ public class Facade {
     public String getLabType(int indexOfCard){
         return lab.getCard(indexOfCard).getType();
     }
-    public void getLabString(){
-        lab.getLabString();
-    }
     //************************Deck stuff*******************************//
     public String getCardTypeFromDeck(int offset){
         return drawPile.top(offset).getType();
@@ -193,45 +189,45 @@ public class Facade {
 
     //*********************door stuff*****************************//
     public int getRedDoorCount() {
-        return doorCount.getRedDoorCount();
+        return counts.getRedDoorCount();
     }
 
     public int getBlueDoorCount() {
-        return doorCount.getBlueDoorCount();
+        return counts.getBlueDoorCount();
     }
 
     public int getGreenDoorCount() {
-        return doorCount.getGreenDoorCount();
+        return counts.getGreenDoorCount();
     }
 
     public int getBrownDoorCount() {
-        return doorCount.getBrownDoorCount();
+        return counts.getBrownDoorCount();
     }
 
     public void updateDoorCount (){
         String colorOfCard = lab.getCard(lab.getSize() - 1).getColor();
-        if (colorOfCard.equals("red") && doorCount.getRedDoorCount() <= 1) {
-            doorCount.incrementRedDoorCount();
+        if (colorOfCard.equals("red") && counts.getRedDoorCount() <= 1) {
+            counts.incrementRedDoorCount();
             return;
-        } else if (colorOfCard.equals("blue")&& doorCount.getBlueDoorCount() <= 1) {
-            doorCount.incrementBlueDoorCount();
+        } else if (colorOfCard.equals("blue")&& counts.getBlueDoorCount() <= 1) {
+            counts.incrementBlueDoorCount();
             return;
-        } else if (colorOfCard.equals("green")&& doorCount.getGreenDoorCount() <= 1) {
-            doorCount.incrementGreenDoorCount();
+        } else if (colorOfCard.equals("green")&& counts.getGreenDoorCount() <= 1) {
+            counts.incrementGreenDoorCount();
             return;
-        } else if (colorOfCard.equals("brown")&& doorCount.getBrownDoorCount() <= 1) {
-            doorCount.incrementBrownDoorCount();
+        } else if (colorOfCard.equals("brown")&& counts.getBrownDoorCount() <= 1) {
+            counts.incrementBrownDoorCount();
             return;
         }
     }
     //*********************nightmare stuff*****************************//
     public void updateNightmareCount(){
         if ((lab.getCard(lab.getSize()-1)).getType().equals("nightmare")){
-            nightmareCount.incrementNightmareCount();
+            counts.incrementNightmareCount();
         }
     }
     public int getNightmareCount(){
-        return nightmareCount.getNightmareCount();
+        return counts.getNightmareCount();
     }
     //*****************Discard Pile stuff***************************//
     public String getColorAndTypeOfTopDiscard(){
@@ -246,6 +242,5 @@ public class Facade {
     private Hand hand = new Hand();
     private Labyrinth lab = new Labyrinth();
     private DiscardPile discardPile = new DiscardPile();
-    private DoorCount doorCount = new DoorCount();
-    private NightmareCount nightmareCount = new NightmareCount();
+    private Counts counts = new Counts();
 }
