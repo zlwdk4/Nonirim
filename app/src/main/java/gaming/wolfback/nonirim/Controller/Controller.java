@@ -1,9 +1,5 @@
 package gaming.wolfback.nonirim.Controller;
 
-import android.util.Log;
-
-import gaming.wolfback.nonirim.Model.Labyrinth;
-
 /**
  * Created by Jarren on 3/19/2016.
  */
@@ -14,7 +10,10 @@ public class Controller {
         if(didScore()){
             facade.updateDoorCount();
         }
-        facade.displayDoorCounts();
+        facade.drawFromDeckIntoHand();
+    }
+    public void discardCard(int cardNum){
+        facade.discardCardFromHand(cardNum);
         facade.drawFromDeckIntoHand();
     }
     public boolean isValidPlay(int indexOfCardInHand){
@@ -73,7 +72,19 @@ public class Controller {
         return facade.getBrownDoorCount();
     }
 
+    public String getColorAndTypeOfTopDiscard(){
+        return facade.getColorAndTypeOfTopDiscard();
+    }
 
+    public String getCardColorAndTypeFromHand(int cardNum){
+        return facade.getCardColorAndTypeFromHand(cardNum);
+    }
+    public String getCardColorAndTypeFromLab(int cardNum){
+        return facade.getCardColorAndTypeFromLab(cardNum);
+    }
+    public int getNightmareCount(){
+        return facade.getNightmareCount();
+    }
     private Facade facade = new Facade();
     private Rules rules = new Rules();
 }

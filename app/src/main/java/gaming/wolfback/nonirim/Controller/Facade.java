@@ -1,7 +1,5 @@
 package gaming.wolfback.nonirim.Controller;
 
-import android.util.Log;
-
 import gaming.wolfback.nonirim.Model.DoorCount;
 import gaming.wolfback.nonirim.Model.Hand;
 import gaming.wolfback.nonirim.Model.Labyrinth;
@@ -71,7 +69,6 @@ public class Facade {
             Card c3 = new Card(i, brown, key);
             i++;
             drawPile.addCardToDeck(c);
-            //drawPile2.addCardToDeck(c);
             drawPile.addCardToDeck(c1);
             drawPile.addCardToDeck(c2);
             drawPile.addCardToDeck(c3);
@@ -101,7 +98,7 @@ public class Facade {
         drawPile.shuffle();
         drawPile.shuffle();
         drawPile.shuffle();
-        //hand = new Hand(drawPile.draw(), drawPile.draw(),drawPile.draw(),drawPile.draw(),drawPile.draw());
+
         int j = 0;
         while (j!=5){
             drawFromDeckIntoHandInitial();
@@ -213,7 +210,6 @@ public class Facade {
 
     public void updateDoorCount (){
         String colorOfCard = lab.getCard(lab.getSize() - 1).getColor();
-        Log.d("TESTLOG colorOfCard", colorOfCard);
         if (colorOfCard.equals("red") && doorCount.getRedDoorCount() <= 1) {
             doorCount.incrementRedDoorCount();
             return;
@@ -228,29 +224,15 @@ public class Facade {
             return;
         }
     }
-    public void displayDoorCounts(){
-        Log.d("TESTLOG red: ", Integer.toString(getRedDoorCount()));
-        Log.d("TESTLOG blue: ", Integer.toString(getBlueDoorCount()));
-        Log.d("TESTLOG green: ", Integer.toString(getGreenDoorCount()));
-        Log.d("TESTLOG brown: ", Integer.toString(getBrownDoorCount()));
-    }
     //*********************nightmare stuff*****************************//
     public void updateNightmareCount(){
         if ((lab.getCard(lab.getSize()-1)).getType().equals("nightmare")){
             nightmareCount.incrementNightmareCount();
         }
     }
-
     public int getNightmareCount(){
         return nightmareCount.getNightmareCount();
     }
-    //*******************rules stuff*********************************//
-    public boolean isValidPlay(int indexOfCardInHand){
-        String curLabType = lab.getCard(lab.getSize()-1).getType();
-        String curHandType = hand.getCard(indexOfCardInHand).getType();
-        return (rules.isValidPlayRegardingType(curLabType, curHandType));
-    }
-
     //*****************Discard Pile stuff***************************//
     public String getColorAndTypeOfTopDiscard(){
         String colorAndType = (discardPile.top().getColor() + discardPile.top().getType());
@@ -265,6 +247,5 @@ public class Facade {
     private Labyrinth lab = new Labyrinth();
     private DiscardPile discardPile = new DiscardPile();
     private DoorCount doorCount = new DoorCount();
-    private Rules rules = new Rules();
     private NightmareCount nightmareCount = new NightmareCount();
 }

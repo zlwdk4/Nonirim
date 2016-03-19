@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,14 +13,11 @@ import android.widget.TextView;
 import android.view.View.OnClickListener;
 
 import gaming.wolfback.nonirim.Controller.Controller;
-import gaming.wolfback.nonirim.Controller.Facade;
 import gaming.wolfback.nonirim.R;
 
 public class MainActivity extends AppCompatActivity implements OnClickListener {
-    private Facade theFacade = new Facade();
     private Controller controller = new Controller();
     private ImageButton[] handButtons;
-    private ImageView [] labViews;
     private TextView doorRed;
     private TextView doorBlue;
     private TextView doorGreen;
@@ -65,14 +61,14 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     }
 
     private void setHeightAndWidthOfHandButtons(int h, int w){
-        for (int i = 0; i < handButtons.length; ++i){
-            handButtons[i].getLayoutParams().width = w;
-            handButtons[i].getLayoutParams().height = h;
+        for (ImageView imageButton : handButtons){
+            imageButton.getLayoutParams().width = w;
+            imageButton.getLayoutParams().height = h;
         }
     }
 
     private void setHeightAndWidthOfLab(int h, int w){
-        labViews = new ImageView[8];
+        ImageView[] labViews = new ImageView[8];
         for (int i = 0; i < labViews.length; ++i){
             String labID = "LabId" + (i);
             int resID = getResources().getIdentifier(labID, "id", getPackageName());
@@ -96,6 +92,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                         public void onClick(DialogInterface dialog, int id) {
                             controller.playCard(cardNum);
                             updateDoorCount();
+                            updateNightmareCount();
                             incrementIndexOfLabUI();
                             shiftCardsInLab();
                             displayCardsInLab();
@@ -104,9 +101,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                     });
                     builder.setNegativeButton("Discard", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            discardCard(cardNum);
+                            controller.discardCard(cardNum);
                             updateImageOfDiscard();
-                            drawNewCard();
                             updateImageOfHand(cardNum);
                         }
                     });
@@ -114,9 +110,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                     break;
                 }
                 else{
-                    discardCard(cardNum);
+                    controller.discardCard(cardNum);
                     updateImageOfDiscard();
-                    drawNewCard();
                     updateImageOfHand(cardNum);
                     break;
                 }
@@ -125,28 +120,21 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     }
 
 //*************************Discard UI Stuff*******************************************************************************//////
-    private void discardCard(int cardNum){
-        theFacade.discardCardFromHand(cardNum);
-    }
     private void updateImageOfDiscard(){
-        String colorAndTypeOfCard = theFacade.getColorAndTypeOfTopDiscard();
+        String colorAndTypeOfCard = controller.getColorAndTypeOfTopDiscard();
         int cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
         discardPileView.setImageResource(cardImageResourceId);
     }
 //*****************************Hand UI stuff************************************************************************************////
-private void drawNewCard(){
-        theFacade.drawFromDeckIntoHand();
-    }
-
     private void updateImageOfHand(int cardNum){
-        String colorAndTypeOfCard = theFacade.getCardColorAndTypeFromHand(cardNum);
+        String colorAndTypeOfCard = controller.getCardColorAndTypeFromHand(cardNum);
         int cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
         handButtons[cardNum].setImageResource(cardImageResourceId);
     }
 
     private void setInitialCardsInHand() {
         for (int i = 0; i < handButtons.length; ++i) {
-            String colorAndTypeOfCard = theFacade.getCardColorAndTypeFromHand(i);
+            String colorAndTypeOfCard = controller.getCardColorAndTypeFromHand(i);
             int cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
             handButtons[i].setImageResource(cardImageResourceId);
         }
@@ -154,8 +142,7 @@ private void drawNewCard(){
 //************************************************************************************************************************************
 
     private void updateNightmareCount(){
-        theFacade.updateNightmareCount();
-        nightmareView.setText(Integer.toString(theFacade.getNightmareCount()));
+        nightmareView.setText(Integer.toString(controller.getNightmareCount()));
     }
 
     private void updateDoorCount(){
@@ -170,15 +157,10 @@ private void drawNewCard(){
 
     private int getLabResourceId (int indexOfLab){
         String labIdName = "LabId" + indexOfLab;
-        int resID = getResources().getIdentifier(labIdName, "id", getPackageName());
-        return resID;
+        return getResources().getIdentifier(labIdName, "id", getPackageName());
     }
 
     //*********************Lab UI stuff*********************************************************************************************************************///
-    private void putCardInLab(int cardNum){
-        theFacade.playCardIntoLabAndRemoveCardFromHand(cardNum);
-    }
-
     private void incrementIndexOfLabUI(){
         currentIndexOfLabUI++;
     }
@@ -200,7 +182,7 @@ private void drawNewCard(){
     private void displayCardsInLab(){
         int i = currentIndexOfLabToBePulledFrom;
         for (currentIndexOfLabUI = 0; currentIndexOfLabUI < 7; ++currentIndexOfLabUI){
-            String colorAndTypeOfCard = theFacade.getCardColorAndTypeFromLab(i);
+            String colorAndTypeOfCard = controller.getCardColorAndTypeFromLab(i);
             if (colorAndTypeOfCard.equals("null"))
                 break;
             int cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);

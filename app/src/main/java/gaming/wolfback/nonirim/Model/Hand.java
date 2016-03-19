@@ -1,7 +1,5 @@
 package gaming.wolfback.nonirim.Model;
 
-import android.util.Log;
-
 import gaming.wolfback.nonirim.Utility.Card;
 
 /**
