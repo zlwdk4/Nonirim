@@ -53,10 +53,9 @@
         android:layout_height="60dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/LabId0"
-        android:layout_below="@+id/discardPileId"
+        android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="21dp" />
+        android:layout_alignParentStart="true" />
 
     <ImageView
         android:layout_width="40dp"
@@ -122,7 +121,8 @@
         android:layout_alignTop="@+id/LabId6"
         android:layout_alignRight="@+id/LabId6"
         android:layout_alignEnd="@+id/LabId6"
-        android:layout_alignBottom="@+id/LabId6" />
+        android:layout_alignBottom="@+id/LabId6"
+        android:backgroundTint="#3dbfff" />
 
 
     <ImageView
@@ -140,6 +140,7 @@
         android:layout_width="30dp"
         android:layout_height="45dp"
         android:text=""
+        android:layout_marginRight="185dp"
         android:id="@+id/discardPileId"
         android:layout_alignParentTop="true"
         android:layout_alignRight="@+id/Deck"
@@ -211,6 +212,47 @@
         android:layout_alignTop="@+id/doorIdBrown"
         android:layout_toLeftOf="@+id/LabId2"
         android:layout_toStartOf="@+id/LabId2" />
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/crystalBall"
+        android:background="@drawable/crystalball"
+        android:layout_below="@+id/discardPileId"
+        android:layout_alignLeft="@+id/Deck"
+        android:layout_alignStart="@+id/Deck" />
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="75dp"
+        android:id="@+id/dicardPile"
+        android:background="@drawable/discardpile"
+        android:layout_marginRight="25dp"
+        android:layout_marginEnd="25dp"
+        android:layout_below="@+id/discardPileId"
+        android:layout_toLeftOf="@+id/crystalBall"
+        android:layout_toStartOf="@+id/crystalBall" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Play Card"
+        android:id="@+id/playCard"
+        android:autoText="false"
+        android:background="#9bfff60f"
+        android:longClickable="false"
+        android:textStyle="bold"
+        android:singleLine="false"
+        android:capitalize="characters"
+        android:gravity="center_vertical|center_horizontal"
+        android:layout_alignLeft="@+id/dicardPile"
+        android:layout_alignStart="@+id/dicardPile"
+        android:layout_below="@+id/dicardPile"
+        android:layout_alignRight="@+id/dicardPile"
+        android:layout_alignEnd="@+id/dicardPile"
+        android:layout_marginTop="15dp"
+        android:layout_above="@+id/hand4" />
 
 
 </RelativeLayout>
