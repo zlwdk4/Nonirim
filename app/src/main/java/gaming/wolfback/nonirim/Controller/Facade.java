@@ -1,5 +1,7 @@
 package gaming.wolfback.nonirim.Controller;
 
+import android.util.Log;
+
 import gaming.wolfback.nonirim.Model.Counts;
 import gaming.wolfback.nonirim.Model.Hand;
 import gaming.wolfback.nonirim.Model.Labyrinth;
@@ -107,7 +109,19 @@ public class Facade {
     }
     //**************************Hand stuff***********************************************//
     public String getCardColorAndTypeFromHand(int indexOfCard){
-        String colorAndTypeOfCard = (hand.getCard(indexOfCard).getColor() + hand.getCard(indexOfCard).getType());
+        String colorAndTypeOfCard = "";
+        try {
+            colorAndTypeOfCard = (hand.getCard(indexOfCard).getColor() + hand.getCard(indexOfCard).getType());
+        }
+        catch(IndexOutOfBoundsException e){
+            Log.d("TESTLOG", "Facade index out of bounds exception caught");
+            return "nightmarenightmare";
+        }
+        catch (NullPointerException e){
+            Log.d("TESTLOG", "Facade nullptr exception caught");
+            drawFromDeckIntoHand();
+            colorAndTypeOfCard = (hand.getCard(indexOfCard).getColor() + hand.getCard(indexOfCard).getType());
+        }
         if (colorAndTypeOfCard.equals("nightmarenightmare")) {
             colorAndTypeOfCard = "nightmare";
         }
