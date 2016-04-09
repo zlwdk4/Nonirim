@@ -1,9 +1,8 @@
 package gaming.wolfback.nonirim.Controller;
 
-import gaming.wolfback.nonirim.Model.DoorCount;
+import gaming.wolfback.nonirim.Model.Counts;
 import gaming.wolfback.nonirim.Model.Hand;
 import gaming.wolfback.nonirim.Model.Labyrinth;
-import gaming.wolfback.nonirim.Model.NightmareCount;
 import gaming.wolfback.nonirim.Utility.Card;
 import gaming.wolfback.nonirim.Model.DiscardPile;
 import gaming.wolfback.nonirim.Model.DrawPile;
@@ -69,7 +68,6 @@ public class Facade {
             Card c3 = new Card(i, brown, key);
             i++;
             drawPile.addCardToDeck(c);
-            //drawPile2.addCardToDeck(c);
             drawPile.addCardToDeck(c1);
             drawPile.addCardToDeck(c2);
             drawPile.addCardToDeck(c3);
@@ -99,7 +97,7 @@ public class Facade {
         drawPile.shuffle();
         drawPile.shuffle();
         drawPile.shuffle();
-        //hand = new Hand(drawPile.draw(), drawPile.draw(),drawPile.draw(),drawPile.draw(),drawPile.draw());
+
         int j = 0;
         while (j!=5){
             drawFromDeckIntoHandInitial();
@@ -138,6 +136,15 @@ public class Facade {
             colorAndTypeOfCard = "nightmare";
         }
         return colorAndTypeOfCard;
+    }
+    public int getLabSize(){
+        return lab.getSize();
+    }
+    public String getLabColor(int indexOfCard){
+        return lab.getCard(indexOfCard).getColor();
+    }
+    public String getLabType(int indexOfCard){
+        return lab.getCard(indexOfCard).getType();
     }
     //************************Deck stuff*******************************//
     public String getCardTypeFromDeck(int offset){
@@ -182,82 +189,46 @@ public class Facade {
 
     //*********************door stuff*****************************//
     public int getRedDoorCount() {
-        return doorCount.getRedDoorCount();
+        return counts.getRedDoorCount();
     }
 
     public int getBlueDoorCount() {
-        return doorCount.getBlueDoorCount();
+        return counts.getBlueDoorCount();
     }
 
     public int getGreenDoorCount() {
-        return doorCount.getGreenDoorCount();
+        return counts.getGreenDoorCount();
     }
 
     public int getBrownDoorCount() {
-        return doorCount.getBrownDoorCount();
+        return counts.getBrownDoorCount();
     }
 
-    public boolean updateDoorCount (){
-        int numCardsToGiveToDidScore = numCardColorsToGiveToDidScore();
-        String[] colorsOfCards = colorsOfCards(numCardsToGiveToDidScore);
-
-        if(rules.didScore(colorsOfCards, numCardsToGiveToDidScore)) {
-            String colorOfCard = lab.getCard(lab.getSize() - 1).getColor();
-            if (colorOfCard.equals("red") && doorCount.getRedDoorCount() <= 1) {
-                doorCount.incrementRedDoorCount();
-                return true;
-            } else if (colorOfCard.equals("blue")&& doorCount.getBlueDoorCount() <= 1) {
-                doorCount.incrementBlueDoorCount();
-                return true;
-            } else if (colorOfCard.equals("green")&& doorCount.getGreenDoorCount() <= 1) {
-                doorCount.incrementGreenDoorCount();
-                return true;
-            } else if (colorOfCard.equals("brown")&& doorCount.getBrownDoorCount() <= 1) {
-                doorCount.incrementBrownDoorCount();
-                return true;
-            }
+    public void updateDoorCount (){
+        String colorOfCard = lab.getCard(lab.getSize() - 1).getColor();
+        if (colorOfCard.equals("red") && counts.getRedDoorCount() <= 1) {
+            counts.incrementRedDoorCount();
+            return;
+        } else if (colorOfCard.equals("blue")&& counts.getBlueDoorCount() <= 1) {
+            counts.incrementBlueDoorCount();
+            return;
+        } else if (colorOfCard.equals("green")&& counts.getGreenDoorCount() <= 1) {
+            counts.incrementGreenDoorCount();
+            return;
+        } else if (colorOfCard.equals("brown")&& counts.getBrownDoorCount() <= 1) {
+            counts.incrementBrownDoorCount();
+            return;
         }
-        return false;
-    }
-
-    private int numCardColorsToGiveToDidScore(){
-        int labSize = lab.getSize();
-        if (labSize < 3){
-            return 0;
-        }
-        else if (labSize==3){
-            return 3;
-        }
-        else if (labSize >=6){
-            return 6;
-        }
-        else return 4;
-    }
-
-    private String[] colorsOfCards (int numCardsToGiveToDidScore){
-        String[] colorsOfCards = new String[6];
-        for (int i = 0; i < numCardsToGiveToDidScore; ++i) {
-            colorsOfCards[i] = (lab.getCard(lab.getSize() - i - 1).getColor());
-        }
-        return colorsOfCards;
     }
     //*********************nightmare stuff*****************************//
     public void updateNightmareCount(){
         if ((lab.getCard(lab.getSize()-1)).getType().equals("nightmare")){
-            nightmareCount.incrementNightmareCount();
+            counts.incrementNightmareCount();
         }
     }
-
     public int getNightmareCount(){
-        return nightmareCount.getNightmareCount();
+        return counts.getNightmareCount();
     }
-    //*******************rules stuff*********************************//
-    public boolean isValidPlay(int indexOfCardInHand){
-        String curLabType = lab.getCard(lab.getSize()-1).getType();
-        String curHandType = hand.getCard(indexOfCardInHand).getType();
-        return (rules.isValidPlayRegardingType(curLabType, curHandType));
-    }
-
     //*****************Discard Pile stuff***************************//
     public String getColorAndTypeOfTopDiscard(){
         String colorAndType = (discardPile.top().getColor() + discardPile.top().getType());
@@ -271,7 +242,5 @@ public class Facade {
     private Hand hand = new Hand();
     private Labyrinth lab = new Labyrinth();
     private DiscardPile discardPile = new DiscardPile();
-    private DoorCount doorCount = new DoorCount();
-    private Rules rules = new Rules();
-    private NightmareCount nightmareCount = new NightmareCount();
+    private Counts counts = new Counts();
 }

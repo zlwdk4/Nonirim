@@ -1,26 +1,39 @@
 package gaming.wolfback.nonirim.View;
 
+import android.content.ClipData;
 import android.content.DialogInterface;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Point;
+import android.graphics.drawable.ColorDrawable;
+import android.media.Image;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.DragEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
+import android.widget.Toast;
+
 
 import com.squareup.picasso.Picasso;
 
+import org.w3c.dom.Text;
+
 import gaming.wolfback.nonirim.Controller.Facade;
+import gaming.wolfback.nonirim.Controller.Controller;
 import gaming.wolfback.nonirim.R;
 
-public class MainActivity extends AppCompatActivity implements OnClickListener {
-    private Facade theFacade = new Facade();
+public class MainActivity extends AppCompatActivity implements OnClickListener, View.OnTouchListener, View.OnDragListener {
+    private Controller controller = new Controller();
     private ImageButton[] handButtons;
-    private ImageView [] labViews;
     private TextView doorRed;
     private TextView doorBlue;
     private TextView doorGreen;
@@ -31,18 +44,95 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     //currentIndexOfLabToBePulledFrom keeps track of which index in the lab we should be pulling from
     private int currentIndexOfLabToBePulledFrom;
     private ImageView discardPileView;
+    private ImageView lastLab;
     private int cardNum;
+    private float x,y;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         setOnClickListenersForHand();
+
+
         setInitialCardsInHand();
-        setHeightAndWidthOfHandButtons(90,60);
+        setHeightAndWidthOfHandButtons(90, 60);
         setHeightAndWidthOfLab(90, 60);
+
+
+
+
+        View.OnDragListener dropListner = new View.OnDragListener() {
+            @Override
+            public boolean onDrag(View v, DragEvent event) {
+                // Log.d("v id", String.valueOf(v.getId()));
+                //Log.d("event id", String.valueOf(getLabResourceId(7)));
+                int dragEvent = event.getAction();
+                switch (dragEvent){
+
+
+                    case DragEvent.ACTION_DROP:
+                        View dragged = (View) event.getLocalState();
+
+                        if (v.getId() == R.id.playCard){
+                            ClipData theData = event.getClipData();
+                            int theInd;
+                            //CharSequence theChars = theData.getItemAt(0).toStrineg();
+                            String theS = theData.getItemAt(0).coerceToText(getApplicationContext()).toString();
+                            //theInd = Integer.parseInt(theData.getItemAt(0).toString());
+                            Character theC = theS.charAt(theS.length() - 1);
+                            theInd = Integer.parseInt(theC.toString());
+                            //Log.d("cardNum = ", Integer.toString(theInd));
+
+                            playCard(theInd);
+                        }
+
+                        else if (v.getId() == R.id.crystalBall){
+                            String proph = "Prophecy failed :(";
+                            proph = controller.getCardTypeFromHand(cardNum);
+                            if(controller.getCardTypeFromHand(cardNum) == "key"){
+                                proph = "Prophecy successful :)";
+                                prophecize(cardNum);
+                            }
+                            Toast cbToast = Toast.makeText(getApplicationContext(), proph, Toast.LENGTH_LONG);
+                            cbToast.show();
+                        }
+
+                        else if (v.getId() == R.id.dicardPile){
+                            ClipData theData = event.getClipData();
+                            int theInd;
+                            String theS = theData.getItemAt(0).coerceToText(getApplicationContext()).toString();
+                            Character theC = theS.charAt(theS.length() - 1);
+                            theInd = Integer.parseInt(theC.toString());
+                            discardCard(theInd);
+                        }
+                        Log.d("here it", "made it");
+
+                        //
+                        break;
+                    case DragEvent.ACTION_DRAG_STARTED:
+                        //
+                        break;
+                    case DragEvent.ACTION_DRAG_ENTERED:
+                        //v
+                        Log.d("IT HAS", "ENTERED!!!!");
+                        //playCard(cardNum);
+                        break;
+                    case DragEvent.ACTION_DRAG_EXITED:
+                        //
+                        break;
+                    case DragEvent.ACTION_DRAG_ENDED:
+                        //
+                        break;
+                }
+                return true;
+            }
+        };
+
 
 
         discardPileView = (ImageView) findViewById(R.id.discardPileId);
@@ -52,6 +142,16 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         doorBrown = (TextView) findViewById(R.id.doorIdBrown);
         nightmareView = (TextView) findViewById(R.id.nightmareId);
 
+        lastLab = (ImageView) findViewById(R.id.LabId7);
+        ImageView discPile = (ImageView) findViewById(R.id.dicardPile);
+        ImageView crystalBall = (ImageView) findViewById(R.id.crystalBall);
+        TextView playCard = (TextView) findViewById(R.id.playCard);
+
+        //TextView theL = (TextView) findViewById(R.id.theListener);
+        playCard.setOnDragListener(dropListner);
+        discPile.setOnDragListener(dropListner);
+        crystalBall.setOnDragListener(dropListner);
+        //nightmareView.setOnDragListener(this);
     }
     private void setOnClickListenersForHand(){
         handButtons = new ImageButton[5];
@@ -60,10 +160,12 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
             int resID = getResources().getIdentifier(buttonID, "id", getPackageName());
             handButtons[i] = ((ImageButton) findViewById(resID));
             handButtons[i].setOnClickListener(this);
+            handButtons[i].setOnTouchListener(this);
         }
     }
 
     private void setHeightAndWidthOfHandButtons(int h, int w){
+
        /* for (int i = 0; i < handButtons.length; ++i){
             handButtons[i].getLayoutParams().width = w;
             handButtons[i].getLayoutParams().height = h;
@@ -72,6 +174,16 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
     private void setHeightAndWidthOfLab(int h, int w){
        /* labViews = new ImageView[8];
+=======
+        for (ImageView imageButton : handButtons){
+            imageButton.getLayoutParams().width = w;
+            imageButton.getLayoutParams().height = h;
+        }
+    }
+
+    private void setHeightAndWidthOfLab(int h, int w){
+        ImageView[] labViews = new ImageView[8];
+>>>>>>> cef1f8aadf5010edb3399d2ad30b7241d4797d0d
         for (int i = 0; i < labViews.length; ++i){
             String labID = "LabId" + (i);
             int resID = getResources().getIdentifier(labID, "id", getPackageName());
@@ -82,33 +194,133 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         } */
 
     }
+
     @Override
-    public void onClick(View v) {
+    public boolean onTouch(View v, MotionEvent me){
+        x = me.getX();
+        y = me.getY();
+
+        cardNum = R.id.hand0;
+
         for (cardNum = 0; cardNum < handButtons.length; cardNum++) {
             if (handButtons[cardNum].getId() == v.getId()) {
-                if(theFacade.isValidPlay(cardNum)) {
+                if (controller.isValidPlay(cardNum)) {
+                    Log.d("CardNum in OnTouch" , Integer.toString(cardNum));
+
+                    DragShadow dragShadow = new DragShadow(v);
+
+                    //used to pass the metadata through (card id being used)
+                    ClipData data = ClipData.newPlainText("id", String.valueOf(cardNum));
+
+                    v.startDrag(data, dragShadow, v, 0);
+                }
+
+            }
+
+        }
+
+
+
+        return true;
+    }
+
+    @Override
+    public boolean onDrag(View v, DragEvent event) {
+        Log.i("here it", "ISSSSSSSSSSSS");
+        int dragAction = event.getAction();
+        switch (dragAction){
+
+            case DragEvent.ACTION_DRAG_STARTED:
+                //
+                Log.i("Drag has", "STARTED");
+                break;
+            case DragEvent.ACTION_DRAG_ENTERED:
+                Log.i("here it", "asdfasdfasdf");
+                //
+                playCard(cardNum);
+                break;
+            case DragEvent.ACTION_DRAG_EXITED:
+                //
+                break;
+            case DragEvent.ACTION_DROP:
+                View dragged = (View) event.getLocalState();
+                View target = v;
+
+                if (target.getId() == getLabResourceId(7)){
+
+                    ClipData theData = event.getClipData();
+                    cardNum = Integer.parseInt(theData.toString());
+                    Log.d("cardNum = ", Integer.toString(cardNum));
+
+
+                    playCard(cardNum);
+                }
+                Log.i("here it", "made it");
+
+                //
+                break;
+            case DragEvent.ACTION_DRAG_ENDED:
+                //
+                break;
+        }
+        return false;
+    }
+
+
+    private class DragShadow extends View.DragShadowBuilder{
+
+        ColorDrawable greyBox;
+
+
+        public DragShadow(View view) {
+            super(view);
+            greyBox = new ColorDrawable(Color.BLACK);
+
+        }
+
+        @Override
+        public void onDrawShadow(Canvas canvas) {
+            greyBox.draw(canvas);
+        }
+
+        @Override
+        public void onProvideShadowMetrics(Point shadowSize, Point shadowTouchPoint) {
+            View v = getView();
+
+            int height = (int)v.getHeight()/2;
+            int width = (int)v.getWidth()/2;
+
+            greyBox.setBounds(0,0,width, height);
+
+
+            shadowSize.set(width, height);
+
+            shadowTouchPoint.set((int)width/2, (int)height/2);
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+
+
+
+
+        for (cardNum = 0; cardNum < handButtons.length; cardNum++) {
+            if (handButtons[cardNum].getId() == v.getId()) {
+                if(controller.isValidPlay(cardNum)) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
                     builder.setTitle("Play or Discard");
                     builder.setMessage("Do you want to play or discard this card?");
                     builder.setCancelable(true);
                     builder.setPositiveButton("Play", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            putCardInLab(cardNum);
-                            incrementIndexOfLabUI();
-                            shiftCardsInLab();
-                            updateNightmareCount();
-                            updateDoorCount();
-                            displayCardsInLab();
-                            drawNewCard();
-                            updateImageOfHand(cardNum);
+                            playCard(cardNum);
                         }
+
                     });
                     builder.setNegativeButton("Discard", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             discardCard(cardNum);
-                            updateImageOfDiscard();
-                            drawNewCard();
-                            updateImageOfHand(cardNum);
                         }
                     });
                     builder.show();
@@ -116,32 +328,41 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                 }
                 else{
                     discardCard(cardNum);
-                    updateImageOfDiscard();
-                    drawNewCard();
-                    updateImageOfHand(cardNum);
                     break;
                 }
             }
         }
     }
-
-//*************************Discard UI Stuff*******************************************************************************//////
-    private void discardCard(int cardNum){
-        theFacade.discardCardFromHand(cardNum);
+    private void playCard(int cardNum){
+        controller.playCard(cardNum);
+        displayDoorCounts();
+        displayNightmareCount();
+        incrementIndexOfLabUI();
+        shiftCardsInLab();
+        displayCardsInLab();
+        updateImageOfHand(cardNum);
     }
+
+    private void discardCard(int cardNum){
+        controller.discardCard(cardNum);
+        updateImageOfDiscard();
+        updateImageOfHand(cardNum);
+    }
+
+    private void prophecize(int cardNum){
+        controller.prophecize(cardNum);
+    }
+
+    //*************************Discard UI Stuff*******************************************************************************//////
     private void updateImageOfDiscard(){
-        String colorAndTypeOfCard = theFacade.getColorAndTypeOfTopDiscard();
+        String colorAndTypeOfCard = controller.getColorAndTypeOfTopDiscard();
         int cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
         Picasso.with(this).load(cardImageResourceId).fit().into(discardPileView);
         //discardPileView.setImageResource(cardImageResourceId);
     }
-//*****************************Hand UI stuff************************************************************************************////
-private void drawNewCard(){
-        theFacade.drawFromDeckIntoHand();
-    }
-
+    //*****************************Hand UI stuff************************************************************************************////
     private void updateImageOfHand(int cardNum){
-        String colorAndTypeOfCard = theFacade.getCardColorAndTypeFromHand(cardNum);
+        String colorAndTypeOfCard = controller.getCardColorAndTypeFromHand(cardNum);
         int cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
         Picasso.with(this).load(cardImageResourceId).fit().into(handButtons[cardNum]);
         //handButtons[cardNum].setImageResource(cardImageResourceId);
@@ -149,7 +370,7 @@ private void drawNewCard(){
 
     private void setInitialCardsInHand() {
         for (int i = 0; i < handButtons.length; ++i) {
-            String colorAndTypeOfCard = theFacade.getCardColorAndTypeFromHand(i);
+            String colorAndTypeOfCard = controller.getCardColorAndTypeFromHand(i);
             int cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
             Picasso.with(this).load(cardImageResourceId).fit().into(handButtons[cardNum]);
         }
@@ -157,18 +378,15 @@ private void drawNewCard(){
     }
 //************************************************************************************************************************************
 
-    private void updateNightmareCount(){
-        theFacade.updateNightmareCount();
-        nightmareView.setText(Integer.toString(theFacade.getNightmareCount()));
+    private void displayNightmareCount(){
+        nightmareView.setText(Integer.toString(controller.getNightmareCount()));
     }
 
-    private void updateDoorCount(){
-        if(theFacade.updateDoorCount()) {
-            doorRed.setText(Integer.toString(theFacade.getRedDoorCount()));
-            doorBlue.setText(Integer.toString(theFacade.getBlueDoorCount()));
-            doorGreen.setText(Integer.toString(theFacade.getGreenDoorCount()));
-            doorBrown.setText(Integer.toString(theFacade.getBrownDoorCount()));
-        }
+    private void displayDoorCounts(){
+        doorRed.setText(Integer.toString(controller.getRedDoorCount()));
+        doorBlue.setText(Integer.toString(controller.getBlueDoorCount()));
+        doorGreen.setText(Integer.toString(controller.getGreenDoorCount()));
+        doorBrown.setText(Integer.toString(controller.getBrownDoorCount()));
     }
     private int getCardImageResourceId (String colorAndType) {
         return getResources().getIdentifier(colorAndType, "drawable", getPackageName());
@@ -176,15 +394,10 @@ private void drawNewCard(){
 
     private int getLabResourceId (int indexOfLab){
         String labIdName = "LabId" + indexOfLab;
-        int resID = getResources().getIdentifier(labIdName, "id", getPackageName());
-        return resID;
+        return getResources().getIdentifier(labIdName, "id", getPackageName());
     }
 
     //*********************Lab UI stuff*********************************************************************************************************************///
-    private void putCardInLab(int cardNum){
-        theFacade.playCardIntoLabAndRemoveCardFromHand(cardNum);
-    }
-
     private void incrementIndexOfLabUI(){
         currentIndexOfLabUI++;
     }
@@ -206,7 +419,7 @@ private void drawNewCard(){
     private void displayCardsInLab(){
         int i = currentIndexOfLabToBePulledFrom;
         for (currentIndexOfLabUI = 0; currentIndexOfLabUI < 7; ++currentIndexOfLabUI){
-            String colorAndTypeOfCard = theFacade.getCardColorAndTypeFromLab(i);
+            String colorAndTypeOfCard = controller.getCardColorAndTypeFromLab(i);
             if (colorAndTypeOfCard.equals("null"))
                 break;
             int cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
