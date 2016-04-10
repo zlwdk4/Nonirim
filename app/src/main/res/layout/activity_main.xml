@@ -242,18 +242,7 @@
         android:layout_below="@+id/discardPileId"
         android:layout_toLeftOf="@+id/crystalBall"
         android:layout_toStartOf="@+id/crystalBall" />
-<!--
-    <TextView
-        android:layout_width="120dp"
-        android:layout_height="55dp"
-        android:text="Play Card"
-        android:id="@+id/playCard"
-        android:gravity="center_vertical|center_horizontal"
-        android:layout_below="@+id/crystalBall"
-        android:background="#9bfff60f"
-        android:layout_alignRight="@+id/dicardPile"
-        android:layout_alignEnd="@+id/dicardPile" />
--->
+
    <TextView
         android:layout_width="100dp"
         android:layout_height="55dp"

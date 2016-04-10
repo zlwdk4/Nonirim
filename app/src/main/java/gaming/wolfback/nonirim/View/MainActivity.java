@@ -1,13 +1,10 @@
 package gaming.wolfback.nonirim.View;
 
 import android.content.ClipData;
-import android.content.DialogInterface;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
-import android.media.Image;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,19 +16,15 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.view.View.OnClickListener;
 import android.widget.Toast;
 
 
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
-
-import gaming.wolfback.nonirim.Controller.Facade;
 import gaming.wolfback.nonirim.Controller.Controller;
 import gaming.wolfback.nonirim.R;
 
-public class MainActivity extends AppCompatActivity implements OnClickListener, View.OnTouchListener, View.OnDragListener {
+public class MainActivity extends AppCompatActivity implements View.OnTouchListener, View.OnDragListener {
     private Controller controller = new Controller();
     private ImageButton[] handButtons;
     private TextView doorRed;
@@ -56,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        setOnClickListenersForHand();
+        setOnTouchListenersForHand();
 
 
         setInitialCardsInHand();
@@ -145,13 +138,12 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
         //nightmareView.setOnDragListener(this);
     }
 
-    private void setOnClickListenersForHand() {
+    private void setOnTouchListenersForHand() {
         handButtons = new ImageButton[5];
         for (int i = 0; i < handButtons.length; ++i) {
             String buttonID = "hand" + (i);
             int resID = getResources().getIdentifier(buttonID, "id", getPackageName());
             handButtons[i] = ((ImageButton) findViewById(resID));
-            handButtons[i].setOnClickListener(this);
             handButtons[i].setOnTouchListener(this);
         }
     }
@@ -208,7 +200,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
             }
 
         }
-
 
         return true;
     }
@@ -288,35 +279,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
         }
     }
 
-    @Override
-    public void onClick(View v) {
-        for (cardNum = 0; cardNum < handButtons.length; cardNum++) {
-            if (handButtons[cardNum].getId() == v.getId()) {
-                if (controller.isValidPlay(cardNum)) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                    builder.setTitle("Play or Discard");
-                    builder.setMessage("Do you want to play or discard this card?");
-                    builder.setCancelable(true);
-                    builder.setPositiveButton("Play", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            playCard(cardNum);
-                        }
-
-                    });
-                    builder.setNegativeButton("Discard", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            discardCard(cardNum);
-                        }
-                    });
-                    builder.show();
-                    break;
-                } else {
-                    discardCard(cardNum);
-                    break;
-                }
-            }
-        }
-    }
 
     private void playCard(int cardNum) {
         controller.playCard(cardNum);
