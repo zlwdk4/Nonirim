@@ -14,7 +14,10 @@
         android:id="@+id/hand0"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+        android:layout_alignParentStart="true"
+        android:background="@drawable/backofcard"
+        android:scaleType="fitXY"
+        />
 
     <ImageButton
         android:layout_width="40dp"
@@ -22,7 +25,10 @@
         android:id="@+id/hand1"
         android:layout_alignBottom="@+id/hand0"
         android:layout_toRightOf="@+id/hand0"
-        android:layout_toEndOf="@+id/hand0"/>
+        android:layout_toEndOf="@+id/hand0"
+        android:background="@drawable/backofcard"
+        android:scaleType="fitXY"
+        />
 
     <ImageButton
         android:layout_width="40dp"
@@ -30,7 +36,9 @@
         android:id="@+id/hand2"
         android:layout_alignBottom="@+id/hand1"
         android:layout_toRightOf="@+id/hand1"
-        android:layout_toEndOf="@+id/hand1"/>
+        android:layout_toEndOf="@+id/hand1"
+        android:background="@drawable/backofcard"
+        android:scaleType="fitXY"/>
 
     <ImageButton
         android:layout_width="40dp"
@@ -38,7 +46,9 @@
         android:id="@+id/hand3"
         android:layout_alignBottom="@+id/hand2"
         android:layout_toRightOf="@+id/hand2"
-        android:layout_toEndOf="@+id/hand2"/>
+        android:layout_toEndOf="@+id/hand2"
+        android:background="@drawable/backofcard"
+        android:scaleType="fitXY"/>
 
     <ImageButton
         android:layout_width="40dp"
@@ -46,7 +56,8 @@
         android:id="@+id/hand4"
         android:layout_alignBottom="@+id/hand3"
         android:layout_toRightOf="@+id/hand3"
-        android:layout_toEndOf="@+id/hand3"/>
+        android:layout_toEndOf="@+id/hand3"
+        android:scaleType="fitXY"/>
 
     <ImageView
         android:layout_width="40dp"
