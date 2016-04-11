@@ -10,11 +10,16 @@ import android.widget.Toast;
 public class Controller {
     public void playCard(int cardNum){
         facade.playCardIntoLabAndRemoveCardFromHand(cardNum);
-        facade.updateNightmareCount();
         if(didScore()){
             facade.updateDoorCount();
         }
         facade.drawFromDeckIntoHand();
+    }
+    public boolean wasNightmareDrawn(){
+        if(facade.wasNightmareDrawn()){
+            return true;
+        }
+        else return false;
     }
     public void discardCard(int cardNum){
         facade.discardCardFromHand(cardNum);

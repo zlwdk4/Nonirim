@@ -115,7 +115,6 @@ public class Facade {
         }
         catch(IndexOutOfBoundsException e){
             Log.d("TESTLOG", "Facade index out of bounds exception caught");
-            return "nightmarenightmare";
         }
         catch (NullPointerException e){
             Log.d("TESTLOG", "Facade nullptr exception caught");
@@ -236,9 +235,12 @@ public class Facade {
     }
     //*********************nightmare stuff*****************************//
     public void updateNightmareCount(){
-        if ((lab.getCard(lab.getSize()-1)).getType().equals("nightmare")){
-            counts.incrementNightmareCount();
-        }
+        counts.incrementNightmareCount();
+    }
+    public boolean wasNightmareDrawn(){
+        if (hand.getCard(hand.getIndexOfLastCardAdded()).getType().equals("nightmare"))
+            return true;
+        else return false;
     }
     public int getNightmareCount(){
         return counts.getNightmareCount();

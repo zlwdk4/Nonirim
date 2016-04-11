@@ -33,6 +33,5 @@ public class Rules {
         }
         return didScore;
     }
-
 }
 

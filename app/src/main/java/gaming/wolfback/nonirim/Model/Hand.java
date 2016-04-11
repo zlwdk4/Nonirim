@@ -13,6 +13,7 @@ import gaming.wolfback.nonirim.Utility.Card;
 public class Hand {
     private  Card[] hand;
     private final int maxCardsInHand = 5;
+    private int indexOfLastCardAdded;
 
     public Hand() {
         hand = new Card[5];
@@ -40,8 +41,10 @@ public class Hand {
         }
         if (i == 5) {
             return;
-        } else
+        } else {
             hand[i] = newCard;
+            indexOfLastCardAdded = i;
+        }
     }
 
 
@@ -51,22 +54,25 @@ public class Hand {
         return tempCard;
     }
 
+    public int getIndexOfLastCardAdded(){
+        return indexOfLastCardAdded;
+    }
+
     //throws NullPointerException if there is no card in the hand at the index given
     //throws IndexOutOfBoundsException if the index is greater than the maximum allowed cards in hand minus 1
     public Card getCard(int index) throws NullPointerException, IndexOutOfBoundsException{
         if (index > maxCardsInHand - 1){
-            Log.d("TESTLOG", "hand index out of bounds exception thrown");
             throw new IndexOutOfBoundsException();
         }
         if (hand[index]==null){
-            Log.d("TESTLOG", "hand nullptr exception thrown");
             if (AssertSettings.PRIORITY1_ASSERTIONS){
                 Assert.assertNotNull(hand[index]);
             }
             throw new NullPointerException();
         }
-        else
-        return hand[index];
+        else {
+            return hand[index];
+        }
         //Card nullCard = new Card(0, "null", "null");
         //return nullCard;
     }

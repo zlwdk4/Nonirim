@@ -1,6 +1,8 @@
 package gaming.wolfback.nonirim.View;
 
+import android.app.AlertDialog;
 import android.content.ClipData;
+import android.content.DialogInterface;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Point;
@@ -77,6 +79,9 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                             //Log.d("cardNum = ", Integer.toString(theInd));
                             if (controller.isValidPlay(theInd)) {
                                 playCard(theInd);
+                                if (controller.wasNightmareDrawn()) {
+                                    nightmareAction();
+                                }
                             }
                         } else if (v.getId() == R.id.crystalBall) {
                             String proph = "Prophecy failed :(";
@@ -288,6 +293,20 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         shiftCardsInLab();
         displayCardsInLab();
         updateImageOfHand(cardNum);
+    }
+
+    private void nightmareAction() {
+        CharSequence options[] = new CharSequence[]{"Discard Key", "Play a door in limbo", "Discard next 5 from deck", "Discard Hand"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Nightmare was drawn");
+        //builder.setMessage("What do you want to do?");
+        builder.setItems(options, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Log.d("testlog", Integer.toString(which));
+            }
+        });
+        builder.show();
     }
 
     private void discardCard(int cardNum) {
