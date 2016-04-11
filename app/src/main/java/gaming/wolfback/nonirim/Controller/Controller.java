@@ -2,6 +2,7 @@ package gaming.wolfback.nonirim.Controller;
 
 import android.content.Context;
 import android.support.v7.internal.widget.DecorContentParent;
+import android.util.Log;
 import android.widget.Toast;
 
 /**
@@ -17,11 +18,34 @@ public class Controller {
     }
     public boolean wasNightmareDrawn(){
         if(facade.wasNightmareDrawn()){
+            facade.updateNightmareCount();
             return true;
         }
         else return false;
     }
-    public void discardCard(int cardNum){
+
+    public void takeNightmareAction(int optionSelected){
+        if(optionSelected == 0){
+            //discardKey();
+        }
+        else if (optionSelected == 1){
+            //put door in limbo
+        }
+        else if (optionSelected == 2){
+            //discard next five
+        }
+        else if (optionSelected == 3){
+            //discard hand
+            Log.d("testlog", "option 3 selected");
+            for (int i = 0; i < 5; i++){
+                facade.discardCardFromHand(i);
+                facade.drawFromDeckIntoHandInitial();
+            }
+
+        }
+    }
+
+    public void discardCardAndDrawAnother(int cardNum){
         facade.discardCardFromHand(cardNum);
         facade.drawFromDeckIntoHand();
     }

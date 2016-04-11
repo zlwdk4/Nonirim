@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     private ImageView lastLab;
     private int cardNum;
     private float x, y;
+    private int actionToDo;
 
 
     @Override
@@ -58,12 +59,10 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         setHeightAndWidthOfHandButtons(90, 60);
         setHeightAndWidthOfLab(90, 60);
 
-
         View.OnDragListener dropListner = new View.OnDragListener() {
+            boolean nightmareDrawn = false;
             @Override
             public boolean onDrag(View v, DragEvent event) {
-                // Log.d("v id", String.valueOf(v.getId()));
-                //Log.d("event id", String.valueOf(getLabResourceId(7)));
                 int dragEvent = event.getAction();
                 switch (dragEvent) {
                     case DragEvent.ACTION_DROP:
@@ -81,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                                 playCard(theInd);
                                 if (controller.wasNightmareDrawn()) {
                                     nightmareAction();
+                                    nightmareDrawn = true;
                                 }
                             }
                         } else if (v.getId() == R.id.crystalBall) {
@@ -211,41 +211,28 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
     @Override
     public boolean onDrag(View v, DragEvent event) {
-        Log.i("here it", "ISSSSSSSSSSSS");
         int dragAction = event.getAction();
         switch (dragAction) {
 
             case DragEvent.ACTION_DRAG_STARTED:
-                //
-                Log.i("Drag has", "STARTED");
                 break;
             case DragEvent.ACTION_DRAG_ENTERED:
-                Log.i("here it", "asdfasdfasdf");
-                //
                 playCard(cardNum);
                 break;
             case DragEvent.ACTION_DRAG_EXITED:
-                //
                 break;
             case DragEvent.ACTION_DROP:
                 View dragged = (View) event.getLocalState();
                 View target = v;
 
                 if (target.getId() == getLabResourceId(7)) {
-
                     ClipData theData = event.getClipData();
                     cardNum = Integer.parseInt(theData.toString());
                     Log.d("cardNum = ", Integer.toString(cardNum));
-
-
                     playCard(cardNum);
                 }
-                Log.i("here it", "made it");
-
-                //
                 break;
             case DragEvent.ACTION_DRAG_ENDED:
-                //
                 break;
         }
         return false;
@@ -288,7 +275,6 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     private void playCard(int cardNum) {
         controller.playCard(cardNum);
         displayDoorCounts();
-        displayNightmareCount();
         incrementIndexOfLabUI();
         shiftCardsInLab();
         displayCardsInLab();
@@ -296,21 +282,23 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     }
 
     private void nightmareAction() {
-        CharSequence options[] = new CharSequence[]{"Discard Key", "Play a door in limbo", "Discard next 5 from deck", "Discard Hand"};
+        displayNightmareCount();
+        CharSequence options[] = new CharSequence[]{"Discard Key", "Put a door into limbo", "Discard next 5 from deck", "Discard Hand"};
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Nightmare was drawn");
         //builder.setMessage("What do you want to do?");
         builder.setItems(options, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Log.d("testlog", Integer.toString(which));
+                controller.takeNightmareAction(which);
+                setInitialCardsInHand();
             }
         });
         builder.show();
     }
 
     private void discardCard(int cardNum) {
-        controller.discardCard(cardNum);
+        controller.discardCardAndDrawAnother(cardNum);
         updateImageOfDiscard();
         updateImageOfHand(cardNum);
     }
