@@ -58,7 +58,6 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         setHeightAndWidthOfLab(90, 60);
 
         View.OnDragListener dropListner = new View.OnDragListener() {
-            boolean nightmareDrawn = false;
             @Override
             public boolean onDrag(View v, DragEvent event) {
                 int dragEvent = event.getAction();
@@ -78,7 +77,6 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                                 playCard(theInd);
                                 if (controller.wasNightmareDrawn()) {
                                     nightmareAction();
-                                    nightmareDrawn = true;
                                 }
                             }
                         } else if (v.getId() == R.id.crystalBall) {
@@ -284,7 +282,6 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         CharSequence options[] = new CharSequence[]{"Discard Key", "Put a door into limbo", "Discard next 5 from deck", "Discard Hand"};
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Nightmare was drawn");
-        //builder.setMessage("What do you want to do?");
         builder.setItems(options, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

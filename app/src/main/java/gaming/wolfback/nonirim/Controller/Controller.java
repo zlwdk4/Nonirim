@@ -24,6 +24,10 @@ public class Controller {
         else return false;
     }
 
+    //This method handles the case when a nightmare is drawn (as far as the internal model goes)
+    //This method gets passed the option that the user selects.
+    //It then calls the facade to do the appropriate action
+    //TO DO: Add in error handling for if an option is selected that doesn't exist
     public void takeNightmareAction(int optionSelected){
         if(optionSelected == 0){
             //discardKey();
