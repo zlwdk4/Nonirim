@@ -42,8 +42,6 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     private ImageView lastLab;
     private int cardNum;
     private float x, y;
-    private int actionToDo;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         setOnTouchListenersForHand();
 
 
-        setInitialCardsInHand();
+        displayAllCardsInHand();
         setHeightAndWidthOfHandButtons(90, 60);
         setHeightAndWidthOfLab(90, 60);
 
@@ -291,7 +289,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 controller.takeNightmareAction(which);
-                setInitialCardsInHand();
+                displayAllCardsInHand();
             }
         });
         builder.show();
@@ -323,7 +321,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         //handButtons[cardNum].setImageResource(cardImageResourceId);
     }
 
-    private void setInitialCardsInHand() {
+    private void displayAllCardsInHand() {
         for (int i = 0; i < handButtons.length; ++i) {
             String colorAndTypeOfCard = controller.getCardColorAndTypeFromHand(i);
             int cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
