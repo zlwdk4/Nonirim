@@ -1,10 +1,5 @@
 package gaming.wolfback.nonirim.Controller;
 
-import android.content.Context;
-import android.support.v7.internal.widget.DecorContentParent;
-import android.util.Log;
-import android.widget.Toast;
-
 /**
  * Created by Jarren on 3/19/2016.
  */
@@ -40,12 +35,10 @@ public class Controller {
         }
         else if (optionSelected == 3){
             //discard hand
-            Log.d("testlog", "option 3 selected");
             for (int i = 0; i < 5; i++){
                 facade.discardCardFromHand(i);
-                facade.drawFromDeckIntoHandInitial();
             }
-
+            facade.drawFiveTimesIntoHand();
         }
     }
 

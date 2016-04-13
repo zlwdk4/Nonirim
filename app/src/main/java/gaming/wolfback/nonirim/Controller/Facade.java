@@ -100,12 +100,7 @@ public class Facade {
         drawPile.shuffle();
         drawPile.shuffle();
 
-        int j = 0;
-        while (j!=5){
-            drawFromDeckIntoHandInitial();
-            j++;
-        }
-
+        drawFiveTimesIntoHand();
     }
     //**************************Hand stuff***********************************************//
     public String getCardColorAndTypeFromHand(int indexOfCard){
@@ -159,27 +154,34 @@ public class Facade {
     public String getLabType(int indexOfCard){
         return lab.getCard(indexOfCard).getType();
     }
+
     //************************Deck stuff*******************************//
     public String getCardTypeFromDeck(int offset){
         return drawPile.top(offset).getType();
     }
-    //**********************Interaction stuff**************************//
 
-    public void drawFromDeckIntoHandInitial(){
+    //**********************Interaction stuff**************************//
+    //This method draws five cards from the draw pile and put them into the hand. If it draws a door or a nightmare, it puts that card into limbo.
+    //Limbo is not actually an object here. It just means that it skips over that card and looks at the next card.
+    //If a door or a nightmare was drawn, it shuffles the drawPile.
+    public void drawFiveTimesIntoHand(){
         int offset = 0;
         boolean nightmareOrDoorWasDrawn = false;
-        while (getCardTypeFromDeck(offset).equals("nightmare") || getCardTypeFromDeck(offset).equals("door") ){
-            offset++;
-            nightmareOrDoorWasDrawn = true;
+        for (int i = 0; i < 5; i++){
+            while (getCardTypeFromDeck(offset).equals("nightmare") || getCardTypeFromDeck(offset).equals("door") ){
+                offset++;
+                nightmareOrDoorWasDrawn = true;
+            }
+            Card tempCard = drawPile.draw(offset);
+            tempCard.setIsCardDrawn(true);
+            hand.addCard(tempCard);
         }
-        Card tempCard = drawPile.draw(offset);
-        tempCard.setIsCardDrawn(true);
-        hand.addCard(tempCard);
-
         if(nightmareOrDoorWasDrawn)
             drawPile.shuffle();
     }
-
+    //This method draws one card from the deck into the hand. If a door is drawn, it puts that card into limbo.
+    //Limbo is not actually an object here. It just means that it skips over that card and looks at the next card.
+    //If a door was drawn, it shuffles the drawPile
     public void drawFromDeckIntoHand(){
         int offset = 0;
         boolean doorWasDrawn = false;
