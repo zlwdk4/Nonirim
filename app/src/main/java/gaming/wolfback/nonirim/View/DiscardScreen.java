@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-
 import gaming.wolfback.nonirim.R;
 
 /**
@@ -34,7 +33,6 @@ public class DiscardScreen extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.discard_layout);
 
-
         Intent activityThatCalled = getIntent();
 
         String [] discardCards = activityThatCalled.getExtras().getStringArray("discardArray");
@@ -51,8 +49,6 @@ public class DiscardScreen extends Activity {
     }
 
     public void backToMainFromDiscard(View view) {
-        //Intent goingBack = new Intent();
-
         finish();
     }
 }

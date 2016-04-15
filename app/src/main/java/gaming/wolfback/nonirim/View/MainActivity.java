@@ -296,6 +296,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                 controller.takeNightmareAction(which);
                 if (which == 2) {
                     displayTopFiveDiscard();
+                    updateImageOfDiscard();
                 }
                 if (which == 3) {
                     displayAllCardsInHand();
@@ -311,6 +312,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         updateImageOfHand(cardNum);
     }
 
+    //This method starts a new activity that displays the five cards last discarded
     public void displayTopFiveDiscard(){
         Intent displayTopFiveDiscardIntent = new Intent(this,
                 DiscardScreen.class);
@@ -320,9 +322,6 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         displayTopFiveDiscardIntent.putExtra("discardArray", cardColorAndTypesInDiscard);
 
         startActivity(displayTopFiveDiscardIntent);
-
-        //To-do: move updateImageOfDiscard() to better location
-        updateImageOfDiscard();
     }
 
     private void prophecize(int cardNum) {
