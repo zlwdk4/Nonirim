@@ -22,6 +22,7 @@ public class DiscardPile {
     }
 
     public String getDiscardString(){
+        discardString = "";
         for (int i = 0; i < discardPile.size(); ++i)
         {
             discardString += ("Card #" + i + " " + discardPile.get(i).getColor() +
@@ -31,4 +32,11 @@ public class DiscardPile {
         return discardString;
     }
 
+    public int getSize(){
+        return discardPile.size();
+    }
+
+    public String getColorAndType(int index){
+        return (discardPile.get(index).getColor()+discardPile.get(index).getType());
+    }
 }

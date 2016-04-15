@@ -255,6 +255,29 @@ public class Facade {
         }
         return colorAndType;
     }
+    public void discardNextFiveFromDrawPile(){
+        Log.d("TestLog before", discardPile.getDiscardString());
+        int offset = 0;
+        boolean nightmareOrDoorWasDrawn = false;
+        for (int i = 0; i < 5; i++){
+            while (getCardTypeFromDeck(offset).equals("nightmare") || getCardTypeFromDeck(offset).equals("door") ){
+                offset++;
+                nightmareOrDoorWasDrawn = true;
+            }
+            Card tempCard = drawPile.draw(offset);
+            tempCard.setIsCardDiscarded(true);
+            discardPile.addCardToDiscard(tempCard);
+        }
+        if(nightmareOrDoorWasDrawn)
+            drawPile.shuffle();
+        Log.d("TestLog after", discardPile.getDiscardString());
+    }
+    //The parameter index starts with the top card. So if you want the top card, you would give it index = 0
+    //To-do: add exception if they ask for an index that isn't there
+    public String getDiscardColorAndType (int index){
+        int sizeOfDiscardPile = discardPile.getSize();
+        return discardPile.getColorAndType(sizeOfDiscardPile - index - 1);
+    }
     //****************Private Variables***************************///
     private DrawPile drawPile = new DrawPile();
     private Hand hand = new Hand();

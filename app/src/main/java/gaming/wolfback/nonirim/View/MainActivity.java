@@ -3,6 +3,7 @@ package gaming.wolfback.nonirim.View;
 import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Point;
@@ -22,6 +23,8 @@ import android.widget.Toast;
 
 
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 import gaming.wolfback.nonirim.Controller.Controller;
 import gaming.wolfback.nonirim.R;
@@ -64,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                 switch (dragEvent) {
                     case DragEvent.ACTION_DROP:
                         View dragged = (View) event.getLocalState();
-                        if (v.getId() == R.id.playCard) {
+                        if (v.getId() == R.id.playCardView) {
                             ClipData theData = event.getClipData();
                             int theInd;
                             //CharSequence theChars = theData.getItemAt(0).toStrineg();
@@ -75,6 +78,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                             //Log.d("cardNum = ", Integer.toString(theInd));
                             if (controller.isValidPlay(theInd)) {
                                 playCard(theInd);
+                                Log.d("TestLog card drawn", controller.getCardColorAndTypeFromHand(theInd));
                                 if (controller.wasNightmareDrawn()) {
                                     nightmareAction();
                                 }
@@ -95,6 +99,10 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                             Character theC = theS.charAt(theS.length() - 1);
                             theInd = Integer.parseInt(theC.toString());
                             discardCard(theInd);
+                            Log.d("TestLog card drawn", controller.getCardColorAndTypeFromHand(theInd));
+                            if (controller.wasNightmareDrawn()) {
+                                nightmareAction();
+                            }
                         }
                         Log.d("here it", "made it");
 
@@ -130,10 +138,10 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         lastLab = (ImageView) findViewById(R.id.LabId7);
         ImageView discPile = (ImageView) findViewById(R.id.dicardPile);
         ImageView crystalBall = (ImageView) findViewById(R.id.crystalBall);
-        TextView playCard = (TextView) findViewById(R.id.playCard);
+        TextView playCardView = (TextView) findViewById(R.id.playCardView);
 
         //TextView theL = (TextView) findViewById(R.id.theListener);
-        playCard.setOnDragListener(dropListner);
+        playCardView.setOnDragListener(dropListner);
         discPile.setOnDragListener(dropListner);
         crystalBall.setOnDragListener(dropListner);
         //nightmareView.setOnDragListener(this);
@@ -286,7 +294,12 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 controller.takeNightmareAction(which);
-                displayAllCardsInHand();
+                if (which == 2) {
+                    displayTopFiveDiscard();
+                }
+                if (which == 3) {
+                    displayAllCardsInHand();
+                }
             }
         });
         builder.show();
@@ -296,6 +309,20 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         controller.discardCardAndDrawAnother(cardNum);
         updateImageOfDiscard();
         updateImageOfHand(cardNum);
+    }
+
+    public void displayTopFiveDiscard(){
+        Intent displayTopFiveDiscardIntent = new Intent(this,
+                DiscardScreen.class);
+        String[] cardColorAndTypesInDiscard;
+        cardColorAndTypesInDiscard = controller.getTopFiveDiscardColorAndTypeArray();
+
+        displayTopFiveDiscardIntent.putExtra("discardArray", cardColorAndTypesInDiscard);
+
+        startActivity(displayTopFiveDiscardIntent);
+
+        //To-do: move updateImageOfDiscard() to better location
+        updateImageOfDiscard();
     }
 
     private void prophecize(int cardNum) {
@@ -381,9 +408,9 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     }
 
     private void updateLabImage(int cardResId) {
-        ImageView theLab = (ImageView) findViewById(getLabResourceId(currentIndexOfLabUI));
-        Picasso.with(this).load(cardResId).fit().into(theLab);
-        //theLab.setImageResource(cardResId);
+        ImageView theLabImageView = (ImageView) findViewById(getLabResourceId(currentIndexOfLabUI));
+        Picasso.with(this).load(cardResId).fit().into(theLabImageView);
+        //theLabImageView.setImageResource(cardResId);
     }
 //**************************************************************************************************
 

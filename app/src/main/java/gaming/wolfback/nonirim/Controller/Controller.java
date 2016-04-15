@@ -1,5 +1,7 @@
 package gaming.wolfback.nonirim.Controller;
 
+import android.util.Log;
+
 /**
  * Created by Jarren on 3/19/2016.
  */
@@ -32,6 +34,7 @@ public class Controller {
         }
         else if (optionSelected == 2){
             //discard next five
+            facade.discardNextFiveFromDrawPile();
         }
         else if (optionSelected == 3){
             //discard hand
@@ -86,6 +89,15 @@ public class Controller {
             colorOfCardsArray[i] = facade.getLabColor(labSize - 1 - i);
         }
         return colorOfCardsArray;
+    }
+
+    public String[] getTopFiveDiscardColorAndTypeArray(){
+        String[] toReturn = new String [5];
+        for (int i = 0; i < 5; ++i){
+            toReturn[i] = facade.getDiscardColorAndType(i);
+            Log.d("TestLog", toReturn[i]);
+        }
+        return toReturn;
     }
 
     public int getRedDoorCount(){

@@ -248,7 +248,7 @@
         android:layout_height="55dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Play Card"
-        android:id="@+id/playCard"
+        android:id="@+id/playCardView"
         android:autoText="false"
         android:background="#9bfff60f"
         android:longClickable="false"
