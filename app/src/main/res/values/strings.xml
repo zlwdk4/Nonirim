@@ -4,4 +4,11 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="back_to_main_from_discard_button">Done Viewing Discard</string>
+    <string name="title_activity_prophecy_screen">Prophecy</string>
+
+    <!-- Prophecy Screen Values -->
+
+    <string name="proph_card_width">50dp</string>
+    <string name="proph_card_height">75dp</string>
+    <string name="proph_decision_color">#E5E500</string>
 </resources>

@@ -278,6 +278,27 @@ public class Facade {
         int sizeOfDiscardPile = discardPile.getSize();
         return discardPile.getColorAndType(sizeOfDiscardPile - index - 1);
     }
+
+    public String getDrawPileColorAndType (int index){
+        //////get top card or total 5?
+        String retString = " ";
+        return  retString;
+    }
+
+    public String getTopCardFromDrawPileColorAndType (){
+        //NOT ACCOUNTED FOR IF CANT DRAW MORE CARDS
+       /* String[] fiveCards = new String[5];
+        Card tempCard;
+        for(int i = 0; i < 5; ++i){
+            tempCard = drawPile.draw(0);
+            fiveCards[i]  =  tempCard.getColor() + tempCard.getType();
+        }
+        */
+        Card tempCard = drawPile.draw(0);
+        String retColorAndType = tempCard.getColor() + tempCard.getType();
+        return retColorAndType;
+
+    }
     //****************Private Variables***************************///
     private DrawPile drawPile = new DrawPile();
     private Hand hand = new Hand();

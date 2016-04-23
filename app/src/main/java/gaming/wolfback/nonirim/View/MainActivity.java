@@ -83,16 +83,19 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                                     nightmareAction();
                                 }
                             }
-                        } else if (v.getId() == R.id.crystalBall) {
+                        }
+                        else if (v.getId() == R.id.crystalBall) {
                             String proph = "Prophecy failed :(";
-                            proph = controller.getCardTypeFromHand(cardNum);
+                            //proph = controller.getCardTypeFromHand(cardNum);
                             if (controller.getCardTypeFromHand(cardNum) == "key") {
                                 proph = "Prophecy successful :)";
-                                prophecize(cardNum);
+                                //prophecize(cardNum);
+                                //prophecyAction();
                             }
                             Toast cbToast = Toast.makeText(getApplicationContext(), proph, Toast.LENGTH_LONG);
                             cbToast.show();
-                        } else if (v.getId() == R.id.dicardPile) {
+                        }
+                        else if (v.getId() == R.id.dicardPile) {
                             ClipData theData = event.getClipData();
                             int theInd;
                             String theS = theData.getItemAt(0).coerceToText(getApplicationContext()).toString();
@@ -306,6 +309,12 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         builder.show();
     }
 
+    private void prophecyAction() {
+
+        displayProphecyActivity();
+
+    }
+
     private void discardCard(int cardNum) {
         controller.discardCardAndDrawAnother(cardNum);
         updateImageOfDiscard();
@@ -322,6 +331,20 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         displayTopFiveDiscardIntent.putExtra("discardArray", cardColorAndTypesInDiscard);
 
         startActivity(displayTopFiveDiscardIntent);
+    }
+
+
+    //This method starts a new activity and display the cards to prophecize with and return the selection
+
+    public void displayProphecyActivity(){
+        Intent displayProphecyIntent = new Intent(this, ProphecyScreen.class);
+        String[] cardColorAndTypesForProphecy;
+        cardColorAndTypesForProphecy = controller.getTopFiveDrawPileColorAndTypeArray();
+
+        displayProphecyIntent.putExtra("prophArray", cardColorAndTypesForProphecy);
+
+        startActivity(displayProphecyIntent);
+        //get top cards from deck
     }
 
     private void prophecize(int cardNum) {

@@ -100,6 +100,16 @@ public class Controller {
         return toReturn;
     }
 
+    public String[] getTopFiveDrawPileColorAndTypeArray(){
+        String[] toReturn = new String [5];
+        for(int i = 0; i < 5; ++i){
+            facade.getTopCardFromDrawPileColorAndType();
+
+        }
+
+        return  toReturn;
+    }
+
     public int getRedDoorCount(){
         return facade.getRedDoorCount();
     }
@@ -133,6 +143,7 @@ public class Controller {
     private Rules rules = new Rules();
 
     public void prophecize(int cardNum) {
+        discardCardAndDrawAnother(cardNum);
 
     }
 
