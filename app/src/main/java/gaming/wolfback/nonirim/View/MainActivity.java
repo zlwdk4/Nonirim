@@ -67,9 +67,11 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                 switch (dragEvent) {
                     case DragEvent.ACTION_DROP:
                         View dragged = (View) event.getLocalState();
+                        ClipData theData = event.getClipData();
+                        int theInd;
                         if (v.getId() == R.id.playCardView) {
-                            ClipData theData = event.getClipData();
-                            int theInd;
+                            //ClipData theData = event.getClipData();
+
                             //CharSequence theChars = theData.getItemAt(0).toStrineg();
                             String theS = theData.getItemAt(0).coerceToText(getApplicationContext()).toString();
                             //theInd = Integer.parseInt(theData.getItemAt(0).toString());
@@ -86,8 +88,12 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                         }
                         else if (v.getId() == R.id.crystalBall) {
                             String proph = "Prophecy failed :(";
-                            //proph = controller.getCardTypeFromHand(cardNum);
-                            if (controller.getCardTypeFromHand(cardNum) == "key") {
+                            String theS = theData.getItemAt(0).coerceToText(getApplicationContext()).toString();
+                            //theInd = Integer.parseInt(theData.getItemAt(0).toString());
+                            Character theC = theS.charAt(theS.length() - 1);
+                            theInd = Integer.parseInt(theC.toString());
+                            proph = controller.getCardTypeFromHand(theInd);
+                            if (controller.getCardTypeFromHand(theInd) == "key") {
                                 proph = "Prophecy successful :)";
                                 //prophecize(cardNum);
                                 //prophecyAction();
@@ -96,8 +102,8 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                             cbToast.show();
                         }
                         else if (v.getId() == R.id.dicardPile) {
-                            ClipData theData = event.getClipData();
-                            int theInd;
+                            //ClipData theData = event.getClipData();
+                            //int theInd;
                             String theS = theData.getItemAt(0).coerceToText(getApplicationContext()).toString();
                             Character theC = theS.charAt(theS.length() - 1);
                             theInd = Integer.parseInt(theC.toString());
