@@ -76,6 +76,14 @@ public class Hand {
         //Card nullCard = new Card(0, "null", "null");
         //return nullCard;
     }
+    //This is for debugging purposes only
+    public void seeHand(){
+        Log.d ("TestLog the hand 0", hand[0].getType());
+        Log.d ("TestLog the hand 1", hand[1].getType());
+        Log.d ("TestLog the hand 2", hand[2].getType());
+        Log.d ("TestLog the hand 3", hand[3].getType());
+        Log.d ("TestLog the hand 4", hand[4].getType());
+    }
 }
 
 

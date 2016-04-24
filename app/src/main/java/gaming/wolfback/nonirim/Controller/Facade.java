@@ -133,6 +133,17 @@ public class Facade {
     public void discardCardFromHand(int indexOfCardInHand){
         discardPile.addCardToDiscard(hand.removeCard(indexOfCardInHand));
     }
+    //This method assumes that the last card placed in the hand was a nightmare
+    public void getRidOfNightmareInHand(){
+        //hand.seeHand();
+        int indexOfNightmare = hand.getIndexOfLastCardAdded();
+        hand.removeCard(indexOfNightmare);
+        //hand.seeHand();
+    }
+
+    public void seeHand(){
+        hand.seeHand();
+    }
 
     //****************************Lab stuff**********************************//
     public String getCardColorAndTypeFromLab(int indexOfCard){
@@ -236,7 +247,7 @@ public class Facade {
         }
     }
     //*********************nightmare stuff*****************************//
-    public void updateNightmareCount(){
+    public void incrementNightmareCount(){
         counts.incrementNightmareCount();
     }
     public boolean wasNightmareDrawn(){
