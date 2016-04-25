@@ -11,23 +11,6 @@ import gaming.wolfback.nonirim.R;
  * Created by Jarren on 4/13/2016.
  */
 public class DiscardScreen extends Activity {
-
-
-    private int getCardImageResourceId(String colorAndType) {
-        return getResources().getIdentifier(colorAndType, "drawable", getPackageName());
-    }
-
-    private int getLabResourceId(int indexOfLab) {
-        String discardIdName = "discardCard" + indexOfLab;
-        return getResources().getIdentifier(discardIdName, "id", getPackageName());
-    }
-
-    private void updateDiscardImage(int cardResId, int index) {
-        ImageView theDiscardImage = (ImageView) findViewById(getLabResourceId(index));
-        theDiscardImage.setImageResource(cardResId);
-    }
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +29,20 @@ public class DiscardScreen extends Activity {
         }
 
 
+    }
+
+    private int getCardImageResourceId(String colorAndType) {
+        return getResources().getIdentifier(colorAndType, "drawable", getPackageName());
+    }
+
+    private int getLabResourceId(int indexOfLab) {
+        String discardIdName = "discardCard" + indexOfLab;
+        return getResources().getIdentifier(discardIdName, "id", getPackageName());
+    }
+
+    private void updateDiscardImage(int cardResId, int index) {
+        ImageView theDiscardImage = (ImageView) findViewById(getLabResourceId(index));
+        theDiscardImage.setImageResource(cardResId);
     }
 
     public void backToMainFromDiscard(View view) {

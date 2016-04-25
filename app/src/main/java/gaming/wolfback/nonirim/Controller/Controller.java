@@ -15,7 +15,7 @@ public class Controller {
     }
     public boolean wasNightmareDrawn(){
         if(facade.wasNightmareDrawn()){
-            facade.updateNightmareCount();
+            facade.incrementNightmareCount();
             return true;
         }
         else return false;
@@ -35,6 +35,8 @@ public class Controller {
         else if (optionSelected == 2){
             //discard next five
             facade.discardNextFiveFromDrawPile();
+            facade.getRidOfNightmareInHand();
+            facade.drawFromDeckIntoHand();
         }
         else if (optionSelected == 3){
             //discard hand

@@ -302,14 +302,18 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         builder.setItems(options, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                //Controller
                 controller.takeNightmareAction(which);
+                //UI
                 if (which == 2) {
                     displayTopFiveDiscard();
                     updateImageOfDiscard();
+                    updateAllImagesOfHand();
                 }
                 if (which == 3) {
                     displayAllCardsInHand();
                 }
+                //End UI
             }
         });
         builder.show();
@@ -376,6 +380,14 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         int cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
         Picasso.with(this).load(cardImageResourceId).fit().into(handButtons[cardNum]);
         //handButtons[cardNum].setImageResource(cardImageResourceId);
+    }
+
+    private void updateAllImagesOfHand(){
+        for (int i = 0; i < 5; ++i){
+            String colorAndTypeOfCard = controller.getCardColorAndTypeFromHand(i);
+            int cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
+            Picasso.with(this).load(cardImageResourceId).fit().into(handButtons[i]);
+        }
     }
 
     private void displayAllCardsInHand() {
