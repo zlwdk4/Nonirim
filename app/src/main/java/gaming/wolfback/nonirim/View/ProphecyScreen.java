@@ -13,6 +13,7 @@ import gaming.wolfback.nonirim.R;
 
 public class ProphecyScreen extends Activity {
 
+    public String prophSelectionString = "";
 
     private int getCardImageResourceId(String colorAndType) {
         return getResources().getIdentifier(colorAndType, "drawable", getPackageName());
@@ -34,16 +35,20 @@ public class ProphecyScreen extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_prophecy_screen);
 
+
         Intent activityThatCalled = getIntent();
 
         String [] prophCards = activityThatCalled.getExtras().getStringArray("prophArray");
+
 
         for (int i = 0; i < 5; ++i) {
             String colorAndTypeOfCard = prophCards[i];
             if (colorAndTypeOfCard.equals("null"))
                 break;
-            int cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
-            updateProphecyCardImage(cardImageResourceId, i);
+
+           //HHHHHEEEEERREEEEEEEE
+            //int cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
+            //updateProphecyCardImage(cardImageResourceId, i);
         }
 
 
@@ -51,6 +56,9 @@ public class ProphecyScreen extends Activity {
 
     public void backToMainFromProph(View view) {
 
+        Intent prophRetIntent = new Intent();
+        prophRetIntent.putExtra("prophSelectionString", prophSelectionString);
+        setResult(RESULT_OK, prophRetIntent);
 
         finish();
     }

@@ -95,8 +95,8 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                             proph = controller.getCardTypeFromHand(theInd);
                             if (controller.getCardTypeFromHand(theInd) == "key") {
                                 proph = "Prophecy successful :)";
-                                //prophecize(cardNum);
-                                //prophecyAction();
+                                //prophecize(theInd);
+                                prophecyAction();
                             }
                             Toast cbToast = Toast.makeText(getApplicationContext(), proph, Toast.LENGTH_LONG);
                             cbToast.show();
@@ -344,12 +344,17 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
     public void displayProphecyActivity(){
         Intent displayProphecyIntent = new Intent(this, ProphecyScreen.class);
-        String[] cardColorAndTypesForProphecy;
-        cardColorAndTypesForProphecy = controller.getTopFiveDrawPileColorAndTypeArray();
+        String[] cardColorAndTypesForProphecy = new String[5];
+        //cardColorAndTypesForProphecy = controller.getTopFiveDrawPileColorAndTypeArray();
+        cardColorAndTypesForProphecy[0] = "greenkey";
+        cardColorAndTypesForProphecy[1] = "greendoor";
+        cardColorAndTypesForProphecy[2] = "greendoor";
+        cardColorAndTypesForProphecy[3] = "bluekey";
+        cardColorAndTypesForProphecy[4] = "greenkey";
 
         displayProphecyIntent.putExtra("prophArray", cardColorAndTypesForProphecy);
-
-        startActivity(displayProphecyIntent);
+        int retCode = 1;
+        startActivityForResult(displayProphecyIntent, retCode);
         //get top cards from deck
     }
 
