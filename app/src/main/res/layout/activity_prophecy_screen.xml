@@ -9,56 +9,56 @@
     android:id="@+id/proph_screen">
 
     <ImageView
-        android:id="@+id/proph1"
+        android:id="@+id/proph_select_display_1"
         android:layout_width="50dp"
         android:layout_height="75dp"
         android:background="@drawable/backofcard"
         android:scaleType="fitXY"
         android:layout_marginLeft="36dp"
         android:layout_marginStart="36dp"
-        android:layout_below="@+id/textView"
+        android:layout_below="@+id/proph_display_1"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="29dp" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/proph_select_display_2"
         android:layout_width="50dp"
         android:layout_height="75dp"
         android:background="@drawable/backofcard"
         android:scaleType="fitXY"
         android:layout_marginLeft="31dp"
         android:layout_marginStart="31dp"
-        android:layout_alignTop="@+id/proph1"
-        android:layout_toRightOf="@+id/proph1"
-        android:layout_toEndOf="@+id/proph1" />
+        android:layout_alignTop="@+id/proph_select_display_1"
+        android:layout_toRightOf="@+id/proph_select_display_1"
+        android:layout_toEndOf="@+id/proph_select_display_1" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/proph_select_display_3"
         android:layout_width="50dp"
         android:layout_height="75dp"
         android:background="@drawable/backofcard"
         android:scaleType="fitXY"
         android:layout_marginLeft="34dp"
         android:layout_marginStart="34dp"
-        android:layout_alignTop="@+id/imageView"
-        android:layout_toRightOf="@+id/imageView"
-        android:layout_toEndOf="@+id/imageView" />
+        android:layout_alignTop="@+id/proph_select_display_2"
+        android:layout_toRightOf="@+id/proph_select_display_2"
+        android:layout_toEndOf="@+id/proph_select_display_2" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/proph_select_display_4"
         android:layout_width="50dp"
         android:layout_height="75dp"
         android:background="@drawable/backofcard"
         android:scaleType="fitXY"
         android:layout_marginLeft="35dp"
         android:layout_marginStart="35dp"
-        android:layout_alignTop="@+id/imageView2"
-        android:layout_toRightOf="@+id/imageView2"
-        android:layout_toEndOf="@+id/imageView2" />
+        android:layout_alignTop="@+id/proph_select_display_3"
+        android:layout_toRightOf="@+id/proph_select_display_3"
+        android:layout_toEndOf="@+id/proph_select_display_3" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/proph_select_display_5"
         android:layout_width="50dp"
         android:layout_height="75dp"
         android:background="@drawable/backofcard"
@@ -66,8 +66,8 @@
         android:layout_marginLeft="33dp"
         android:layout_marginStart="33dp"
         android:layout_above="@+id/proph_option_1"
-        android:layout_toRightOf="@+id/imageView3"
-        android:layout_toEndOf="@+id/imageView3" />
+        android:layout_toRightOf="@+id/proph_select_display_4"
+        android:layout_toEndOf="@+id/proph_select_display_4" />
 
     <TextView
         android:layout_width="50dp"
@@ -77,9 +77,9 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="1"
         android:id="@+id/proph_option_1"
-        android:layout_below="@+id/proph1"
-        android:layout_toLeftOf="@+id/imageView"
-        android:layout_toStartOf="@+id/imageView"
+        android:layout_below="@+id/proph_select_display_1"
+        android:layout_toLeftOf="@+id/proph_select_display_2"
+        android:layout_toStartOf="@+id/proph_select_display_2"
         android:layout_marginTop="28dp" />
 
     <TextView
@@ -91,8 +91,8 @@
         android:text="2"
         android:id="@+id/proph_option_2"
         android:layout_alignTop="@+id/proph_option_1"
-        android:layout_alignLeft="@+id/imageView"
-        android:layout_alignStart="@+id/imageView" />
+        android:layout_alignLeft="@+id/proph_select_display_2"
+        android:layout_alignStart="@+id/proph_select_display_2" />
 
     <TextView
         android:layout_width="50dp"
@@ -103,8 +103,8 @@
         android:text="3"
         android:id="@+id/proph_option_3"
         android:layout_alignTop="@+id/proph_option_2"
-        android:layout_alignLeft="@+id/imageView2"
-        android:layout_alignStart="@+id/imageView2" />
+        android:layout_alignLeft="@+id/proph_select_display_3"
+        android:layout_alignStart="@+id/proph_select_display_3" />
 
     <TextView
         android:layout_width="50dp"
@@ -115,8 +115,8 @@
         android:text="4"
         android:id="@+id/proph_option_4"
         android:layout_alignTop="@+id/proph_option_3"
-        android:layout_alignLeft="@+id/imageView3"
-        android:layout_alignStart="@+id/imageView3" />
+        android:layout_alignLeft="@+id/proph_select_display_4"
+        android:layout_alignStart="@+id/proph_select_display_4" />
 
     <TextView
         android:layout_width="50dp"
@@ -127,8 +127,8 @@
         android:text="X"
         android:id="@+id/proph_option_x"
         android:layout_alignTop="@+id/proph_option_4"
-        android:layout_alignLeft="@+id/imageView4"
-        android:layout_alignStart="@+id/imageView4" />
+        android:layout_alignLeft="@+id/proph_select_display_5"
+        android:layout_alignStart="@+id/proph_select_display_5" />
 
     <TextView
         android:layout_width="50dp"
@@ -137,10 +137,10 @@
         android:background="#E5E500"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="1"
-        android:id="@+id/textView"
+        android:id="@+id/proph_display_1"
         android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/imageView"
-        android:layout_toStartOf="@+id/imageView" />
+        android:layout_toLeftOf="@+id/proph_select_display_2"
+        android:layout_toStartOf="@+id/proph_select_display_2" />
 
     <TextView
         android:layout_width="50dp"
@@ -149,10 +149,10 @@
         android:background="#E5E500"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="2"
-        android:id="@+id/textView2"
+        android:id="@+id/proph_display_2"
         android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/imageView"
-        android:layout_alignStart="@+id/imageView" />
+        android:layout_alignLeft="@+id/proph_select_display_2"
+        android:layout_alignStart="@+id/proph_select_display_2" />
 
     <TextView
         android:layout_width="50dp"
@@ -161,10 +161,10 @@
         android:background="#E5E500"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="3"
-        android:id="@+id/textView3"
-        android:layout_above="@+id/proph1"
-        android:layout_alignLeft="@+id/imageView2"
-        android:layout_alignStart="@+id/imageView2" />
+        android:id="@+id/proph_display_3"
+        android:layout_above="@+id/proph_select_display_1"
+        android:layout_alignLeft="@+id/proph_select_display_3"
+        android:layout_alignStart="@+id/proph_select_display_3" />
 
     <TextView
         android:layout_width="50dp"
@@ -173,10 +173,10 @@
         android:gravity="center"
         android:background="#E5E500"
         android:text="4"
-        android:id="@+id/textView4"
-        android:layout_above="@+id/proph1"
-        android:layout_alignLeft="@+id/imageView3"
-        android:layout_alignStart="@+id/imageView3" />
+        android:id="@+id/proph_display_4"
+        android:layout_above="@+id/proph_select_display_1"
+        android:layout_alignLeft="@+id/proph_select_display_4"
+        android:layout_alignStart="@+id/proph_select_display_4" />
 
     <TextView
         android:layout_width="50dp"
@@ -185,10 +185,10 @@
         android:gravity="center"
         android:background="#E5E500"
         android:text="X"
-        android:id="@+id/textView5"
+        android:id="@+id/proph_display_5"
         android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/imageView4"
-        android:layout_alignStart="@+id/imageView4" />
+        android:layout_alignLeft="@+id/proph_select_display_5"
+        android:layout_alignStart="@+id/proph_select_display_5" />
 
     <Button
         android:layout_width="wrap_content"
@@ -197,8 +197,9 @@
         android:id="@+id/proph_finished_button"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_below="@+id/imageView4"
-        android:layout_alignBottom="@+id/proph_option_x" />
+        android:layout_below="@+id/proph_select_display_5"
+        android:layout_alignBottom="@+id/proph_option_x"
+        android:onClick="prophFinishAction"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -206,7 +207,7 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Drag position number or kill (X) to card selection"
         android:id="@+id/proph_instructions"
-        android:layout_below="@+id/textView5"
+        android:layout_below="@+id/proph_display_5"
         android:layout_alignLeft="@+id/proph_finished_button"
         android:layout_alignStart="@+id/proph_finished_button" />
 </RelativeLayout>
