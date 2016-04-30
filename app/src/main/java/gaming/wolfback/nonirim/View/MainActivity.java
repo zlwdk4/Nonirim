@@ -10,6 +10,7 @@ import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.test.ActivityInstrumentationTestCase2;
 import android.util.Log;
 import android.view.DragEvent;
 import android.view.Menu;
@@ -305,6 +306,16 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                 //Controller
                 controller.takeNightmareAction(which);
                 //UI
+                // 0 = discard key
+                // 1 = put a door into limbo
+                // 2 = discard next 5 from deck
+                // 3 =  discard hand
+
+
+                if (which == 1) {
+                    putDoorBackIntoDeck();
+                }
+
                 if (which == 2) {
                     displayTopFiveDiscard();
                     updateImageOfDiscard();
@@ -317,6 +328,11 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
             }
         });
         builder.show();
+    }
+
+    private void putDoorBackIntoDeck() {
+
+
     }
 
     private void prophecyAction() {
@@ -359,6 +375,8 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         displayProphecyIntent.putExtra("prophArray", cardColorAndTypesForProphecy);
         int retCode = 1;
         startActivityForResult(displayProphecyIntent, retCode);
+
+
         //get top cards from deck
     }
 
@@ -480,5 +498,21 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
         return super.onOptionsItemSelected(item);
     }
+
+
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if(resultCode == RESULT_OK){
+
+                String prophReturnString = data.getStringExtra("prophSelectionString");
+                Toast cbToast = Toast.makeText(getApplicationContext(), prophReturnString, Toast.LENGTH_LONG);
+                cbToast.show();
+
+            }
+        }
+    }
+
 
 }

@@ -103,7 +103,7 @@ public class ProphecyScreen extends Activity {
                         int theInd;
 
                         String theSelection = theData.getItemAt(0).coerceToText(getApplicationContext()).toString();
-                        
+
 
                         if(v.getId() == R.id.proph_select_display_1){
                             TextView tv = (TextView) findViewById(R.id.proph_display_1);
@@ -293,6 +293,8 @@ public class ProphecyScreen extends Activity {
             retS += theOrder[i];
         }
 
+        prophSelectionString = retS;
+
         Toast cbToast = Toast.makeText(getApplicationContext(), retS, Toast.LENGTH_LONG);
         cbToast.show();
 
@@ -314,6 +316,7 @@ public class ProphecyScreen extends Activity {
     public void backToMainFromProph(View view) {
 
         Intent prophRetIntent = new Intent();
+
         prophRetIntent.putExtra("prophSelectionString", prophSelectionString);
         setResult(RESULT_OK, prophRetIntent);
 
