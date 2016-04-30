@@ -99,8 +99,9 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                                 //prophecize(theInd);
                                 prophecyAction();
                             }
-                            Toast cbToast = Toast.makeText(getApplicationContext(), proph, Toast.LENGTH_LONG);
-                            cbToast.show();
+                            else {
+                                prophecyAction();
+                            }
                         }
                         else if (v.getId() == R.id.dicardPile) {
                             //ClipData theData = event.getClipData();
@@ -365,12 +366,10 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     public void displayProphecyActivity(){
         Intent displayProphecyIntent = new Intent(this, ProphecyScreen.class);
         String[] cardColorAndTypesForProphecy = new String[5];
-        //cardColorAndTypesForProphecy = controller.getTopFiveDrawPileColorAndTypeArray();
-        cardColorAndTypesForProphecy[0] = "greenkey";
-        cardColorAndTypesForProphecy[1] = "greendoor";
-        cardColorAndTypesForProphecy[2] = "greendoor";
-        cardColorAndTypesForProphecy[3] = "bluekey";
-        cardColorAndTypesForProphecy[4] = "greenkey";
+        cardColorAndTypesForProphecy = controller.getTopFiveDrawPileColorAndTypeArray();
+
+        Toast cbToast = Toast.makeText(getApplicationContext(), cardColorAndTypesForProphecy[0], Toast.LENGTH_LONG);
+        cbToast.show();
 
         displayProphecyIntent.putExtra("prophArray", cardColorAndTypesForProphecy);
         int retCode = 1;

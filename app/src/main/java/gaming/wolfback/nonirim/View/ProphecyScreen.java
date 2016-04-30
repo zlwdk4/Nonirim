@@ -7,7 +7,10 @@ import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.DragEvent;
@@ -18,6 +21,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
@@ -48,6 +53,72 @@ public class ProphecyScreen extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_prophecy_screen);
+
+
+
+        Intent activityThatCalled = getIntent();
+
+        String [] prophCards = activityThatCalled.getExtras().getStringArray("prophArray");
+
+
+        for (int i = 0; i < 5; ++i) {
+            String colorAndTypeOfCard = prophCards[i];
+            if (colorAndTypeOfCard.equals("null"))
+                break;
+        }
+
+        String colorAndTypeOfCard = prophCards[0];
+
+
+        Toast cbToast = Toast.makeText(getApplicationContext(), colorAndTypeOfCard, Toast.LENGTH_LONG);
+        cbToast.show();
+
+
+
+
+        ImageView theView = (ImageView) findViewById(R.id.proph_select_display_1);
+        //theView.setImageResource(getCardImageResourceId(prophCards[0]));
+        //Picasso.with(this).load(cardResId).fit().into(theLabImageView);
+       //Picasso.with(getApplicationContext()).load(getCardImageResourceId(prophCards[0])).into(theView);
+
+        //Picasso.with(getApplicationContext()).load(R.drawable.bluedoor).into(theView);
+        String theColorAndType = prophCards[0];
+        int theId = getCardImageResourceId(theColorAndType);
+
+        theView.setImageResource(theId);
+
+        theView = (ImageView) findViewById(R.id.proph_select_display_2);
+        theColorAndType = prophCards[1];
+        theId = getCardImageResourceId(theColorAndType);
+        theView.setImageResource(theId);
+
+
+        theView = (ImageView) findViewById(R.id.proph_select_display_3);
+        theColorAndType = prophCards[2];
+        theId = getCardImageResourceId(theColorAndType);
+        theView.setImageResource(theId);
+
+
+        theView = (ImageView) findViewById(R.id.proph_select_display_4);
+        theColorAndType = prophCards[3];
+        theId = getCardImageResourceId(theColorAndType);
+        theView.setImageResource(theId);
+
+
+        theView = (ImageView) findViewById(R.id.proph_select_display_5);
+        theColorAndType = prophCards[4];
+        theId = getCardImageResourceId(theColorAndType);
+        theView.setImageResource(theId);
+
+
+
+
+
+
+
+        //Drawable theD = (Drawable) getDrawable(R.drawable.bluedoor);
+        //theView.setBackground(theD);
+        //Picasso.with(getApplicationContext()).load(R.drawable.bluekey).into(theView);
 
 
 
@@ -260,23 +331,13 @@ public class ProphecyScreen extends Activity {
         prophSelectOptionX.setOnTouchListener(touchListenerX);
 
 
-        Intent activityThatCalled = getIntent();
-
-        String [] prophCards = activityThatCalled.getExtras().getStringArray("prophArray");
-
-
-        for (int i = 0; i < 5; ++i) {
-            String colorAndTypeOfCard = prophCards[i];
-            if (colorAndTypeOfCard.equals("null"))
-                break;
-
            //HHHHHEEEEERREEEEEEEE
             //int cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
             //updateProphecyCardImage(cardImageResourceId, i);
         }
 
 
-    }
+
 
 
 

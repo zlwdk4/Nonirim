@@ -1,6 +1,7 @@
 package gaming.wolfback.nonirim.Controller;
 
 import android.util.Log;
+import android.widget.Toast;
 
 /**
  * Created by Jarren on 3/19/2016.
@@ -105,9 +106,11 @@ public class Controller {
     public String[] getTopFiveDrawPileColorAndTypeArray(){
         String[] toReturn = new String [5];
         for(int i = 0; i < 5; ++i){
-            facade.getTopCardFromDrawPileColorAndType();
+            toReturn[i] = facade.getTopCardFromDrawPileColorAndType(i);
 
         }
+
+
 
         return  toReturn;
     }

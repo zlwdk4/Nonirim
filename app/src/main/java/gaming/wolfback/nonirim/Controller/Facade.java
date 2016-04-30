@@ -296,7 +296,7 @@ public class Facade {
         return  retString;
     }
 
-    public String getTopCardFromDrawPileColorAndType (){
+    public String getTopCardFromDrawPileColorAndType (int offset){
         //NOT ACCOUNTED FOR IF CANT DRAW MORE CARDS
        /* String[] fiveCards = new String[5];
         Card tempCard;
@@ -305,7 +305,7 @@ public class Facade {
             fiveCards[i]  =  tempCard.getColor() + tempCard.getType();
         }
         */
-        Card tempCard = drawPile.draw(0);
+        Card tempCard = drawPile.top(offset);
         String retColorAndType = tempCard.getColor() + tempCard.getType();
         return retColorAndType;
 
