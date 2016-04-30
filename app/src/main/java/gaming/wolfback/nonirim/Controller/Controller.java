@@ -9,7 +9,8 @@ public class Controller {
     public void playCard(int cardNum){
         facade.playCardIntoLabAndRemoveCardFromHand(cardNum);
         if(didScore()){
-            facade.updateDoorCount();
+            String colorOfDoorUpdated = facade.updateDoorCount();
+            facade.removeDoorFromDrawPile(colorOfDoorUpdated);
         }
         facade.drawFromDeckIntoHand();
     }
@@ -148,6 +149,4 @@ public class Controller {
         discardCardAndDrawAnother(cardNum);
 
     }
-
-
 }

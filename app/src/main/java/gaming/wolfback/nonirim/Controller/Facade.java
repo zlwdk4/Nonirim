@@ -171,6 +171,10 @@ public class Facade {
         return drawPile.top(offset).getType();
     }
 
+    public void removeDoorFromDrawPile(String colorOfDoorUpdated){
+        drawPile.removeCard(colorOfDoorUpdated, "door");
+    }
+
     //**********************Interaction stuff**************************//
     //This method draws five cards from the draw pile and put them into the hand. If it draws a door or a nightmare, it puts that card into limbo.
     //Limbo is not actually an object here. It just means that it skips over that card and looks at the next card.
@@ -230,21 +234,23 @@ public class Facade {
         return counts.getBrownDoorCount();
     }
 
-    public void updateDoorCount (){
+    //returns the color of the door that was updated
+    public String updateDoorCount (){
         String colorOfCard = lab.getCard(lab.getSize() - 1).getColor();
         if (colorOfCard.equals("red") && counts.getRedDoorCount() <= 1) {
             counts.incrementRedDoorCount();
-            return;
+            return "red";
         } else if (colorOfCard.equals("blue")&& counts.getBlueDoorCount() <= 1) {
             counts.incrementBlueDoorCount();
-            return;
+            return "blue";
         } else if (colorOfCard.equals("green")&& counts.getGreenDoorCount() <= 1) {
             counts.incrementGreenDoorCount();
-            return;
+            return "green";
         } else if (colorOfCard.equals("brown")&& counts.getBrownDoorCount() <= 1) {
             counts.incrementBrownDoorCount();
-            return;
+            return "brown";
         }
+        return "";
     }
     //*********************nightmare stuff*****************************//
     public void incrementNightmareCount(){
