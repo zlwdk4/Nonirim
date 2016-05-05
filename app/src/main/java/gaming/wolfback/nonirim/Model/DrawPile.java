@@ -1,5 +1,7 @@
 package gaming.wolfback.nonirim.Model;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -43,6 +45,18 @@ public class DrawPile {
     }
 
 
+    public void removeCard(String colorOfCardToBeRemoved, String typeOfCardToBeRemoved){
+        boolean cardFound = false;
+        int i = 0;
+        while (!cardFound){
+            if(deck.get(i).getColor().equals(colorOfCardToBeRemoved)&& deck.get(i).getType().equals(typeOfCardToBeRemoved)){
+                cardFound = true;
+            }
+            else{++i;}
+        }
+        Log.d("TestLog card removed: ", deck.get(i).getColor() + " " + deck.get(i).getType());
+        deck.remove(i);
+    }
 
     public void addCardToDeck(Card cardToBeAdded){
         deck.add(cardToBeAdded);
