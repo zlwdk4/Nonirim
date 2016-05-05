@@ -506,11 +506,16 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
             if(resultCode == RESULT_OK){
 
                 String prophReturnString = data.getStringExtra("prophSelectionString");
+                rearrangeCardsFromSelectionString(prophReturnString);
                 Toast cbToast = Toast.makeText(getApplicationContext(), prophReturnString, Toast.LENGTH_LONG);
                 cbToast.show();
 
             }
         }
+    }
+
+    private void rearrangeCardsFromSelectionString(String prophReturnString) {
+        controller.rearrangeCards(prophReturnString);
     }
 
 
