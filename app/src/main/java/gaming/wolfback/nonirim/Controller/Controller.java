@@ -1,7 +1,6 @@
 package gaming.wolfback.nonirim.Controller;
 
 import android.util.Log;
-import android.widget.Toast;
 
 /**
  * Created by Jarren on 3/19/2016.
@@ -10,13 +9,15 @@ public class Controller {
     public void playCard(int cardNum){
         facade.playCardIntoLabAndRemoveCardFromHand(cardNum);
         if(didScore()){
-            facade.updateDoorCount();
+            String colorOfDoorUpdated = facade.updateDoorCount();
+            facade.removeDoorFromDrawPile(colorOfDoorUpdated);
         }
         facade.drawFromDeckIntoHand();
     }
     public boolean wasNightmareDrawn(){
         if(facade.wasNightmareDrawn()){
             facade.incrementNightmareCount();
+            facade.removeNightmareFromDrawPile();
             return true;
         }
         else return false;
@@ -106,11 +107,9 @@ public class Controller {
     public String[] getTopFiveDrawPileColorAndTypeArray(){
         String[] toReturn = new String [5];
         for(int i = 0; i < 5; ++i){
-            toReturn[i] = facade.getTopCardFromDrawPileColorAndType(i);
+            facade.getTopCardFromDrawPileColorAndType();
 
         }
-
-
 
         return  toReturn;
     }
@@ -150,10 +149,5 @@ public class Controller {
     public void prophecize(int cardNum) {
         discardCardAndDrawAnother(cardNum);
 
-    }
-
-
-    public void rearrangeCards(String prophReturnString) {
-        facade.rearrangeCards(prophReturnString);
     }
 }

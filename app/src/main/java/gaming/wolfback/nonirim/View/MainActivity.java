@@ -498,7 +498,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         return super.onOptionsItemSelected(item);
     }
 
-
+/*
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -517,6 +517,6 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     private void rearrangeCardsFromSelectionString(String prophReturnString) {
         controller.rearrangeCards(prophReturnString);
     }
-
+*/
 
 }

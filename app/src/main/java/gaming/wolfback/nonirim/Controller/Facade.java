@@ -2,8 +2,6 @@ package gaming.wolfback.nonirim.Controller;
 
 import android.util.Log;
 
-import com.squareup.picasso.Picasso;
-
 import gaming.wolfback.nonirim.Model.Counts;
 import gaming.wolfback.nonirim.Model.Hand;
 import gaming.wolfback.nonirim.Model.Labyrinth;
@@ -266,6 +264,10 @@ public class Facade {
     public int getNightmareCount(){
         return counts.getNightmareCount();
     }
+
+    public void removeNightmareFromDrawPile(){
+        drawPile.removeCard("nightmare", "nightmare");
+    }
     //*****************Discard Pile stuff***************************//
     public String getColorAndTypeOfTopDiscard(){
         String colorAndType = (discardPile.top().getColor() + discardPile.top().getType());
@@ -304,7 +306,7 @@ public class Facade {
         return  retString;
     }
 
-    public String getTopCardFromDrawPileColorAndType (int offset){
+    public String getTopCardFromDrawPileColorAndType (){
         //NOT ACCOUNTED FOR IF CANT DRAW MORE CARDS
        /* String[] fiveCards = new String[5];
         Card tempCard;
@@ -313,7 +315,7 @@ public class Facade {
             fiveCards[i]  =  tempCard.getColor() + tempCard.getType();
         }
         */
-        Card tempCard = drawPile.top(offset);
+        Card tempCard = drawPile.draw(0);
         String retColorAndType = tempCard.getColor() + tempCard.getType();
         return retColorAndType;
 
@@ -324,25 +326,4 @@ public class Facade {
     private Labyrinth lab = new Labyrinth();
     private DiscardPile discardPile = new DiscardPile();
     private Counts counts = new Counts();
-
-    public void rearrangeCards(String prophReturnString) {
-        Card[] theCardsFromDrawPile = new Card[5];
-        for(int i= 0; i < 5; ++i){
-            theCardsFromDrawPile[i] = getTopCardFromDrawPileForProphecy();
-        }
-
-        for (int i = 0; i < 5; ++i){
-            for (int j = 0; j < 5; ++j){
-                if(prophReturnString.charAt(j) == '1'){
-                    swapTheCards(theCardsFromDrawPile, j,)
-                }
-            }
-        }
-
-    }
-
-    private Card getTopCardFromDrawPileForProphecy() {
-        Card retCard = drawPile.draw(0);
-        return retCard;
-    }
 }
