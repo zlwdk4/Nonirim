@@ -1,5 +1,6 @@
 package gaming.wolfback.nonirim.Controller;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import gaming.wolfback.nonirim.Model.Counts;
@@ -116,10 +117,7 @@ public class Facade {
             drawFromDeckIntoHand();
             colorAndTypeOfCard = (hand.getCard(indexOfCard).getColor() + hand.getCard(indexOfCard).getType());
         }
-        if (colorAndTypeOfCard.equals("nightmarenightmare")) {
-            colorAndTypeOfCard = "nightmare";
-        }
-        return colorAndTypeOfCard;
+        return removeDuplicatedNightmareName(colorAndTypeOfCard);
     }
 
     public String getCardTypeFromHand(int indexOfCard){
@@ -151,11 +149,17 @@ public class Facade {
         if (colorAndTypeOfCard.equals("nullnull")){
             return "null";
         }
+        return removeDuplicatedNightmareName(colorAndTypeOfCard);
+    }
+
+    @NonNull
+    private String removeDuplicatedNightmareName(String colorAndTypeOfCard) {
         if (colorAndTypeOfCard.equals("nightmarenightmare")) {
             colorAndTypeOfCard = "nightmare";
         }
         return colorAndTypeOfCard;
     }
+
     public int getLabSize(){
         return lab.getSize();
     }
@@ -271,10 +275,7 @@ public class Facade {
     //*****************Discard Pile stuff***************************//
     public String getColorAndTypeOfTopDiscard(){
         String colorAndType = (discardPile.top().getColor() + discardPile.top().getType());
-        if (colorAndType.equals("nightmarenightmare")){
-            colorAndType = "nightmare";
-        }
-        return colorAndType;
+        return removeDuplicatedNightmareName(colorAndType);
     }
     public void discardNextFiveFromDrawPile(){
         Log.d("TestLog before", discardPile.getDiscardString());

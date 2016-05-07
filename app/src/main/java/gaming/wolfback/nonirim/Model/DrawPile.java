@@ -54,7 +54,6 @@ public class DrawPile {
             }
             else{++i;}
         }
-        Log.d("TestLog card removed: ", deck.get(i).getColor() + " " + deck.get(i).getType());
         deck.remove(i);
     }
 
