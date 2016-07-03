@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         setOnTouchListenersForHand();
 
 
@@ -368,6 +369,9 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         String[] cardColorAndTypesForProphecy = new String[5];
         cardColorAndTypesForProphecy = controller.getTopFiveDrawPileColorAndTypeArray();
 
+        for(String theS : cardColorAndTypesForProphecy){
+            Log.d("Here is a card", theS);
+        }
         Toast cbToast = Toast.makeText(getApplicationContext(), cardColorAndTypesForProphecy[0], Toast.LENGTH_LONG);
         cbToast.show();
 

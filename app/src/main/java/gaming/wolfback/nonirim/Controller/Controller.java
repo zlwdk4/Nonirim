@@ -107,7 +107,7 @@ public class Controller {
     public String[] getTopFiveDrawPileColorAndTypeArray(){
         String[] toReturn = new String [5];
         for(int i = 0; i < 5; ++i){
-            facade.getTopCardFromDrawPileColorAndType();
+            toReturn[i] = facade.getTopCardFromDrawPileColorAndType();
 
         }
 

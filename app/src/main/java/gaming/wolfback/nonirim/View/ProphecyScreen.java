@@ -61,11 +61,14 @@ public class ProphecyScreen extends Activity {
         String [] prophCards = activityThatCalled.getExtras().getStringArray("prophArray");
 
 
-        for (int i = 0; i < 5; ++i) {
-            String colorAndTypeOfCard = prophCards[i];
-            if (colorAndTypeOfCard.equals("null"))
-                break;
-        }
+            for (int i = 0; i < 5; ++i) {
+                String colorAndTypeOfCard = prophCards[i];
+                Log.d("prophjava", colorAndTypeOfCard);
+                if (colorAndTypeOfCard.equals("null"))
+                    break;
+            }
+
+
 
         String colorAndTypeOfCard = prophCards[0];
 
@@ -210,8 +213,8 @@ public class ProphecyScreen extends Activity {
 
 
 
-        ////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////
 
         View.OnTouchListener touchListener1 = new View.OnTouchListener(){
 
