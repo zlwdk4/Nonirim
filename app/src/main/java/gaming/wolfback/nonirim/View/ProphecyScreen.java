@@ -73,9 +73,6 @@ public class ProphecyScreen extends Activity {
         String colorAndTypeOfCard = prophCards[0];
 
 
-        Toast cbToast = Toast.makeText(getApplicationContext(), colorAndTypeOfCard, Toast.LENGTH_LONG);
-        cbToast.show();
-
 
 
 
@@ -362,8 +359,6 @@ public class ProphecyScreen extends Activity {
         Toast cbToast = Toast.makeText(getApplicationContext(), retS, Toast.LENGTH_LONG);
         cbToast.show();
 
-
-
         backToMainFromProph(view);
     }
 
@@ -377,6 +372,7 @@ public class ProphecyScreen extends Activity {
         return theOrder;
     }
 
+    //TODO validate the entry in the proph screen selection
     public void backToMainFromProph(View view) {
 
         Intent prophRetIntent = new Intent();

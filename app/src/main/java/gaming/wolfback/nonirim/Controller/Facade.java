@@ -316,6 +316,8 @@ public class Facade {
             fiveCards[i]  =  tempCard.getColor() + tempCard.getType();
         }
         */
+
+
         Card tempCard = drawPile.draw(0);
         String retColorAndType = tempCard.getColor() + tempCard.getType();
         return retColorAndType;
@@ -327,4 +329,54 @@ public class Facade {
     private Labyrinth lab = new Labyrinth();
     private DiscardPile discardPile = new DiscardPile();
     private Counts counts = new Counts();
+
+    public void rearrangeCards(String prophReturnString) {
+        Card[] theCardsFromDrawPile = new Card[5];
+        for(int i= 0; i < 5; ++i){
+            theCardsFromDrawPile[i] = getTopCardFromDrawPileForProphecy();
+        }
+
+        //TODO check this function
+
+        for (int i = 0; i < 5; ++i){
+            for (int j = 0; j < 5; ++j){
+                if(prophReturnString.charAt(j) == '1'){
+                   swapTheCards(theCardsFromDrawPile, i, j , 0 );
+                }
+                else if(prophReturnString.charAt(j) == '2'){
+                    swapTheCards(theCardsFromDrawPile, i, j, 1);
+                }
+                else if(prophReturnString.charAt(j) == '3'){
+                    swapTheCards(theCardsFromDrawPile, i, j, 2);
+                }
+                else if(prophReturnString.charAt(j) == '4'){
+                    swapTheCards(theCardsFromDrawPile, i, j, 3);
+                    //drawPile.addCardToTop(theCardsFromDrawPile[j]);
+                }
+                else if(prophReturnString.charAt(j) == 'X'){
+                    swapTheCards(theCardsFromDrawPile, i, j, 4);
+                }
+            }
+        }
+
+        for(int i = 3; i >= 0; i--){
+            drawPile.addCardToTopOfDeck(theCardsFromDrawPile[i]);
+            Log.d("findfind The" + Integer.toString(i) + "card is", theCardsFromDrawPile[i].getColor() + theCardsFromDrawPile[i].getType());
+            Log.d("deck:", drawPile.top(0).getColor() + drawPile.top(0).getType());
+        }
+
+        discardPile.addCardToDiscard(theCardsFromDrawPile[4]);
+
+    }
+
+    private void swapTheCards(Card[] theCardsFromDrawPile, int i, int j, int c) {
+        Card tempCard = theCardsFromDrawPile[c];
+        theCardsFromDrawPile[c] = theCardsFromDrawPile[i];
+        theCardsFromDrawPile[j] = tempCard;
+    }
+
+    private Card getTopCardFromDrawPileForProphecy() {
+        Card retCard = drawPile.draw(0);
+        return retCard;
+    }
 }

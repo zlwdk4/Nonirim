@@ -57,7 +57,18 @@ public class DrawPile {
         deck.remove(i);
     }
 
+    //TODO ADD TO BOTTOM OF DECK
+    public void addCardToTop(Card cardToBeAdded){
+        deck.add(0, cardToBeAdded);
+    }
+
+    public void addCardToTopOfDeck(Card cardToBeAdded){
+        deck.add(cardToBeAdded);
+        Log.d("It is adding:", cardToBeAdded.getColor() + cardToBeAdded.getType());
+    }
+
     public void addCardToDeck(Card cardToBeAdded){
+
         deck.add(cardToBeAdded);
     }
 

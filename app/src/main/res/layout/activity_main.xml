@@ -167,7 +167,10 @@
         android:background="@drawable/reddoor"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignBottom="@+id/discardPileId"
+        android:layout_alignRight="@+id/doorIdGreen"
+        android:layout_alignEnd="@+id/doorIdGreen" />
 
 
     <TextView
@@ -179,7 +182,7 @@
         android:paddingLeft="2dp"
         android:id="@+id/doorIdBlue"
         android:background="@drawable/bluedoor"
-        android:layout_below="@+id/doorIdRed"
+        android:layout_alignTop="@+id/dicardPile"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -205,9 +208,11 @@
         android:paddingLeft="2dp"
         android:background="@drawable/browndoor"
         android:id="@+id/doorIdBrown"
-        android:layout_above="@+id/doorIdBlue"
+        android:layout_alignTop="@+id/doorIdRed"
         android:layout_toRightOf="@+id/doorIdRed"
-        android:layout_toEndOf="@+id/doorIdRed" />
+        android:layout_above="@+id/doorIdGreen"
+        android:layout_alignRight="@+id/LabId1"
+        android:layout_alignEnd="@+id/LabId1" />
 
 
     <TextView
@@ -220,8 +225,10 @@
         android:textColor="#ffffff"
         android:paddingLeft="2dp"
         android:layout_alignTop="@+id/doorIdBrown"
-        android:layout_toLeftOf="@+id/LabId2"
-        android:layout_toStartOf="@+id/LabId2" />
+        android:layout_toRightOf="@+id/doorIdBrown"
+        android:layout_above="@+id/doorIdGreen"
+        android:layout_toLeftOf="@+id/hand3"
+        android:layout_toStartOf="@+id/hand3" />
 
     <ImageView
         android:layout_width="100dp"

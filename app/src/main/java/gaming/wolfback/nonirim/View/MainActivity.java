@@ -502,7 +502,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         return super.onOptionsItemSelected(item);
     }
 
-/*
+
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -514,13 +514,17 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                 Toast cbToast = Toast.makeText(getApplicationContext(), prophReturnString, Toast.LENGTH_LONG);
                 cbToast.show();
 
+                Log.d("in the main", prophReturnString);
+
             }
         }
     }
 
+
+    //TODO implement the rearrange cards function
     private void rearrangeCardsFromSelectionString(String prophReturnString) {
         controller.rearrangeCards(prophReturnString);
     }
-*/
+
 
 }

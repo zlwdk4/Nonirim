@@ -150,4 +150,9 @@ public class Controller {
         discardCardAndDrawAnother(cardNum);
 
     }
+
+
+    public void rearrangeCards(String prophReturnString) {
+        facade.rearrangeCards(prophReturnString);
+    }
 }
