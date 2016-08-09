@@ -5,6 +5,7 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Stack;
 
 import gaming.wolfback.nonirim.Utility.Card;
 
@@ -12,64 +13,51 @@ import gaming.wolfback.nonirim.Utility.Card;
  * Created by ZWolf on 2/19/2016.
  */
 public class DrawPile {
-    private static List<Card> deck;
+    private static Stack<Card> drawPile;
     public DrawPile(){
-        deck = new ArrayList<Card>();
+        drawPile = new Stack<Card>();
     }
 
     public boolean isEmpty(){
-        return deck.isEmpty();
+        return drawPile.isEmpty();
     }
 
-    public int getDeckCount(){
-        return deck.size();
+    public int getDrawPileCount() {
+        return drawPile.size();
     }
 
-    public void shuffle(){
-        Collections.shuffle(deck);
+    public void shuffle() {
+        Collections.shuffle(drawPile);
     }
 
-    public Card top(int offset){
-        offset++;
-        return deck.get(deck.size()-offset);
+    public Card top() {
+        return drawPile.peek();
     }
 
-    public Card draw(int offset){
-        offset++;
-        Card tempCard = new Card(deck.get(deck.size()-offset).getId(),
-                deck.get(deck.size()-offset).getColor(),
-                deck.get(deck.size()-offset).getType());
-
-        deck.remove(deck.size() - offset);
-        return tempCard;
+    public Card pop() {
+        return drawPile.pop();
     }
 
-
-    public void removeCard(String colorOfCardToBeRemoved, String typeOfCardToBeRemoved){
-        boolean cardFound = false;
+    public boolean removeCard(String colorOfCardToBeRemoved, String typeOfCardToBeRemoved){
         int i = 0;
-        while (!cardFound){
-            if(deck.get(i).getColor().equals(colorOfCardToBeRemoved)&& deck.get(i).getType().equals(typeOfCardToBeRemoved)){
-                cardFound = true;
+        int currentSizeOfDrawPile = drawPile.size();
+        while (i < currentSizeOfDrawPile) {
+            if(drawPile.get(i).getColor().equals(colorOfCardToBeRemoved) && drawPile.get(i).getType().equals(typeOfCardToBeRemoved)) {
+                drawPile.remove(i);
+                return true;
             }
-            else{++i;}
+            else {++i;}
         }
-        deck.remove(i);
+        return false;
     }
 
-    //TODO ADD TO BOTTOM OF DECK
-    public void addCardToTop(Card cardToBeAdded){
-        deck.add(0, cardToBeAdded);
+    public void addCardToTop(Card cardToBeAdded) {
+        Log.d ("DrawPile addCard ", cardToBeAdded.getColor() + " " + cardToBeAdded.getType());
+        drawPile.push(cardToBeAdded);
     }
 
-    public void addCardToTopOfDeck(Card cardToBeAdded){
-        deck.add(cardToBeAdded);
-        Log.d("It is adding:", cardToBeAdded.getColor() + cardToBeAdded.getType());
+    //To peek at the top card, you would pass an index of 0
+    public Card peekStartingFromTop (int index) {
+        return drawPile.get(drawPile.size() - index - 1);
     }
-
-    public void addCardToDeck(Card cardToBeAdded){
-
-        deck.add(cardToBeAdded);
-    }
-
 }

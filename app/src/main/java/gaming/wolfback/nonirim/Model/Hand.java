@@ -60,11 +60,11 @@ public class Hand {
 
     //throws NullPointerException if there is no card in the hand at the index given
     //throws IndexOutOfBoundsException if the index is greater than the maximum allowed cards in hand minus 1
-    public Card getCard(int index) throws NullPointerException, IndexOutOfBoundsException{
+    public Card getCard(int index) throws NullPointerException, IndexOutOfBoundsException {
         if (index > maxCardsInHand - 1){
             throw new IndexOutOfBoundsException();
         }
-        if (hand[index]==null){
+        if (hand[index] == null){
             if (AssertSettings.PRIORITY1_ASSERTIONS){
                 Assert.assertNotNull(hand[index]);
             }

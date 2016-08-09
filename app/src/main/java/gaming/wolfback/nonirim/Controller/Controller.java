@@ -12,7 +12,7 @@ public class Controller {
             String colorOfDoorUpdated = facade.updateDoorCount();
             facade.removeDoorFromDrawPile(colorOfDoorUpdated);
         }
-        facade.drawFromDeckIntoHand();
+        facade.drawFromDrawPileIntoHand();
     }
     public boolean wasNightmareDrawn(){
         if(facade.wasNightmareDrawn()){
@@ -38,7 +38,7 @@ public class Controller {
             //discard next five
             facade.discardNextFiveFromDrawPile();
             facade.getRidOfNightmareInHand();
-            facade.drawFromDeckIntoHand();
+            facade.drawFromDrawPileIntoHand();
         }
         else if (optionSelected == 3){
             //discard hand
@@ -51,7 +51,7 @@ public class Controller {
 
     public void discardCardAndDrawAnother(int cardNum){
         facade.discardCardFromHand(cardNum);
-        facade.drawFromDeckIntoHand();
+        facade.drawFromDrawPileIntoHand();
     }
     public boolean isValidPlay(int indexOfCardInHand){
         int labSize = facade.getLabSize();
@@ -104,14 +104,12 @@ public class Controller {
         return toReturn;
     }
 
-    public String[] getTopFiveDrawPileColorAndTypeArray(){
+    public String[] getTopFiveDrawPileColorAndTypeArray() {
         String[] toReturn = new String [5];
-        for(int i = 0; i < 5; ++i){
+        for (int i = 0; i < 5; ++i) {
             toReturn[i] = facade.getTopCardFromDrawPileColorAndType();
-
         }
-
-        return  toReturn;
+        return toReturn;
     }
 
     public int getRedDoorCount(){

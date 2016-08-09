@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import gaming.wolfback.nonirim.Model.Counts;
+import gaming.wolfback.nonirim.Model.DrawPileHelper;
 import gaming.wolfback.nonirim.Model.Hand;
 import gaming.wolfback.nonirim.Model.Labyrinth;
 import gaming.wolfback.nonirim.Utility.Card;
@@ -22,26 +23,26 @@ public class Facade {
 
         for (int j = 0; j < 9; j++) {
             Card c = new Card(i, red, sun);
-            drawPile.addCardToDeck(c);
+            drawPileHelper.addCardToDrawPile(c);
             i++;
         }
 
 
         for (int j = 0; j < 8; j++) {
             Card c = new Card(i, blue, sun);
-            drawPile.addCardToDeck(c);
+            drawPileHelper.addCardToDrawPile(c);
             i++;
         }
 
         for (int j = 0; j < 7; j++) {
             Card c = new Card(i, green, sun);
-            drawPile.addCardToDeck(c);
+            drawPileHelper.addCardToDrawPile(c);
             i++;
         }
 
         for (int j = 0; j < 6; j++) {
             Card c = new Card(i, brown, sun);
-            drawPile.addCardToDeck(c);
+            drawPileHelper.addCardToDrawPile(c);
             i++;
         }
 
@@ -54,10 +55,10 @@ public class Facade {
             i++;
             Card c3 = new Card(i, brown, moon);
             i++;
-            drawPile.addCardToDeck(c);
-            drawPile.addCardToDeck(c1);
-            drawPile.addCardToDeck(c2);
-            drawPile.addCardToDeck(c3);
+            drawPileHelper.addCardToDrawPile(c);
+            drawPileHelper.addCardToDrawPile(c1);
+            drawPileHelper.addCardToDrawPile(c2);
+            drawPileHelper.addCardToDrawPile(c3);
 
         }
 
@@ -70,16 +71,16 @@ public class Facade {
             i++;
             Card c3 = new Card(i, brown, key);
             i++;
-            drawPile.addCardToDeck(c);
-            drawPile.addCardToDeck(c1);
-            drawPile.addCardToDeck(c2);
-            drawPile.addCardToDeck(c3);
+            drawPileHelper.addCardToDrawPile(c);
+            drawPileHelper.addCardToDrawPile(c1);
+            drawPileHelper.addCardToDrawPile(c2);
+            drawPileHelper.addCardToDrawPile(c3);
 
         }
 
         for (int j = 0; j < 10; j++) {
             Card c = new Card(i, nightmare, nightmare);
-            drawPile.addCardToDeck(c);
+            drawPileHelper.addCardToDrawPile(c);
             i++;
         }
 
@@ -92,16 +93,15 @@ public class Facade {
             i++;
             Card c3 = new Card(i, brown, door);
             i++;
-            drawPile.addCardToDeck(c);
-            drawPile.addCardToDeck(c1);
-            drawPile.addCardToDeck(c2);
-            drawPile.addCardToDeck(c3);
+            drawPileHelper.addCardToDrawPile(c);
+            drawPileHelper.addCardToDrawPile(c1);
+            drawPileHelper.addCardToDrawPile(c2);
+            drawPileHelper.addCardToDrawPile(c3);
         }
-        drawPile.shuffle();
-        drawPile.shuffle();
-        drawPile.shuffle();
+        drawPileHelper.shuffleDrawPile();
 
         drawFiveTimesIntoHand();
+        hand.seeHand();
     }
     //**************************Hand stuff***********************************************//
     public String getCardColorAndTypeFromHand(int indexOfCard){
@@ -114,7 +114,7 @@ public class Facade {
         }
         catch (NullPointerException e){
             Log.d("TESTLOG", "Facade nullptr exception caught");
-            drawFromDeckIntoHand();
+            drawFromDrawPileIntoHand();
             colorAndTypeOfCard = (hand.getCard(indexOfCard).getColor() + hand.getCard(indexOfCard).getType());
         }
         return removeDuplicatedNightmareName(colorAndTypeOfCard);
@@ -170,50 +170,31 @@ public class Facade {
         return lab.getCard(indexOfCard).getType();
     }
 
-    //************************Deck stuff*******************************//
-    public String getCardTypeFromDeck(int offset){
-        return drawPile.top(offset).getType();
-    }
-
-    public void removeDoorFromDrawPile(String colorOfDoorUpdated){
-        drawPile.removeCard(colorOfDoorUpdated, "door");
+    //************************DrawPile stuff*******************************//
+    public boolean removeDoorFromDrawPile(String colorOfDoorUpdated){
+        if (drawPileHelper.removeDoorFromDrawPile(colorOfDoorUpdated)) {
+            return true;
+        }
+        else return false;
     }
 
     //**********************Interaction stuff**************************//
-    //This method draws five cards from the draw pile and put them into the hand. If it draws a door or a nightmare, it puts that card into limbo.
-    //Limbo is not actually an object here. It just means that it skips over that card and looks at the next card.
-    //If a door or a nightmare was drawn, it shuffles the drawPile.
-    public void drawFiveTimesIntoHand(){
-        int offset = 0;
-        boolean nightmareOrDoorWasDrawn = false;
-        for (int i = 0; i < 5; i++){
-            while (getCardTypeFromDeck(offset).equals("nightmare") || getCardTypeFromDeck(offset).equals("door") ){
-                offset++;
-                nightmareOrDoorWasDrawn = true;
-            }
-            Card tempCard = drawPile.draw(offset);
-            tempCard.setIsCardDrawn(true);
-            hand.addCard(tempCard);
+    //This method draws five location into the hand
+    public void drawFiveTimesIntoHand() {
+        Card cardsToBeAddedToHand [] = drawPileHelper.getTopFiveLocationCards();
+
+        for (int i = 0; i < 5; ++i) {
+            Log.d ("Class: Facade", "Function: drawFiveTimeIntoHand");
+            Log.d ("Cards being ", "added into hand");
+            Log.d("card #" + Integer.toString(i), cardsToBeAddedToHand[i].getColor() + " " + cardsToBeAddedToHand[0].getType());
+            hand.addCard(cardsToBeAddedToHand[i]);
         }
-        if(nightmareOrDoorWasDrawn)
-            drawPile.shuffle();
     }
-    //This method draws one card from the deck into the hand. If a door is drawn, it puts that card into limbo.
-    //Limbo is not actually an object here. It just means that it skips over that card and looks at the next card.
-    //If a door was drawn, it shuffles the drawPile
-    public void drawFromDeckIntoHand(){
-        int offset = 0;
-        boolean doorWasDrawn = false;
-        while (getCardTypeFromDeck(offset).equals("door") ){
-            offset++;
-            doorWasDrawn = true;
-        }
-        Card tempCard = drawPile.draw(offset);
-        tempCard.setIsCardDrawn(true);
-        hand.addCard(tempCard);
-        if(doorWasDrawn){
-            drawPile.shuffle();
-        }
+    //This method draws one location card from the drawPile into the hand.
+    public void drawFromDrawPileIntoHand(){
+        Card cardToBeAddedToHand = drawPileHelper.getTopLocationCard();
+
+        hand.addCard(cardToBeAddedToHand);
     }
 
     public void playCardIntoLabAndRemoveCardFromHand(int indexOfCardInHand) {
@@ -269,8 +250,9 @@ public class Facade {
         return counts.getNightmareCount();
     }
 
+    //// TODO: 8/9/2016 have this return a boolean to make sure that there is a nightmare in the deck
     public void removeNightmareFromDrawPile(){
-        drawPile.removeCard("nightmare", "nightmare");
+        drawPileHelper.removeCardFromDrawPile("nightmare", "nightmare");
     }
     //*****************Discard Pile stuff***************************//
     public String getColorAndTypeOfTopDiscard(){
@@ -278,21 +260,11 @@ public class Facade {
         return removeDuplicatedNightmareName(colorAndType);
     }
     public void discardNextFiveFromDrawPile(){
-        Log.d("TestLog before", discardPile.getDiscardString());
-        int offset = 0;
-        boolean nightmareOrDoorWasDrawn = false;
-        for (int i = 0; i < 5; i++){
-            while (getCardTypeFromDeck(offset).equals("nightmare") || getCardTypeFromDeck(offset).equals("door") ){
-                offset++;
-                nightmareOrDoorWasDrawn = true;
-            }
-            Card tempCard = drawPile.draw(offset);
-            tempCard.setIsCardDiscarded(true);
-            discardPile.addCardToDiscard(tempCard);
+        Card cardsToBeDiscardPile [] = drawPileHelper.getTopFiveLocationCards();
+
+        for (int i = 0; i < 5; ++i) {
+            discardPile.addCardToDiscard(cardsToBeDiscardPile[i]);
         }
-        if(nightmareOrDoorWasDrawn)
-            drawPile.shuffle();
-        Log.d("TestLog after", discardPile.getDiscardString());
     }
     //The parameter index starts with the top card. So if you want the top card, you would give it index = 0
     //To-do: add exception if they ask for an index that isn't there
@@ -316,28 +288,22 @@ public class Facade {
             fiveCards[i]  =  tempCard.getColor() + tempCard.getType();
         }
         */
-
-
-        Card tempCard = drawPile.draw(0);
+        Card tempCard = drawPileHelper.getTopCard();
         String retColorAndType = tempCard.getColor() + tempCard.getType();
         return retColorAndType;
 
     }
     //****************Private Variables***************************///
-    private DrawPile drawPile = new DrawPile();
+    private DrawPileHelper drawPileHelper = new DrawPileHelper();
     private Hand hand = new Hand();
     private Labyrinth lab = new Labyrinth();
     private DiscardPile discardPile = new DiscardPile();
     private Counts counts = new Counts();
 
     public void rearrangeCards(String prophReturnString) {
-        Card[] theCardsFromDrawPile = new Card[5];
-        for(int i= 0; i < 5; ++i){
-            theCardsFromDrawPile[i] = getTopCardFromDrawPileForProphecy();
-        }
+        Card[] theCardsFromDrawPile = drawPileHelper.getTopFiveCards();
 
         //TODO check this function
-
         for (int i = 0; i < 5; ++i){
             for (int j = 0; j < 5; ++j){
                 if(prophReturnString.charAt(j) == '1'){
@@ -360,23 +326,17 @@ public class Facade {
         }
 
         for(int i = 3; i >= 0; i--){
-            drawPile.addCardToTopOfDeck(theCardsFromDrawPile[i]);
+            drawPileHelper.addCardToDrawPile(theCardsFromDrawPile[i]);
             Log.d("findfind The" + Integer.toString(i) + "card is", theCardsFromDrawPile[i].getColor() + theCardsFromDrawPile[i].getType());
-            Log.d("deck:", drawPile.top(0).getColor() + drawPile.top(0).getType());
+            Log.d("drawPile:", drawPileHelper.viewTopCard().getColor() + drawPileHelper.viewTopCard().getType());
         }
 
         discardPile.addCardToDiscard(theCardsFromDrawPile[4]);
-
     }
 
     private void swapTheCards(Card[] theCardsFromDrawPile, int i, int j, int c) {
         Card tempCard = theCardsFromDrawPile[c];
         theCardsFromDrawPile[c] = theCardsFromDrawPile[i];
         theCardsFromDrawPile[j] = tempCard;
-    }
-
-    private Card getTopCardFromDrawPileForProphecy() {
-        Card retCard = drawPile.draw(0);
-        return retCard;
     }
 }

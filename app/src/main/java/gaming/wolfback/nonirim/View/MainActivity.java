@@ -178,26 +178,11 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     }
 
     private void setHeightAndWidthOfLab(int h, int w) {
-       /* labViews = new ImageView[8];
-=======
+
         for (ImageView imageButton : handButtons){
             imageButton.getLayoutParams().width = w;
             imageButton.getLayoutParams().height = h;
         }
-    }
-
-    private void setHeightAndWidthOfLab(int h, int w){
-        ImageView[] labViews = new ImageView[8];
->>>>>>> cef1f8aadf5010edb3399d2ad30b7241d4797d0d
-        for (int i = 0; i < labViews.length; ++i){
-            String labID = "LabId" + (i);
-            int resID = getResources().getIdentifier(labID, "id", getPackageName());
-            labViews[i] = ((ImageView) findViewById(resID));
-            labViews[i].getLayoutParams().width = w;
-            labViews[i].getLayoutParams().height = h;
-
-        } */
-
     }
 
     @Override
@@ -338,9 +323,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     }
 
     private void prophecyAction() {
-
         displayProphecyActivity();
-
     }
 
     private void discardCard(int cardNum) {
@@ -363,7 +346,6 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
 
     //This method starts a new activity and display the cards to prophecize with and return the selection
-
     public void displayProphecyActivity(){
         Intent displayProphecyIntent = new Intent(this, ProphecyScreen.class);
         String[] cardColorAndTypesForProphecy = new String[5];
