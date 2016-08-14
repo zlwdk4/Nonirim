@@ -15,7 +15,7 @@ public class Card implements Serializable{
     public Boolean getIsCardDrawn() {
         return isCardDrawn;
     }
-//
+
     public void setIsCardDrawn(Boolean isCardDrawn) {
         this.isCardDrawn = isCardDrawn;
     }

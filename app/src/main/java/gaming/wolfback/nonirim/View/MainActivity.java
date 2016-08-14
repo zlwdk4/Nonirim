@@ -26,6 +26,7 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import gaming.wolfback.nonirim.Controller.Controller;
 import gaming.wolfback.nonirim.R;
@@ -97,6 +98,8 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                             if (controller.getCardTypeFromHand(theInd) == "key") {
                                 proph = "Prophecy successful :)";
                                 //prophecize(theInd);
+                                Log.d("Class: MainActivity", "Method: dropListener");
+                                Log.d("Discard Key Index -> ", Integer.toString(theInd));
                                 controller.discardCard(theInd);
                                 updateImageOfDiscard();
                                 cardNum = theInd;
@@ -477,7 +480,9 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         if (requestCode == 1) {
             if(resultCode == RESULT_OK){
                 String prophReturnString = data.getStringExtra("prophSelectionString");
-                Card [] prophCards = (Card []) data.getExtras().getSerializable("prophCards");
+                //this method is used to handle apis from 17+
+                Object[] arr = (Object[]) data.getSerializableExtra("prophCards");
+                Card[] prophCards = Arrays.copyOf(arr, arr.length, Card[].class);
                 rearrangeCardsFromSelectionString(prophReturnString, prophCards);
                 Toast cbToast = Toast.makeText(getApplicationContext(), prophReturnString, Toast.LENGTH_LONG);
                 cbToast.show();

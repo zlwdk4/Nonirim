@@ -7,8 +7,8 @@
     android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".View.MainActivity">
 
     <ImageButton
-        android:layout_width="40dp"
-        android:layout_height="60dp"
+        android:layout_width="50dp"
+        android:layout_height="75dp"
         android:id="@+id/hand0"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
@@ -18,8 +18,8 @@
         />
 
     <ImageButton
-        android:layout_width="40dp"
-        android:layout_height="60dp"
+        android:layout_width="50dp"
+        android:layout_height="75dp"
         android:id="@+id/hand1"
         android:layout_alignBottom="@+id/hand0"
         android:layout_toRightOf="@+id/hand0"
@@ -29,8 +29,8 @@
         />
 
     <ImageButton
-        android:layout_width="40dp"
-        android:layout_height="60dp"
+        android:layout_width="50dp"
+        android:layout_height="75dp"
         android:id="@+id/hand2"
         android:layout_alignBottom="@+id/hand1"
         android:layout_toRightOf="@+id/hand1"
@@ -39,8 +39,8 @@
         android:scaleType="fitXY"/>
 
     <ImageButton
-        android:layout_width="40dp"
-        android:layout_height="60dp"
+        android:layout_width="50dp"
+        android:layout_height="75dp"
         android:id="@+id/hand3"
         android:layout_alignBottom="@+id/hand2"
         android:layout_toRightOf="@+id/hand2"
@@ -49,8 +49,8 @@
         android:scaleType="fitXY"/>
 
     <ImageButton
-        android:layout_width="40dp"
-        android:layout_height="60dp"
+        android:layout_width="50dp"
+        android:layout_height="75dp"
         android:id="@+id/hand4"
         android:layout_alignBottom="@+id/hand3"
         android:layout_toRightOf="@+id/hand3"
@@ -63,16 +63,22 @@
         android:layout_height="60dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/LabId0"
-        android:layout_centerVertical="true"
+        android:layout_alignTop="@+id/LabId2"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+    </LinearLayout>
     <ImageView
         android:layout_width="40dp"
         android:layout_height="60dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/LabId1"
-        android:layout_alignBottom="@+id/LabId0"
+        android:layout_below="@+id/doorIdBlue"
         android:layout_toRightOf="@+id/LabId0"
         android:layout_toEndOf="@+id/LabId0" />
 
@@ -81,8 +87,7 @@
         android:layout_height="60dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/LabId2"
-        android:layout_marginLeft="-10dp"
-        android:layout_alignTop="@+id/LabId1"
+        android:layout_below="@+id/doorIdBlue"
         android:layout_toRightOf="@+id/LabId1"
         android:layout_toEndOf="@+id/LabId1" />
 
@@ -91,26 +96,23 @@
         android:layout_height="60dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/LabId3"
-        android:layout_marginLeft="-10dp"
-        android:layout_alignTop="@+id/LabId2"
-        android:layout_toRightOf="@+id/LabId2"
-        android:layout_toEndOf="@+id/LabId2" />
+        android:layout_alignTop="@+id/LabId5"
+        android:layout_toEndOf="@+id/LabId2"
+        android:layout_toRightOf="@+id/LabId2" />
     <ImageView
         android:layout_width="40dp"
         android:layout_height="60dp"
-        android:layout_marginLeft="-10dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/LabId4"
-        android:layout_alignTop="@+id/LabId3"
+        android:layout_below="@+id/doorIdGreen"
         android:layout_toRightOf="@+id/LabId3"
         android:layout_toEndOf="@+id/LabId3" />
     <ImageView
         android:layout_width="40dp"
         android:layout_height="60dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_marginLeft="-10dp"
         android:id="@+id/LabId5"
-        android:layout_alignTop="@+id/LabId4"
+        android:layout_below="@+id/doorIdGreen"
         android:layout_toRightOf="@+id/LabId4"
         android:layout_toEndOf="@+id/LabId4" />
     <ImageView
@@ -128,11 +130,10 @@
         android:layout_height="60dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/LabId7"
-        android:layout_alignTop="@+id/LabId6"
-        android:layout_alignRight="@+id/LabId6"
-        android:layout_alignEnd="@+id/LabId6"
-        android:layout_alignBottom="@+id/LabId6"
-        android:backgroundTint="#3dbfff" />
+        android:backgroundTint="#3dbfff"
+        android:layout_below="@+id/doorIdGreen"
+        android:layout_toRightOf="@+id/LabId6"
+        android:layout_toEndOf="@+id/LabId6" />
 
 
     <ImageView
@@ -141,24 +142,24 @@
         android:src="@drawable/backofcard"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/Deck"
-        android:layout_below="@+id/LabId0"
+        android:layout_below="@+id/LabId1"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="25dp" />
+        android:layout_alignParentEnd="true" />
 
     <ImageView
-        android:layout_width="30dp"
-        android:layout_height="45dp"
+        android:layout_width="40dp"
+        android:layout_height="60dp"
         android:text=""
-        android:layout_marginRight="185dp"
         android:id="@+id/discardPileId"
         android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/Deck"
-        android:layout_alignEnd="@+id/Deck" />
+        android:layout_alignLeft="@+id/dicardPile"
+        android:layout_alignStart="@+id/dicardPile"
+        android:layout_marginLeft="54dp"
+        android:layout_marginStart="54dp" />
 
     <TextView
-        android:layout_width="20dp"
-        android:layout_height="30dp"
+        android:layout_width="40dp"
+        android:layout_height="60dp"
         android:text="0"
         android:textSize="10dp"
         android:textColor="#ffffff"
@@ -167,57 +168,50 @@
         android:background="@drawable/reddoor"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignBottom="@+id/discardPileId"
-        android:layout_alignRight="@+id/doorIdGreen"
-        android:layout_alignEnd="@+id/doorIdGreen" />
+        android:layout_alignParentStart="true" />
 
 
     <TextView
-        android:layout_width="20dp"
-        android:layout_height="30dp"
+        android:layout_width="40dp"
+        android:layout_height="60dp"
         android:text="0"
         android:textSize="10dp"
         android:textColor="#ffffff"
         android:paddingLeft="2dp"
         android:id="@+id/doorIdBlue"
         android:background="@drawable/bluedoor"
-        android:layout_alignTop="@+id/dicardPile"
+        android:layout_below="@+id/doorIdRed"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <TextView
-        android:layout_width="20dp"
-        android:layout_height="30dp"
+        android:layout_width="40dp"
+        android:layout_height="60dp"
         android:text="0"
         android:textSize="10dp"
         android:textColor="#ffffff"
         android:paddingLeft="2dp"
         android:id="@+id/doorIdGreen"
         android:background="@drawable/greendoor"
-        android:layout_alignBottom="@+id/doorIdBlue"
-        android:layout_toRightOf="@+id/doorIdBlue"
-        android:layout_toEndOf="@+id/doorIdBlue" />
+        android:layout_above="@+id/LabId0"
+        android:layout_toRightOf="@+id/LabId0"
+        android:layout_toEndOf="@+id/LabId0" />
 
     <TextView
-        android:layout_width="20dp"
-        android:layout_height="30dp"
+        android:layout_width="40dp"
+        android:layout_height="60dp"
         android:text="0"
         android:textSize="10dp"
         android:textColor="#ffffff"
         android:paddingLeft="2dp"
         android:background="@drawable/browndoor"
         android:id="@+id/doorIdBrown"
-        android:layout_alignTop="@+id/doorIdRed"
-        android:layout_toRightOf="@+id/doorIdRed"
-        android:layout_above="@+id/doorIdGreen"
-        android:layout_alignRight="@+id/LabId1"
-        android:layout_alignEnd="@+id/LabId1" />
+        android:layout_alignEnd="@+id/doorIdGreen" />
 
 
     <TextView
-        android:layout_width="20dp"
-        android:layout_height="30dp"
+        android:layout_width="40dp"
+        android:layout_height="60dp"
         android:id="@+id/nightmareId"
         android:background="@drawable/nightmare"
         android:text="0"
@@ -225,10 +219,8 @@
         android:textColor="#ffffff"
         android:paddingLeft="2dp"
         android:layout_alignTop="@+id/doorIdBrown"
-        android:layout_toRightOf="@+id/doorIdBrown"
-        android:layout_above="@+id/doorIdGreen"
-        android:layout_toLeftOf="@+id/hand3"
-        android:layout_toStartOf="@+id/hand3" />
+        android:layout_toRightOf="@+id/doorIdGreen"
+        android:layout_toEndOf="@+id/doorIdGreen" />
 
     <ImageView
         android:layout_width="100dp"
@@ -244,15 +236,13 @@
         android:layout_height="75dp"
         android:id="@+id/dicardPile"
         android:background="@drawable/discardpile"
-        android:layout_marginRight="25dp"
-        android:layout_marginEnd="25dp"
-        android:layout_below="@+id/discardPileId"
-        android:layout_toLeftOf="@+id/crystalBall"
-        android:layout_toStartOf="@+id/crystalBall" />
+        android:layout_alignTop="@+id/crystalBall"
+        android:layout_toRightOf="@+id/LabId7"
+        android:layout_toEndOf="@+id/LabId7" />
 
    <TextView
-        android:layout_width="100dp"
-        android:layout_height="55dp"
+        android:layout_width="150dp"
+        android:layout_height="80dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Play Card"
         android:id="@+id/playCardView"
@@ -263,13 +253,10 @@
         android:singleLine="false"
         android:capitalize="characters"
         android:gravity="center_vertical|center_horizontal"
-        android:layout_alignLeft="@+id/dicardPile"
-        android:layout_alignStart="@+id/dicardPile"
-        android:layout_below="@+id/dicardPile"
-        android:layout_alignRight="@+id/dicardPile"
-        android:layout_alignEnd="@+id/dicardPile"
 
-        android:layout_above="@+id/hand4" />
+       android:layout_below="@+id/LabId7"
+       android:layout_toRightOf="@+id/LabId7"
+       android:layout_toEndOf="@+id/LabId7" />
 
 
 </RelativeLayout>
