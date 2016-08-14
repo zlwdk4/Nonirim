@@ -112,10 +112,10 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                             String theS = theData.getItemAt(0).coerceToText(getApplicationContext()).toString();
                             Character theC = theS.charAt(theS.length() - 1);
                             theInd = Integer.parseInt(theC.toString());
-                            controller.discardCard(cardNum);
+                            controller.discardCard(theInd);
                             controller.drawCard();
                             updateImageOfDiscard();
-                            updateImageOfHand(cardNum);
+                            updateImageOfHand(theInd);
                             Log.d("TestLog card drawn", controller.getCardColorAndTypeFromHand(theInd));
                             if (controller.wasNightmareDrawn()) {
                                 nightmareAction();
