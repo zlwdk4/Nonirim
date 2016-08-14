@@ -95,7 +95,8 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                             //theInd = Integer.parseInt(theData.getItemAt(0).toString());
                             Character theC = theS.charAt(theS.length() - 1);
                             theInd = Integer.parseInt(theC.toString());
-                            if (controller.getCardTypeFromHand(theInd) == "key") {
+                            Log.d("Proph Drop: ", controller.getCardTypeFromHand(theInd));
+                            if (controller.getCardTypeFromHand(theInd).equals("key")) {
                                 proph = "Prophecy successful :)";
                                 //prophecize(theInd);
                                 Log.d("Class: MainActivity", "Method: dropListener");
@@ -487,7 +488,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                 Toast cbToast = Toast.makeText(getApplicationContext(), prophReturnString, Toast.LENGTH_LONG);
                 cbToast.show();
 
-                Log.d ("Class: MainActivity", "Method: onActivityResult");
+                Log.d("Class: MainActivity", "Method: onActivityResult");
                 Log.d("proph return string: ", prophReturnString);
 
                 updateImageOfDiscard();
