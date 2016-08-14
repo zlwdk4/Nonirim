@@ -305,45 +305,75 @@ public class Facade {
 
     public void rearrangeCards(String prophReturnString, Card [] prophCards) {
         Log.d("Class: Facade", "Method: rearrange cards");
-        Card [] theCardsFromDrawPile = prophCards;
+
 
         //TODO check this function
+
+        Card[] arrangedCards = new Card[5];
+        char curChar;
+        int posInt;
+
+        for(int i = 0; i < 5 ; ++i){
+            curChar = prophReturnString.charAt(i);
+            if(curChar == 'X'){
+                arrangedCards[4] = prophCards[i];
+                continue;
+            }
+            
+            posInt = (int) curChar;
+            posInt -= '0';
+            posInt--; 
+            arrangedCards[posInt] = prophCards[i];
+            
+        }
+/*
         for (int i = 0; i < 5; ++i) {
             for (int j = 0; j < 5; ++j) {
                 if (prophReturnString.charAt(j) == '1') {
-                   swapTheCards(theCardsFromDrawPile, i, j , 0 );
+                   swapTheCards(prophCards, i, j , 0 );
                 }
                 else if (prophReturnString.charAt(j) == '2') {
-                    swapTheCards(theCardsFromDrawPile, i, j, 1);
+                    swapTheCards(prophCards, i, j, 1);
                 }
                 else if (prophReturnString.charAt(j) == '3') {
-                    swapTheCards(theCardsFromDrawPile, i, j, 2);
+                    swapTheCards(prophCards, i, j, 2);
                 }
                 else if (prophReturnString.charAt(j) == '4') {
-                    swapTheCards(theCardsFromDrawPile, i, j, 3);
-                    //drawPile.addCardToTop(theCardsFromDrawPile[j]);
+                    swapTheCards(prophCards, i, j, 3);
+                    //drawPile.addCardToTop(arrangedCards[j]);
                 }
                 else if (prophReturnString.charAt(j) == 'X') {
-                    swapTheCards(theCardsFromDrawPile, i, j, 4);
+                    swapTheCards(prophCards, i, j, 4);
                 }
             }
         }
+        */
+
+        String stringOfRCards = "";
+
+        for(int i = 0; i < arrangedCards.length; i++){
+            stringOfRCards += Integer.toString(i) + ": " + arrangedCards[i].getColor() + " " + arrangedCards[i].getType() + ", " ;
+        }
+
+        Log.d("State After Rearrange: ", stringOfRCards);
 
         for (int i = 3; i >= 0; i--) {
-            drawPileHelper.addCardToDrawPile(theCardsFromDrawPile[i]);
-            //Log.d("findfind The " + Integer.toString(i) + " card is", theCardsFromDrawPile[i].getColor() + theCardsFromDrawPile[i].getType());
+            drawPileHelper.addCardToDrawPile(arrangedCards[i]);
+            //Log.d("findfind The " + Integer.toString(i) + " card is", arrangedCards[i].getColor() + arrangedCards[i].getType());
             //Log.d("drawPile:", drawPileHelper.viewTopCard().getColor() + drawPileHelper.viewTopCard().getType());
         }
 
-        discardPile.addCardToDiscard(theCardsFromDrawPile[4]);
+        discardPile.addCardToDiscard(arrangedCards[4]);
 
-        Log.d ("Card put in discard ", theCardsFromDrawPile[4].getColor() + " " + theCardsFromDrawPile[4].getType());
+        Log.d("Card put in discard ", arrangedCards[4].getColor() + " " + arrangedCards[4].getType());
 
     }
 
-    private void swapTheCards(Card[] theCardsFromDrawPile, int i, int j, int c) {
-        Card tempCard = theCardsFromDrawPile[c];
-        theCardsFromDrawPile[c] = theCardsFromDrawPile[i];
-        theCardsFromDrawPile[j] = tempCard;
-    }
+    /*
+    private void swapTheCards(Card[] arrangedCards, int i, int j, int c) {
+        Card tempCard = arrangedCards[c];
+        arrangedCards[c] = arrangedCards[i];
+        arrangedCards[j] = tempCard;
+}
+*/
 }
