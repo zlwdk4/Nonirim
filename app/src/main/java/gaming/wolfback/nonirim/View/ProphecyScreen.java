@@ -12,6 +12,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.DragEvent;
 import android.view.Menu;
@@ -26,13 +27,15 @@ import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
+import java.io.Serializable;
+
 import gaming.wolfback.nonirim.R;
+import gaming.wolfback.nonirim.Utility.Card;
 
 public class ProphecyScreen extends Activity {
 
-
-
     public String prophSelectionString = "";
+    public Card[] prophCards = new Card [5];
 
     private int getCardImageResourceId(String colorAndType) {
         return getResources().getIdentifier(colorAndType, "drawable", getPackageName());
@@ -54,78 +57,62 @@ public class ProphecyScreen extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_prophecy_screen);
 
-
-
         Intent activityThatCalled = getIntent();
 
-        String [] prophCards = activityThatCalled.getExtras().getStringArray("prophArray");
+        prophCards = (Card []) activityThatCalled.getExtras().getSerializable("prophArray");
 
+        for (int i = 0; i < 5; ++i) {
+            String colorAndTypeOfCard = prophCards[i].getColor() + prophCards[i].getType();
+            Log.d("class: ProphecyScreen", "method: onCreate");
+            Log.d("card " + Integer.toString(i) + " passed", colorAndTypeOfCard);
+            if (colorAndTypeOfCard.equals("null"))
+                break;
+        }
 
-            for (int i = 0; i < 5; ++i) {
-                String colorAndTypeOfCard = prophCards[i];
-                Log.d("prophjava", colorAndTypeOfCard);
-                if (colorAndTypeOfCard.equals("null"))
-                    break;
-            }
-
-
-
-        String colorAndTypeOfCard = prophCards[0];
-
-
-
-
+        //String colorAndTypeOfCard = prophCards[0];
 
         ImageView theView = (ImageView) findViewById(R.id.proph_select_display_1);
         //theView.setImageResource(getCardImageResourceId(prophCards[0]));
         //Picasso.with(this).load(cardResId).fit().into(theLabImageView);
-       //Picasso.with(getApplicationContext()).load(getCardImageResourceId(prophCards[0])).into(theView);
+        //Picasso.with(getApplicationContext()).load(getCardImageResourceId(prophCards[0])).into(theView);
 
         //Picasso.with(getApplicationContext()).load(R.drawable.bluedoor).into(theView);
-        String theColorAndType = prophCards[0];
+        String theColorAndType = prophCards[0].getColor() + prophCards[0].getType();
         int theId = getCardImageResourceId(theColorAndType);
 
         theView.setImageResource(theId);
 
         theView = (ImageView) findViewById(R.id.proph_select_display_2);
-        theColorAndType = prophCards[1];
+        theColorAndType = prophCards[1].getColor() + prophCards[1].getType();
         theId = getCardImageResourceId(theColorAndType);
         theView.setImageResource(theId);
 
 
         theView = (ImageView) findViewById(R.id.proph_select_display_3);
-        theColorAndType = prophCards[2];
+        theColorAndType = prophCards[2].getColor() + prophCards[2].getType();
         theId = getCardImageResourceId(theColorAndType);
         theView.setImageResource(theId);
 
 
         theView = (ImageView) findViewById(R.id.proph_select_display_4);
-        theColorAndType = prophCards[3];
+        theColorAndType = prophCards[3].getColor() + prophCards[3].getType();
         theId = getCardImageResourceId(theColorAndType);
         theView.setImageResource(theId);
 
 
         theView = (ImageView) findViewById(R.id.proph_select_display_5);
-        theColorAndType = prophCards[4];
+        theColorAndType = prophCards[4].getColor() + prophCards[4].getType();
         theId = getCardImageResourceId(theColorAndType);
         theView.setImageResource(theId);
-
-
-
-
-
-
 
         //Drawable theD = (Drawable) getDrawable(R.drawable.bluedoor);
         //theView.setBackground(theD);
         //Picasso.with(getApplicationContext()).load(R.drawable.bluekey).into(theView);
 
 
-
         class DragShadow extends View.DragShadowBuilder {
 
             ColorDrawable greyBox;
-
 
             public DragShadow(View view) {
                 super(view);
@@ -156,13 +143,6 @@ public class ProphecyScreen extends Activity {
 
 
         //DRAG AND DROP LOGIC
-
-
-
-
-
-
-
         View.OnDragListener dropListener = new View.OnDragListener() {
             @Override
             public boolean onDrag(View v, DragEvent event) {
@@ -202,12 +182,10 @@ public class ProphecyScreen extends Activity {
                             TextView tv = (TextView) findViewById(R.id.proph_display_5);
                             tv.setText(theSelection);
                         }
-
                 }
                 return true;
             }
         };
-
 
 
         //////////////////////////////////////////////////////////////////////////////
@@ -277,9 +255,6 @@ public class ProphecyScreen extends Activity {
             }
         };
 
-
-
-
         View.OnTouchListener touchListenerX = new View.OnTouchListener(){
 
             @Override
@@ -331,15 +306,10 @@ public class ProphecyScreen extends Activity {
         prophSelectOptionX.setOnTouchListener(touchListenerX);
 
 
-           //HHHHHEEEEERREEEEEEEE
-            //int cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
-            //updateProphecyCardImage(cardImageResourceId, i);
-        }
-
-
-
-
-
+        //HHHHHEEEEERREEEEEEEE
+        //int cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
+        //updateProphecyCardImage(cardImageResourceId, i);
+    }
 
 
     public void prophFinishAction(View view){
@@ -350,7 +320,7 @@ public class ProphecyScreen extends Activity {
 
         String retS = "";
 
-        for(int i = 0; i < 5; i++){
+        for (int i = 0; i < 5; i++) {
             retS += theOrder[i];
         }
 
@@ -365,19 +335,19 @@ public class ProphecyScreen extends Activity {
     private String[] getTheOrderFromViews(String[] theOrder) {
         TextView[] theViews = getProphDisplayViews();
 
-        for(int i = 0; i < 5; i++){
+        for (int i = 0; i < 5; i++) {
             theOrder[i] = theViews[i].getText().toString();
         }
-
         return theOrder;
     }
 
     //TODO validate the entry in the proph screen selection
     public void backToMainFromProph(View view) {
-
         Intent prophRetIntent = new Intent();
 
         prophRetIntent.putExtra("prophSelectionString", prophSelectionString);
+        prophRetIntent.putExtra("prophCards", prophCards);
+
         setResult(RESULT_OK, prophRetIntent);
 
         finish();
@@ -393,7 +363,6 @@ public class ProphecyScreen extends Activity {
 
         return  theViews;
     }
-
 
 
     @Override

@@ -27,7 +27,6 @@ public class Facade {
             i++;
         }
 
-
         for (int j = 0; j < 8; j++) {
             Card c = new Card(i, blue, sun);
             drawPileHelper.addCardToDrawPile(c);
@@ -79,7 +78,7 @@ public class Facade {
         }
 
         for (int j = 0; j < 10; j++) {
-            Card c = new Card(i, nightmare, nightmare);
+            Card c = new Card(i, "", nightmare);
             drawPileHelper.addCardToDrawPile(c);
             i++;
         }
@@ -250,7 +249,7 @@ public class Facade {
         return counts.getNightmareCount();
     }
 
-    //// TODO: 8/9/2016 have this return a boolean to make sure that there is a nightmare in the deck
+    //// TODO: 8/9/2016 have this return a boolean to make sure that there is a nightmare in the draw pile
     public void removeNightmareFromDrawPile(){
         drawPileHelper.removeCardFromDrawPile("nightmare", "nightmare");
     }
@@ -293,6 +292,10 @@ public class Facade {
         return retColorAndType;
 
     }
+
+    public Card [] getTopFiveCardsFromDrawPile() {
+        return drawPileHelper.getTopFiveCards();
+    }
     //****************Private Variables***************************///
     private DrawPileHelper drawPileHelper = new DrawPileHelper();
     private Hand hand = new Hand();
@@ -300,32 +303,32 @@ public class Facade {
     private DiscardPile discardPile = new DiscardPile();
     private Counts counts = new Counts();
 
-    public void rearrangeCards(String prophReturnString) {
-        Card[] theCardsFromDrawPile = drawPileHelper.getTopFiveCards();
+    public void rearrangeCards(String prophReturnString, Card [] prophCards) {
+        Card [] theCardsFromDrawPile = prophCards;
 
         //TODO check this function
-        for (int i = 0; i < 5; ++i){
-            for (int j = 0; j < 5; ++j){
-                if(prophReturnString.charAt(j) == '1'){
+        for (int i = 0; i < 5; ++i) {
+            for (int j = 0; j < 5; ++j) {
+                if(prophReturnString.charAt(j) == '1') {
                    swapTheCards(theCardsFromDrawPile, i, j , 0 );
                 }
-                else if(prophReturnString.charAt(j) == '2'){
+                else if(prophReturnString.charAt(j) == '2') {
                     swapTheCards(theCardsFromDrawPile, i, j, 1);
                 }
-                else if(prophReturnString.charAt(j) == '3'){
+                else if(prophReturnString.charAt(j) == '3') {
                     swapTheCards(theCardsFromDrawPile, i, j, 2);
                 }
-                else if(prophReturnString.charAt(j) == '4'){
+                else if(prophReturnString.charAt(j) == '4') {
                     swapTheCards(theCardsFromDrawPile, i, j, 3);
                     //drawPile.addCardToTop(theCardsFromDrawPile[j]);
                 }
-                else if(prophReturnString.charAt(j) == 'X'){
+                else if(prophReturnString.charAt(j) == 'X') {
                     swapTheCards(theCardsFromDrawPile, i, j, 4);
                 }
             }
         }
 
-        for(int i = 3; i >= 0; i--){
+        for (int i = 3; i >= 0; i--) {
             drawPileHelper.addCardToDrawPile(theCardsFromDrawPile[i]);
             Log.d("findfind The" + Integer.toString(i) + "card is", theCardsFromDrawPile[i].getColor() + theCardsFromDrawPile[i].getType());
             Log.d("drawPile:", drawPileHelper.viewTopCard().getColor() + drawPileHelper.viewTopCard().getType());

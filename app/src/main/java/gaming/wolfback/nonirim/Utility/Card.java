@@ -1,9 +1,12 @@
 package gaming.wolfback.nonirim.Utility;
 
+import java.io.Serializable;
+
 /**
  * Created by ZWolf on 2/19/2016.
  */
-public class Card {
+public class Card implements Serializable{
+    private static final long serialVersionUID = 1L;
     private String type, color;
     private int id;
     private Boolean isCardDrawn, isCardPlayed, isCardDiscarded;

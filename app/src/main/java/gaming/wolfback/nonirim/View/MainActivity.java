@@ -29,6 +29,7 @@ import java.util.ArrayList;
 
 import gaming.wolfback.nonirim.Controller.Controller;
 import gaming.wolfback.nonirim.R;
+import gaming.wolfback.nonirim.Utility.Card;
 
 public class MainActivity extends AppCompatActivity implements View.OnTouchListener, View.OnDragListener {
     private Controller controller = new Controller();
@@ -94,14 +95,15 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                             //theInd = Integer.parseInt(theData.getItemAt(0).toString());
                             Character theC = theS.charAt(theS.length() - 1);
                             theInd = Integer.parseInt(theC.toString());
-                            proph = controller.getCardTypeFromHand(theInd);
                             if (controller.getCardTypeFromHand(theInd) == "key") {
                                 proph = "Prophecy successful :)";
                                 //prophecize(theInd);
-                                prophecyAction();
+                                controller.discardCard(theInd);
+                                updateImageOfDiscard();
+                                cardNum = theInd;
+                                displayProphecyActivity();
                             }
                             else {
-                                prophecyAction();
                             }
                         }
                         else if (v.getId() == R.id.dicardPile) {
@@ -110,13 +112,15 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                             String theS = theData.getItemAt(0).coerceToText(getApplicationContext()).toString();
                             Character theC = theS.charAt(theS.length() - 1);
                             theInd = Integer.parseInt(theC.toString());
-                            discardCard(theInd);
+                            controller.discardCard(cardNum);
+                            controller.drawCard();
+                            updateImageOfDiscard();
+                            updateImageOfHand(cardNum);
                             Log.d("TestLog card drawn", controller.getCardColorAndTypeFromHand(theInd));
                             if (controller.wasNightmareDrawn()) {
                                 nightmareAction();
                             }
                         }
-                        Log.d("here it", "made it");
 
                         //
                         break;
@@ -125,7 +129,6 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                         break;
                     case DragEvent.ACTION_DRAG_ENTERED:
                         //v
-                        Log.d("IT HAS", "ENTERED!!!!");
                         //playCard(cardNum);
                         break;
                     case DragEvent.ACTION_DRAG_EXITED:
@@ -202,11 +205,8 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                 ClipData data = ClipData.newPlainText("id", String.valueOf(cardNum));
 
                 v.startDrag(data, dragShadow, v, 0);
-
             }
-
         }
-
         return true;
     }
 
@@ -318,18 +318,6 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     }
 
     private void putDoorBackIntoDeck() {
-
-
-    }
-
-    private void prophecyAction() {
-        displayProphecyActivity();
-    }
-
-    private void discardCard(int cardNum) {
-        controller.discardCardAndDrawAnother(cardNum);
-        updateImageOfDiscard();
-        updateImageOfHand(cardNum);
     }
 
     //This method starts a new activity that displays the five cards last discarded
@@ -346,27 +334,26 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
 
     //This method starts a new activity and display the cards to prophecize with and return the selection
-    public void displayProphecyActivity(){
+    public void displayProphecyActivity() {
         Intent displayProphecyIntent = new Intent(this, ProphecyScreen.class);
-        String[] cardColorAndTypesForProphecy = new String[5];
-        cardColorAndTypesForProphecy = controller.getTopFiveDrawPileColorAndTypeArray();
+        Card[] cardsForProphecy = controller.getTopFiveCardsFromDrawPile();
 
-        for(String theS : cardColorAndTypesForProphecy){
+        /*
+        for (String theS : cardColorAndTypesForProphecy) {
             Log.d("Here is a card", theS);
         }
         Toast cbToast = Toast.makeText(getApplicationContext(), cardColorAndTypesForProphecy[0], Toast.LENGTH_LONG);
         cbToast.show();
+        */
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("prophArray", cardsForProphecy);
 
-        displayProphecyIntent.putExtra("prophArray", cardColorAndTypesForProphecy);
+        displayProphecyIntent.putExtras(bundle);
+
         int retCode = 1;
         startActivityForResult(displayProphecyIntent, retCode);
 
-
         //get top cards from deck
-    }
-
-    private void prophecize(int cardNum) {
-        controller.prophecize(cardNum);
     }
 
     //*************************Discard UI Stuff*******************************************************************************//////
@@ -490,13 +477,20 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1) {
             if(resultCode == RESULT_OK){
-
                 String prophReturnString = data.getStringExtra("prophSelectionString");
-                rearrangeCardsFromSelectionString(prophReturnString);
+                Card [] prophCards = (Card []) data.getExtras().getSerializable("prophCards");
+                rearrangeCardsFromSelectionString(prophReturnString, prophCards);
                 Toast cbToast = Toast.makeText(getApplicationContext(), prophReturnString, Toast.LENGTH_LONG);
                 cbToast.show();
 
-                Log.d("in the main", prophReturnString);
+                Log.d ("Class: MainActivity", "Method: onActivityResult");
+                Log.d("proph return string: ", prophReturnString);
+
+                controller.drawCard();
+                updateImageOfHand(cardNum);
+                if (controller.wasNightmareDrawn()) {
+                    nightmareAction();
+                }
 
             }
         }
@@ -504,8 +498,9 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
 
     //TODO implement the rearrange cards function
-    private void rearrangeCardsFromSelectionString(String prophReturnString) {
-        controller.rearrangeCards(prophReturnString);
+    private void rearrangeCardsFromSelectionString(String prophReturnString, Card [] prophCards) {
+        controller.rearrangeCards(prophReturnString, prophCards);
+
     }
 
 

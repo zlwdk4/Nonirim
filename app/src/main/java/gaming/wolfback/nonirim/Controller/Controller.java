@@ -2,6 +2,8 @@ package gaming.wolfback.nonirim.Controller;
 
 import android.util.Log;
 
+import gaming.wolfback.nonirim.Utility.Card;
+
 /**
  * Created by Jarren on 3/19/2016.
  */
@@ -49,8 +51,10 @@ public class Controller {
         }
     }
 
-    public void discardCardAndDrawAnother(int cardNum){
+    public void discardCard(int cardNum){
         facade.discardCardFromHand(cardNum);
+    }
+    public void drawCard () {
         facade.drawFromDrawPileIntoHand();
     }
     public boolean isValidPlay(int indexOfCardInHand){
@@ -95,7 +99,7 @@ public class Controller {
         return colorOfCardsArray;
     }
 
-    public String[] getTopFiveDiscardColorAndTypeArray(){
+    public String[] getTopFiveDiscardColorAndTypeArray() {
         String[] toReturn = new String [5];
         for (int i = 0; i < 5; ++i){
             toReturn[i] = facade.getDiscardColorAndType(i);
@@ -110,6 +114,10 @@ public class Controller {
             toReturn[i] = facade.getTopCardFromDrawPileColorAndType();
         }
         return toReturn;
+    }
+
+    public Card[] getTopFiveCardsFromDrawPile() {
+        return facade.getTopFiveCardsFromDrawPile();
     }
 
     public int getRedDoorCount(){
@@ -144,13 +152,8 @@ public class Controller {
     private Facade facade = new Facade();
     private Rules rules = new Rules();
 
-    public void prophecize(int cardNum) {
-        discardCardAndDrawAnother(cardNum);
 
-    }
-
-
-    public void rearrangeCards(String prophReturnString) {
-        facade.rearrangeCards(prophReturnString);
+    public void rearrangeCards(String prophReturnString, Card [] prophCards) {
+        facade.rearrangeCards(prophReturnString, prophCards);
     }
 }

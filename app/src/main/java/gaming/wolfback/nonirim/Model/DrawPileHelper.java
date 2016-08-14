@@ -41,7 +41,7 @@ public class DrawPileHelper {
     }
     //Removes and returns the top five location cards from the draw pile. All non-location cards are put into limbo
     public Card [] getTopFiveLocationCards() {
-        Card [] fiveLoacationCards = new Card [5];
+        Card [] fiveLocationCards = new Card [5];
         int i = 0;
         while (i < 5) {
             if (drawPile.top().getType() == "nightmare" || drawPile.top().getType() == "door") {
@@ -49,13 +49,13 @@ public class DrawPileHelper {
             }
             //To-do: add case for if the card drawn is null
             else {
-                fiveLoacationCards [i] = drawPile.pop();
+                fiveLocationCards [i] = drawPile.pop();
                 ++i;
             }
         }
         if (!limbo.empty()) {addLimboCardsIntoDrawPile (limbo);}
 
-        return fiveLoacationCards;
+        return fiveLocationCards;
     }
 
     //Removes and returns the top location card from the draw pile. All non-location cards are put into limbo
