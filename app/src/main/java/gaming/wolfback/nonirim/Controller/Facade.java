@@ -273,20 +273,12 @@ public class Facade {
     }
 
     public String getDrawPileColorAndType (int index){
-        //////get top card or total 5?
         String retString = " ";
         return  retString;
     }
 
     public String getTopCardFromDrawPileColorAndType (){
         //NOT ACCOUNTED FOR IF CANT DRAW MORE CARDS
-       /* String[] fiveCards = new String[5];
-        Card tempCard;
-        for(int i = 0; i < 5; ++i){
-            tempCard = drawPile.draw(0);
-            fiveCards[i]  =  tempCard.getColor() + tempCard.getType();
-        }
-        */
         Card tempCard = drawPileHelper.getTopCard();
         String retColorAndType = tempCard.getColor() + tempCard.getType();
         return retColorAndType;
@@ -296,12 +288,6 @@ public class Facade {
     public Card [] getTopFiveCardsFromDrawPile() {
         return drawPileHelper.getTopFiveCards();
     }
-    //****************Private Variables***************************///
-    private DrawPileHelper drawPileHelper = new DrawPileHelper();
-    private Hand hand = new Hand();
-    private Labyrinth lab = new Labyrinth();
-    private DiscardPile discardPile = new DiscardPile();
-    private Counts counts = new Counts();
 
     public void rearrangeCards(String prophReturnString, Card [] prophCards) {
         Log.d("Class: Facade", "Method: rearrange cards");
@@ -316,16 +302,16 @@ public class Facade {
                 arrangedCards[4] = prophCards[i];
                 continue;
             }
-            
+
             posInt = (int) curChar;
             posInt -= '0';
-            posInt--; 
+            posInt--;
             arrangedCards[posInt] = prophCards[i];
         }
 
         String stringOfRCards = "";
 
-        for(int i = 0; i < arrangedCards.length; i++){
+        for (int i = 0; i < arrangedCards.length; i++) {
             stringOfRCards += Integer.toString(i) + ": " + arrangedCards[i].getColor() + " " + arrangedCards[i].getType() + ", " ;
         }
 
@@ -340,4 +326,12 @@ public class Facade {
         Log.d("Card put in discard ", arrangedCards[4].getColor() + " " + arrangedCards[4].getType());
 
     }
+
+    //****************Private Variables***************************///
+    private DrawPileHelper drawPileHelper = new DrawPileHelper();
+    private Hand hand = new Hand();
+    private Labyrinth lab = new Labyrinth();
+    private DiscardPile discardPile = new DiscardPile();
+    private Counts counts = new Counts();
+
 }
