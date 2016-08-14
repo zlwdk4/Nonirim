@@ -304,25 +304,26 @@ public class Facade {
     private Counts counts = new Counts();
 
     public void rearrangeCards(String prophReturnString, Card [] prophCards) {
+        Log.d("Class: Facade", "Method: rearrange cards");
         Card [] theCardsFromDrawPile = prophCards;
 
         //TODO check this function
         for (int i = 0; i < 5; ++i) {
             for (int j = 0; j < 5; ++j) {
-                if(prophReturnString.charAt(j) == '1') {
+                if (prophReturnString.charAt(j) == '1') {
                    swapTheCards(theCardsFromDrawPile, i, j , 0 );
                 }
-                else if(prophReturnString.charAt(j) == '2') {
+                else if (prophReturnString.charAt(j) == '2') {
                     swapTheCards(theCardsFromDrawPile, i, j, 1);
                 }
-                else if(prophReturnString.charAt(j) == '3') {
+                else if (prophReturnString.charAt(j) == '3') {
                     swapTheCards(theCardsFromDrawPile, i, j, 2);
                 }
-                else if(prophReturnString.charAt(j) == '4') {
+                else if (prophReturnString.charAt(j) == '4') {
                     swapTheCards(theCardsFromDrawPile, i, j, 3);
                     //drawPile.addCardToTop(theCardsFromDrawPile[j]);
                 }
-                else if(prophReturnString.charAt(j) == 'X') {
+                else if (prophReturnString.charAt(j) == 'X') {
                     swapTheCards(theCardsFromDrawPile, i, j, 4);
                 }
             }
@@ -330,11 +331,14 @@ public class Facade {
 
         for (int i = 3; i >= 0; i--) {
             drawPileHelper.addCardToDrawPile(theCardsFromDrawPile[i]);
-            Log.d("findfind The" + Integer.toString(i) + "card is", theCardsFromDrawPile[i].getColor() + theCardsFromDrawPile[i].getType());
-            Log.d("drawPile:", drawPileHelper.viewTopCard().getColor() + drawPileHelper.viewTopCard().getType());
+            //Log.d("findfind The " + Integer.toString(i) + " card is", theCardsFromDrawPile[i].getColor() + theCardsFromDrawPile[i].getType());
+            //Log.d("drawPile:", drawPileHelper.viewTopCard().getColor() + drawPileHelper.viewTopCard().getType());
         }
 
         discardPile.addCardToDiscard(theCardsFromDrawPile[4]);
+
+        Log.d ("Card put in discard ", theCardsFromDrawPile[4].getColor() + " " + theCardsFromDrawPile[4].getType());
+
     }
 
     private void swapTheCards(Card[] theCardsFromDrawPile, int i, int j, int c) {

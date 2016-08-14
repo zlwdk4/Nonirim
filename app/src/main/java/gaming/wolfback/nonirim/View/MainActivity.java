@@ -83,7 +83,6 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                             //Log.d("cardNum = ", Integer.toString(theInd));
                             if (controller.isValidPlay(theInd)) {
                                 playCard(theInd);
-                                Log.d("TestLog card drawn", controller.getCardColorAndTypeFromHand(theInd));
                                 if (controller.wasNightmareDrawn()) {
                                     nightmareAction();
                                 }
@@ -197,7 +196,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
         for (cardNum = 0; cardNum < handButtons.length; cardNum++) {
             if (handButtons[cardNum].getId() == v.getId()) {
-                Log.d("CardNum in OnTouch", Integer.toString(cardNum));
+                //Log.d("CardNum in OnTouch", Integer.toString(cardNum));
 
                 DragShadow dragShadow = new DragShadow(v);
 
@@ -486,6 +485,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                 Log.d ("Class: MainActivity", "Method: onActivityResult");
                 Log.d("proph return string: ", prophReturnString);
 
+                updateImageOfDiscard();
                 controller.drawCard();
                 updateImageOfHand(cardNum);
                 if (controller.wasNightmareDrawn()) {

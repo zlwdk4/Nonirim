@@ -103,7 +103,6 @@ public class Controller {
         String[] toReturn = new String [5];
         for (int i = 0; i < 5; ++i){
             toReturn[i] = facade.getDiscardColorAndType(i);
-            Log.d("TestLog", toReturn[i]);
         }
         return toReturn;
     }

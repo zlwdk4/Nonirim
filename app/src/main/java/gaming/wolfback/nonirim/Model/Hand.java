@@ -35,6 +35,8 @@ public class Hand {
     }
 
     public void addCard(Card newCard) {
+        Log.d ("Class: Hand", "Method: addCard");
+        Log.d ("Card added: ", newCard.getColor() + " " + newCard.getType());
         int i = 0;
         while (i != maxCardsInHand && hand[i] != null) {
             i++;
@@ -44,12 +46,15 @@ public class Hand {
         } else {
             hand[i] = newCard;
             indexOfLastCardAdded = i;
+            Log.d ("Card added @ index: ", Integer.toString(i));
         }
     }
 
 
     public Card removeCard(int index) {
+        Log.d ("Class: Hand", "Method: removeCard");
         Card tempCard = hand[index];
+        Log.d ("Card removed: ", hand[index].getColor() + " " + hand[index].getType());
         hand[index] = null;
         return tempCard;
     }

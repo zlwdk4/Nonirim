@@ -1,5 +1,7 @@
 package gaming.wolfback.nonirim.Model;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +17,8 @@ public class DiscardPile {
         discardPile = new ArrayList<Card>();
     }
     public void addCardToDiscard(Card c){
+        Log.d("Class: DiscardPile ", "Method: addCardToDiscard");
+        Log.d("Card discarded: ", c.getColor() + " " + c.getType());
         discardPile.add(c);
     }
     public Card top(){

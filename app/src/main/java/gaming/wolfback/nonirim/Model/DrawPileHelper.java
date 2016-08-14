@@ -23,7 +23,6 @@ public class DrawPileHelper {
     }
 
     public void addCardToDrawPile (Card cardToBeAdded) {
-        Log.d ("DrawPileHelper addCard ", cardToBeAdded.getColor() + " " + cardToBeAdded.getType());
         drawPile.addCardToTop(cardToBeAdded);
     }
 
