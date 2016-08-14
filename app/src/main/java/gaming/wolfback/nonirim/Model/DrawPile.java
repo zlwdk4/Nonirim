@@ -38,6 +38,7 @@ public class DrawPile {
         return drawPile.pop();
     }
 
+    //returns true if the card is in the drawpile and false if it is not
     public boolean removeCard(String colorOfCardToBeRemoved, String typeOfCardToBeRemoved){
         int i = 0;
         int currentSizeOfDrawPile = drawPile.size();

@@ -28,6 +28,7 @@ import com.squareup.picasso.Picasso;
 import org.w3c.dom.Text;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 import gaming.wolfback.nonirim.R;
 import gaming.wolfback.nonirim.Utility.Card;
@@ -59,11 +60,15 @@ public class ProphecyScreen extends Activity {
 
         Intent activityThatCalled = getIntent();
 
-        prophCards = (Card []) activityThatCalled.getExtras().getSerializable("prophArray");
+        //the logic to retreive this card array is in MainActivity
+        //prophCards = (Card[]) activityThatCalled.getSerializableExtra("prophArray");
+        Object[] arr = (Object[]) activityThatCalled.getSerializableExtra("prophArray");
+        prophCards = Arrays.copyOf(arr, arr.length, Card[].class);
+
+        Log.d("class: ProphecyScreen", "method: onCreate");
 
         for (int i = 0; i < 5; ++i) {
             String colorAndTypeOfCard = prophCards[i].getColor() + prophCards[i].getType();
-            Log.d("class: ProphecyScreen", "method: onCreate");
             Log.d("card " + Integer.toString(i) + " passed", colorAndTypeOfCard);
             if (colorAndTypeOfCard.equals("null"))
                 break;
