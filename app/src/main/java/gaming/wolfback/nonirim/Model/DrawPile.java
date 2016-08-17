@@ -53,7 +53,8 @@ public class DrawPile {
     }
 
     public void addCardToTop(Card cardToBeAdded) {
-        Log.d ("DrawPile addCard ", cardToBeAdded.getColor() + " " + cardToBeAdded.getType());
+        Log.d ("\tClass: DrawPile ", "Method: addCardToTop");
+        Log.d ("\t\tDrawPile add Card ", cardToBeAdded.getColor() + " " + cardToBeAdded.getType());
         drawPile.push(cardToBeAdded);
     }
 

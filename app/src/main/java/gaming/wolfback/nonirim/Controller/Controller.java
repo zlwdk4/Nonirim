@@ -1,23 +1,23 @@
 package gaming.wolfback.nonirim.Controller;
 
-import android.util.Log;
-
 import gaming.wolfback.nonirim.Utility.Card;
 
 /**
  * Created by Jarren on 3/19/2016.
  */
 public class Controller {
-    public void playCard(int cardNum){
+    public void playCard(int cardNum) {
         facade.playCardIntoLabAndRemoveCardFromHand(cardNum);
-        if(didScore()){
+        if (didScore()) {
             String colorOfDoorUpdated = facade.updateDoorCount();
             facade.removeDoorFromDrawPile(colorOfDoorUpdated);
         }
-        facade.drawFromDrawPileIntoHand();
+        if (facade.didDrawDoor()) {
+
+        }
     }
-    public boolean wasNightmareDrawn(){
-        if(facade.wasNightmareDrawn()){
+    public boolean wasNightmareDrawn() {
+        if (facade.wasNightmareDrawn()) {
             facade.incrementNightmareCount();
             facade.removeNightmareFromDrawPile();
             return true;
@@ -29,22 +29,22 @@ public class Controller {
     //This method gets passed the option that the user selects.
     //It then calls the facade to do the appropriate action
     //TO DO: Add in error handling for if an option is selected that doesn't exist
-    public void takeNightmareAction(int optionSelected){
-        if(optionSelected == 0){
+    public void takeNightmareAction(int optionSelected) {
+        if(optionSelected == 0) {
             //discardKey();
         }
-        else if (optionSelected == 1){
+        else if (optionSelected == 1) {
             //put door in limbo
         }
-        else if (optionSelected == 2){
+        else if (optionSelected == 2) {
             //discard next five
             facade.discardNextFiveFromDrawPile();
             facade.getRidOfNightmareInHand();
-            facade.drawFromDrawPileIntoHand();
+            facade.drawLocationIntoHand();
         }
-        else if (optionSelected == 3){
+        else if (optionSelected == 3) {
             //discard hand
-            for (int i = 0; i < 5; i++){
+            for (int i = 0; i < 5; i++) {
                 facade.discardCardFromHand(i);
             }
             facade.drawFiveTimesIntoHand();
@@ -54,9 +54,29 @@ public class Controller {
     public void discardCard(int cardNum){
         facade.discardCardFromHand(cardNum);
     }
-    public void drawCard () {
-        facade.drawFromDrawPileIntoHand();
+
+    public void drawLocationCard() {
+        facade.drawLocationIntoHand();
     }
+
+    public void drawCard() {
+        facade.drawIntoHand();
+    }
+
+    public boolean doorAndKeyOption() {
+        if (facade.didDrawDoor()) {
+            //get color of door
+            String colorOfDoor = facade.getColorOfDoorInHand();
+            //check hand for key of that color
+            for (int i = 0; i < 5; ++i) {
+                if (facade.getCardColorAndTypeFromHand(i).equals(colorOfDoor+"key")) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public boolean isValidPlay(int indexOfCardInHand){
         int labSize = facade.getLabSize();
         String curLabType = facade.getLabType(labSize-1);
@@ -106,7 +126,7 @@ public class Controller {
         }
         return toReturn;
     }
-
+/*
     public String[] getTopFiveDrawPileColorAndTypeArray() {
         String[] toReturn = new String [5];
         for (int i = 0; i < 5; ++i) {
@@ -114,6 +134,7 @@ public class Controller {
         }
         return toReturn;
     }
+    */
 
     public Card[] getTopFiveCardsFromDrawPile() {
         return facade.getTopFiveCardsFromDrawPile();

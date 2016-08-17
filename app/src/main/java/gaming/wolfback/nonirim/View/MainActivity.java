@@ -10,7 +10,6 @@ import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.test.ActivityInstrumentationTestCase2;
 import android.util.Log;
 import android.view.DragEvent;
 import android.view.Menu;
@@ -25,7 +24,6 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import gaming.wolfback.nonirim.Controller.Controller;
@@ -51,14 +49,10 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         setOnTouchListenersForHand();
-
 
         displayAllCardsInHand();
         setHeightAndWidthOfHandButtons(90, 60);
@@ -70,35 +64,29 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                 int dragEvent = event.getAction();
                 switch (dragEvent) {
                     case DragEvent.ACTION_DROP:
-                        View dragged = (View) event.getLocalState();
                         ClipData theData = event.getClipData();
                         int theInd;
                         if (v.getId() == R.id.playCardView) {
-                            //ClipData theData = event.getClipData();
-
-                            //CharSequence theChars = theData.getItemAt(0).toStrineg();
                             String theS = theData.getItemAt(0).coerceToText(getApplicationContext()).toString();
-                            //theInd = Integer.parseInt(theData.getItemAt(0).toString());
                             Character theC = theS.charAt(theS.length() - 1);
                             theInd = Integer.parseInt(theC.toString());
-                            //Log.d("cardNum = ", Integer.toString(theInd));
                             if (controller.isValidPlay(theInd)) {
-                                playCard(theInd);
+                                playCardIntoLab(theInd);
+                                controller.drawCard();
+                                updateImageOfHand(theInd);
                                 if (controller.wasNightmareDrawn()) {
                                     nightmareAction();
+                                }
+                                if (controller.doorAndKeyOption()) {
+                                    doorDrawnAction();
                                 }
                             }
                         }
                         else if (v.getId() == R.id.crystalBall) {
-                            String proph = "Prophecy failed :(";
                             String theS = theData.getItemAt(0).coerceToText(getApplicationContext()).toString();
-                            //theInd = Integer.parseInt(theData.getItemAt(0).toString());
                             Character theC = theS.charAt(theS.length() - 1);
                             theInd = Integer.parseInt(theC.toString());
-                            Log.d("Proph Drop: ", controller.getCardTypeFromHand(theInd));
                             if (controller.getCardTypeFromHand(theInd).equals("key")) {
-                                proph = "Prophecy successful :)";
-                                //prophecize(theInd);
                                 Log.d("Class: MainActivity", "Method: dropListener");
                                 Log.d("Discard Key Index -> ", Integer.toString(theInd));
                                 controller.discardCard(theInd);
@@ -119,7 +107,6 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                             controller.drawCard();
                             updateImageOfDiscard();
                             updateImageOfHand(theInd);
-                            Log.d("TestLog card drawn", controller.getCardColorAndTypeFromHand(theInd));
                             if (controller.wasNightmareDrawn()) {
                                 nightmareAction();
                             }
@@ -132,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                         break;
                     case DragEvent.ACTION_DRAG_ENTERED:
                         //v
-                        //playCard(cardNum);
+                        //playCardIntoLab(cardNum);
                         break;
                     case DragEvent.ACTION_DRAG_EXITED:
                         //
@@ -158,11 +145,9 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         ImageView crystalBall = (ImageView) findViewById(R.id.crystalBall);
         TextView playCardView = (TextView) findViewById(R.id.playCardView);
 
-        //TextView theL = (TextView) findViewById(R.id.theListener);
         playCardView.setOnDragListener(dropListner);
         discPile.setOnDragListener(dropListner);
         crystalBall.setOnDragListener(dropListner);
-        //nightmareView.setOnDragListener(this);
     }
 
     private void setOnTouchListenersForHand() {
@@ -176,7 +161,6 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     }
 
     private void setHeightAndWidthOfHandButtons(int h, int w) {
-
        /* for (int i = 0; i < handButtons.length; ++i){
             handButtons[i].getLayoutParams().width = w;
             handButtons[i].getLayoutParams().height = h;
@@ -184,7 +168,6 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     }
 
     private void setHeightAndWidthOfLab(int h, int w) {
-
         for (ImageView imageButton : handButtons){
             imageButton.getLayoutParams().width = w;
             imageButton.getLayoutParams().height = h;
@@ -221,20 +204,22 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
             case DragEvent.ACTION_DRAG_STARTED:
                 break;
             case DragEvent.ACTION_DRAG_ENTERED:
-                playCard(cardNum);
+                //playCardIntoLab(cardNum);
                 break;
             case DragEvent.ACTION_DRAG_EXITED:
                 break;
             case DragEvent.ACTION_DROP:
                 View dragged = (View) event.getLocalState();
                 View target = v;
-
+/*
                 if (target.getId() == getLabResourceId(7)) {
                     ClipData theData = event.getClipData();
                     cardNum = Integer.parseInt(theData.toString());
                     Log.d("cardNum = ", Integer.toString(cardNum));
-                    playCard(cardNum);
+                    playCardIntoLab(cardNum);
+
                 }
+                */
                 break;
             case DragEvent.ACTION_DRAG_ENDED:
                 break;
@@ -244,14 +229,11 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
 
     private class DragShadow extends View.DragShadowBuilder {
-
         ColorDrawable greyBox;
-
 
         public DragShadow(View view) {
             super(view);
             greyBox = new ColorDrawable(Color.BLACK);
-
         }
 
         @Override
@@ -268,21 +250,18 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
             greyBox.setBounds(0, 0, width, height);
 
-
             shadowSize.set(width, height);
 
             shadowTouchPoint.set((int) width / 2, (int) height / 2);
         }
     }
 
-
-    private void playCard(int cardNum) {
+    private void playCardIntoLab(int cardNum) {
         controller.playCard(cardNum);
         displayDoorCounts();
         incrementIndexOfLabUI();
         shiftCardsInLab();
         displayCardsInLab();
-        updateImageOfHand(cardNum);
     }
 
     private void nightmareAction() {
@@ -301,7 +280,6 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                 // 2 = discard next 5 from deck
                 // 3 =  discard hand
 
-
                 if (which == 1) {
                     putDoorBackIntoDeck();
                 }
@@ -319,6 +297,31 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         });
         builder.show();
     }
+    private void doorDrawnAction() {
+        new AlertDialog.Builder (this)
+                .setTitle("Door was drawn")
+                .setMessage("Would you like to discard key to obtain door?")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        //discard key
+                        //increment door count
+                        //remove door from draw pile
+                        //remove door from hand
+                        //draw new card
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        //remove door from hand
+                        //add door back into draw pile
+                        //shuffle draw pile
+                        //draw new card
+                    }
+                })
+                .show();
+    }
+
+
 
     private void putDoorBackIntoDeck() {
     }
@@ -341,13 +344,6 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         Intent displayProphecyIntent = new Intent(this, ProphecyScreen.class);
         Card[] cardsForProphecy = controller.getTopFiveCardsFromDrawPile();
 
-        /*
-        for (String theS : cardColorAndTypesForProphecy) {
-            Log.d("Here is a card", theS);
-        }
-        Toast cbToast = Toast.makeText(getApplicationContext(), cardColorAndTypesForProphecy[0], Toast.LENGTH_LONG);
-        cbToast.show();
-        */
         Bundle bundle = new Bundle();
         bundle.putSerializable("prophArray", cardsForProphecy);
 
@@ -375,7 +371,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         //handButtons[cardNum].setImageResource(cardImageResourceId);
     }
 
-    private void updateAllImagesOfHand(){
+    private void updateAllImagesOfHand() {
         for (int i = 0; i < 5; ++i){
             String colorAndTypeOfCard = controller.getCardColorAndTypeFromHand(i);
             int cardImageResourceId = getCardImageResourceId(colorAndTypeOfCard);
@@ -390,7 +386,6 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
             Picasso.with(this).load(cardImageResourceId).fit().into(handButtons[i]);
             //handButtons[i].setImageResource(cardImageResourceId);
         }
-
     }
 //************************************************************************************************************************************
 
@@ -497,7 +492,6 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                 if (controller.wasNightmareDrawn()) {
                     nightmareAction();
                 }
-
             }
         }
     }

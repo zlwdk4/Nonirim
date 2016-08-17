@@ -27,8 +27,10 @@ public class DrawPileHelper {
     }
 
     public boolean removeDoorFromDrawPile(String colorOfDoorToBeRemoved) {
-        if (drawPile.removeCard(colorOfDoorToBeRemoved, "door"))
+        if (drawPile.removeCard(colorOfDoorToBeRemoved, "door")) {
+            drawPile.shuffle();
             return true;
+        }
         else return false;
     }
 
@@ -43,7 +45,7 @@ public class DrawPileHelper {
         Card [] fiveLocationCards = new Card [5];
         int i = 0;
         while (i < 5) {
-            if (drawPile.top().getType() == "nightmare" || drawPile.top().getType() == "door") {
+            if (drawPile.top().getType().equals("nightmare") || drawPile.top().getType().equals("door")) {
                 limbo.push(drawPile.pop());
             }
             //To-do: add case for if the card drawn is null
@@ -61,7 +63,7 @@ public class DrawPileHelper {
     public Card getTopLocationCard() {
         Card cardToBeReturned;
 
-        while (drawPile.top().getType() == "nightmare" || drawPile.top().getType() == "door") {
+        while (drawPile.top().getType().equals("nightmare") || drawPile.top().getType().equals("door")) {
             limbo.push(drawPile.pop());
         }
         //To-do: add case for if the card drawn is null
@@ -94,6 +96,7 @@ public class DrawPileHelper {
     }
 
     private void addLimboCardsIntoDrawPile (Stack<Card> limbo) {
+        Log.d ("\t\tClass: DrawPileHelper ", "Method: addLimboCardsIntoDrawPile");
         while (!limbo.empty()) {
             drawPile.addCardToTop(limbo.pop());
         }

@@ -9,7 +9,6 @@ import gaming.wolfback.nonirim.Model.Hand;
 import gaming.wolfback.nonirim.Model.Labyrinth;
 import gaming.wolfback.nonirim.Utility.Card;
 import gaming.wolfback.nonirim.Model.DiscardPile;
-import gaming.wolfback.nonirim.Model.DrawPile;
 
 /**
  * Created by Jarren on 2/20/2016.
@@ -99,7 +98,24 @@ public class Facade {
         }
         drawPileHelper.shuffleDrawPile();
 
-        drawFiveTimesIntoHand();
+        for (int j = 0; j < 4; j++) {
+            Card c = new Card(i, red, door);
+            i++;
+            drawPileHelper.addCardToDrawPile(c);
+        }
+
+        for (int j = 0; j < 4; j++) {
+            Card c = new Card(i, red, key);
+            i++;
+            drawPileHelper.addCardToDrawPile(c);
+        }
+
+        //drawFiveTimesIntoHand();
+        for (int k = 0 ; k < 5; ++k) {
+            drawIntoHand();
+        }
+
+        //drawFiveTimesIntoHand();
         hand.seeHand();
     }
     //**************************Hand stuff***********************************************//
@@ -113,7 +129,7 @@ public class Facade {
         }
         catch (NullPointerException e){
             Log.d("TESTLOG", "Facade nullptr exception caught");
-            drawFromDrawPileIntoHand();
+            drawLocationIntoHand();
             colorAndTypeOfCard = (hand.getCard(indexOfCard).getColor() + hand.getCard(indexOfCard).getType());
         }
         return removeDuplicatedNightmareName(colorAndTypeOfCard);
@@ -140,6 +156,18 @@ public class Facade {
 
     public void seeHand(){
         hand.seeHand();
+    }
+
+    public boolean didDrawDoor() {
+        if (hand.getCard(hand.getIndexOfLastCardAdded()).getType().equals("door")) {
+            return true;
+        }
+        else return false;
+    }
+
+    //This function assumes that the last card drawn was a door
+    public String getColorOfDoorInHand() {
+        return hand.getCard(hand.getIndexOfLastCardAdded()).getColor();
     }
 
     //****************************Lab stuff**********************************//
@@ -183,16 +211,20 @@ public class Facade {
         Card cardsToBeAddedToHand [] = drawPileHelper.getTopFiveLocationCards();
 
         for (int i = 0; i < 5; ++i) {
-            Log.d ("Class: Facade", "Function: drawFiveTimeIntoHand");
-            Log.d ("Cards being ", "added into hand");
-            Log.d("card #" + Integer.toString(i), cardsToBeAddedToHand[i].getColor() + " " + cardsToBeAddedToHand[0].getType());
+            Log.d ("\tClass: Facade", "Function: drawFiveTimeIntoHand");
+            Log.d ("\t\tCards being ", "added into hand");
+            Log.d("\t\tcard #" + Integer.toString(i), cardsToBeAddedToHand[i].getColor() + " " + cardsToBeAddedToHand[0].getType());
             hand.addCard(cardsToBeAddedToHand[i]);
         }
     }
     //This method draws one location card from the drawPile into the hand.
-    public void drawFromDrawPileIntoHand(){
+    public void drawLocationIntoHand() {
         Card cardToBeAddedToHand = drawPileHelper.getTopLocationCard();
+        hand.addCard(cardToBeAddedToHand);
+    }
 
+    public void drawIntoHand() {
+        Card cardToBeAddedToHand = drawPileHelper.getTopCard();
         hand.addCard(cardToBeAddedToHand);
     }
 
@@ -250,7 +282,7 @@ public class Facade {
     }
 
     //// TODO: 8/9/2016 have this return a boolean to make sure that there is a nightmare in the draw pile
-    public void removeNightmareFromDrawPile(){
+    public void removeNightmareFromDrawPile() {
         drawPileHelper.removeCardFromDrawPile("nightmare", "nightmare");
     }
     //*****************Discard Pile stuff***************************//
@@ -277,6 +309,7 @@ public class Facade {
         return  retString;
     }
 
+    /*
     public String getTopCardFromDrawPileColorAndType (){
         //NOT ACCOUNTED FOR IF CANT DRAW MORE CARDS
         Card tempCard = drawPileHelper.getTopCard();
@@ -284,6 +317,7 @@ public class Facade {
         return retColorAndType;
 
     }
+    */
 
     public Card [] getTopFiveCardsFromDrawPile() {
         return drawPileHelper.getTopFiveCards();

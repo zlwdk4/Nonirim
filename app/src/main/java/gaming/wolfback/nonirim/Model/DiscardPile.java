@@ -17,8 +17,8 @@ public class DiscardPile {
         discardPile = new ArrayList<Card>();
     }
     public void addCardToDiscard(Card c){
-        Log.d("Class: DiscardPile ", "Method: addCardToDiscard");
-        Log.d("Card discarded: ", c.getColor() + " " + c.getType());
+        Log.d("\tClass: DiscardPile ", "Method: addCardToDiscard");
+        Log.d("\t\tCard discarded: ", c.getColor() + " " + c.getType());
         discardPile.add(c);
     }
     public Card top(){
