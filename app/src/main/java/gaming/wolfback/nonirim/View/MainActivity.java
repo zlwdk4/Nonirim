@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         nightmareView = (TextView) findViewById(R.id.nightmareId);
 
         lastLab = (ImageView) findViewById(R.id.LabId7);
-        ImageView discPile = (ImageView) findViewById(R.id.dicardPile);
+        TextView discPile = (TextView) findViewById(R.id.dicardPile);
         ImageView crystalBall = (ImageView) findViewById(R.id.crystalBall);
         TextView playCardView = (TextView) findViewById(R.id.playCardView);
 
