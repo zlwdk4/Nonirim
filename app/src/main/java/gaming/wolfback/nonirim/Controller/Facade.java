@@ -104,7 +104,7 @@ public class Facade {
             drawPileHelper.addCardToDrawPile(c);
         }
 
-        for (int j = 0; j < 4; j++) {
+        for (int j = 0; j < 5; j++) {
             Card c = new Card(i, red, key);
             i++;
             drawPileHelper.addCardToDrawPile(c);
@@ -121,6 +121,9 @@ public class Facade {
     //**************************Hand stuff***********************************************//
     public String getCardColorAndTypeFromHand(int indexOfCard){
         String colorAndTypeOfCard = "";
+        while (hand.getCard(indexOfCard).equals(null)){
+            ++indexOfCard;
+        }
         try {
             colorAndTypeOfCard = (hand.getCard(indexOfCard).getColor() + hand.getCard(indexOfCard).getType());
         }
@@ -139,23 +142,27 @@ public class Facade {
         return (hand.getCard(indexOfCard).getType());
     }
 
-    public String getCardColorFromHand(int indexOfCard){
+    public String getCardColorFromHand(int indexOfCard) {
         return (hand.getCard(indexOfCard).getColor());
     }
 
-    public void discardCardFromHand(int indexOfCardInHand){
+    public void discardCardFromHand(int indexOfCardInHand) {
         discardPile.addCardToDiscard(hand.removeCard(indexOfCardInHand));
     }
     //This method assumes that the last card placed in the hand was a nightmare
-    public void getRidOfNightmareInHand(){
+    public void getRidOfNightmareInHand() {
         //hand.seeHand();
         int indexOfNightmare = hand.getIndexOfLastCardAdded();
         hand.removeCard(indexOfNightmare);
         //hand.seeHand();
     }
 
-    public void seeHand(){
+    public void seeHand() {
         hand.seeHand();
+    }
+
+    public void removeCardFromHand(int theInd) {
+        hand.removeCard(theInd);
     }
 
     public boolean didDrawDoor() {
@@ -251,8 +258,19 @@ public class Facade {
     }
 
     //returns the color of the door that was updated
-    public String updateDoorCount (){
-        String colorOfCard = lab.getCard(lab.getSize() - 1).getColor();
+    public String updateDoorCountFrom(String fromWhereScored) {
+        String colorOfCard = "";
+        if (fromWhereScored.equals("lab")) {
+            colorOfCard = lab.getCard(lab.getSize() - 1).getColor();
+
+        }
+        else if (fromWhereScored.equals("keyInHand")) {
+            colorOfCard = getColorOfDoorInHand();
+        }
+        return getColorOfDoorToBeUpdated(colorOfCard);
+    }
+
+    private String getColorOfDoorToBeUpdated (String colorOfCard) {
         if (colorOfCard.equals("red") && counts.getRedDoorCount() <= 1) {
             counts.incrementRedDoorCount();
             return "red";
@@ -268,6 +286,7 @@ public class Facade {
         }
         return "";
     }
+
     //*********************nightmare stuff*****************************//
     public void incrementNightmareCount(){
         counts.incrementNightmareCount();

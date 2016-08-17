@@ -70,10 +70,8 @@ public class Hand {
             throw new IndexOutOfBoundsException();
         }
         if (hand[index]==null){
-            if (AssertSettings.PRIORITY1_ASSERTIONS){
-                Assert.assertNotNull(hand[index]);
-            }
-            throw new NullPointerException();
+            return null;
+            //throw new NullPointerException();
         }
         else {
             return hand[index];

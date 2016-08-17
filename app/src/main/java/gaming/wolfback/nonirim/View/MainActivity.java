@@ -77,8 +77,8 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                                 if (controller.wasNightmareDrawn()) {
                                     nightmareAction();
                                 }
-                                if (controller.doorAndKeyOption()) {
-                                    doorDrawnAction();
+                                if (controller.displayUnlockDoorOption()) {
+                                    unlockDoorOption(theInd);
                                 }
                             }
                         }
@@ -297,17 +297,34 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         });
         builder.show();
     }
-    private void doorDrawnAction() {
+    private void unlockDoorOption(final int theInd) {
         new AlertDialog.Builder (this)
                 .setTitle("Door was drawn")
                 .setMessage("Would you like to discard key to obtain door?")
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         //discard key
-                        //increment door count
-                        //remove door from draw pile
+                        controller.discardUnlockDoorKey(theInd);
+                        //update discard pile
+                        updateImageOfDiscard();
+                        //unlock the door
+                        controller.updateDoorCountFromKeyInHand();
+                        //update counts of the door
+                        displayDoorCounts();
                         //remove door from hand
-                        //draw new card
+                        controller.removeCardFromHand(theInd);
+                        //draw a new card for key
+                        controller.drawCard();
+                        updateAllImagesOfHand();
+                        if (controller.displayUnlockDoorOption()) {
+                            unlockDoorOption(theInd);
+                        }
+                        //draw a new card for door
+                        controller.drawCard();
+                        updateAllImagesOfHand();
+                        if (controller.displayUnlockDoorOption()) {
+                            unlockDoorOption(theInd);
+                        }
                     }
                 })
                 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {

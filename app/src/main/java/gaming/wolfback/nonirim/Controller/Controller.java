@@ -9,11 +9,8 @@ public class Controller {
     public void playCard(int cardNum) {
         facade.playCardIntoLabAndRemoveCardFromHand(cardNum);
         if (didScore()) {
-            String colorOfDoorUpdated = facade.updateDoorCount();
+            String colorOfDoorUpdated = facade.updateDoorCountFrom("lab");
             facade.removeDoorFromDrawPile(colorOfDoorUpdated);
-        }
-        if (facade.didDrawDoor()) {
-
         }
     }
     public boolean wasNightmareDrawn() {
@@ -63,7 +60,8 @@ public class Controller {
         facade.drawIntoHand();
     }
 
-    public boolean doorAndKeyOption() {
+    //Determines if the unlockDoorOption alert dialog should be displayed
+    public boolean displayUnlockDoorOption() {
         if (facade.didDrawDoor()) {
             //get color of door
             String colorOfDoor = facade.getColorOfDoorInHand();
@@ -77,6 +75,26 @@ public class Controller {
         return false;
     }
 
+    public void discardUnlockDoorKey (final int theInd) {
+        //find the color of the door at the index
+        String colorOfDoor = facade.getCardColorFromHand(theInd);
+        for (int i = 0; i < 5; ++i) {
+            //find the key with the color of that door
+            if (facade.getCardColorAndTypeFromHand(i).equals(colorOfDoor+"key")) {
+                //discard that key
+                facade.discardCardFromHand(i);
+                return;
+            }
+        }
+    }
+
+    public void updateDoorCountFromKeyInHand () {
+        facade.updateDoorCountFrom("keyInHand");
+    }
+
+    public void removeCardFromHand(int theInd) {
+        facade.removeCardFromHand (theInd);
+    }
     public boolean isValidPlay(int indexOfCardInHand){
         int labSize = facade.getLabSize();
         String curLabType = facade.getLabType(labSize-1);
