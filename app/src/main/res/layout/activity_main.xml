@@ -1,14 +1,18 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:background="@drawable/bg_shattered"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".View.MainActivity">
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context=".View.MainActivity">
 
     <ImageButton
-        android:layout_width="50dp"
-        android:layout_height="75dp"
+        app:layout_widthPercent="10%"
+        app:layout_heightPercent="29%"
         android:id="@+id/hand0"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
@@ -18,8 +22,9 @@
         />
 
     <ImageButton
-        android:layout_width="50dp"
-        android:layout_height="75dp"
+
+        app:layout_widthPercent="10%"
+        app:layout_heightPercent="29%"
         android:id="@+id/hand1"
         android:layout_alignBottom="@+id/hand0"
         android:layout_toRightOf="@+id/hand0"
@@ -29,8 +34,8 @@
         />
 
     <ImageButton
-        android:layout_width="50dp"
-        android:layout_height="75dp"
+        app:layout_widthPercent="10%"
+        app:layout_heightPercent="29%"
         android:id="@+id/hand2"
         android:layout_alignBottom="@+id/hand1"
         android:layout_toRightOf="@+id/hand1"
@@ -39,8 +44,8 @@
         android:scaleType="fitXY"/>
 
     <ImageButton
-        android:layout_width="50dp"
-        android:layout_height="75dp"
+        app:layout_widthPercent="10%"
+        app:layout_heightPercent="29%"
         android:id="@+id/hand3"
         android:layout_alignBottom="@+id/hand2"
         android:layout_toRightOf="@+id/hand2"
@@ -49,8 +54,8 @@
         android:scaleType="fitXY"/>
 
     <ImageButton
-        android:layout_width="50dp"
-        android:layout_height="75dp"
+        app:layout_widthPercent="10%"
+        app:layout_heightPercent="29%"
         android:id="@+id/hand4"
         android:layout_alignBottom="@+id/hand3"
         android:layout_toRightOf="@+id/hand3"
@@ -59,109 +64,93 @@
         android:scaleType="fitXY"/>
 
     <ImageView
-        android:layout_width="40dp"
-        android:layout_height="60dp"
+        app:layout_widthPercent="10%"
+        app:layout_heightPercent="30%"
+        app:layout_marginTopPercent="33%"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/LabId0"
-        android:layout_alignTop="@+id/LabId2"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:contextClickable="false" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-
-    </LinearLayout>
     <ImageView
-        android:layout_width="40dp"
-        android:layout_height="60dp"
+        app:layout_widthPercent="10%"
+        app:layout_heightPercent="30%"
+        app:layout_marginTopPercent="33%"
+        android:layout_marginLeft="-20dp"
+        app:layout_marginRightPercent="0%"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/LabId1"
-        android:layout_below="@+id/doorIdBlue"
         android:layout_toRightOf="@+id/LabId0"
         android:layout_toEndOf="@+id/LabId0" />
 
     <ImageView
-        android:layout_width="40dp"
-        android:layout_height="60dp"
+        app:layout_widthPercent="10%"
+        app:layout_heightPercent="30%"
+        app:layout_marginTopPercent="33%"
+        android:layout_marginLeft="-20dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/LabId2"
-        android:layout_below="@+id/doorIdBlue"
         android:layout_toRightOf="@+id/LabId1"
         android:layout_toEndOf="@+id/LabId1" />
 
     <ImageView
-        android:layout_width="40dp"
-        android:layout_height="60dp"
+        app:layout_widthPercent="10%"
+        app:layout_heightPercent="30%"
+        app:layout_marginTopPercent="33%"
+        android:layout_marginLeft="-20dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/LabId3"
-        android:layout_alignTop="@+id/LabId5"
         android:layout_toEndOf="@+id/LabId2"
         android:layout_toRightOf="@+id/LabId2" />
     <ImageView
-        android:layout_width="40dp"
-        android:layout_height="60dp"
+        app:layout_widthPercent="10%"
+        app:layout_heightPercent="30%"
+        app:layout_marginTopPercent="33%"
+        android:layout_marginLeft="-20dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/LabId4"
-        android:layout_below="@+id/doorIdGreen"
         android:layout_toRightOf="@+id/LabId3"
         android:layout_toEndOf="@+id/LabId3" />
     <ImageView
-        android:layout_width="40dp"
-        android:layout_height="60dp"
+        app:layout_widthPercent="10%"
+        app:layout_heightPercent="30%"
+        app:layout_marginTopPercent="33%"
+        android:layout_marginLeft="-25dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/LabId5"
-        android:layout_below="@+id/doorIdGreen"
         android:layout_toRightOf="@+id/LabId4"
         android:layout_toEndOf="@+id/LabId4" />
     <ImageView
-        android:layout_width="40dp"
-        android:layout_height="60dp"
-        android:layout_marginLeft="-10dp"
+        app:layout_widthPercent="10%"
+        app:layout_heightPercent="30%"
+        app:layout_marginTopPercent="33%"
+        android:layout_marginLeft="-20dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/LabId6"
-        android:layout_alignTop="@+id/LabId5"
         android:layout_toRightOf="@+id/LabId5"
         android:layout_toEndOf="@+id/LabId5" />
 
     <ImageView
-        android:layout_width="40dp"
-        android:layout_height="60dp"
+        app:layout_widthPercent="10%"
+        app:layout_heightPercent="30%"
+        app:layout_marginTopPercent="33%"
+        android:layout_marginLeft="-20dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/LabId7"
-        android:backgroundTint="#3dbfff"
-        android:layout_below="@+id/doorIdGreen"
         android:layout_toRightOf="@+id/LabId6"
         android:layout_toEndOf="@+id/LabId6" />
 
 
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="150dp"
-        android:src="@drawable/backofcard"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/Deck"
-        android:layout_below="@+id/LabId1"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
 
-    <ImageView
-        android:layout_width="40dp"
-        android:layout_height="60dp"
-        android:text=""
-        android:id="@+id/discardPileId"
-        android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/dicardPile"
-        android:layout_alignStart="@+id/dicardPile"
-        android:layout_marginLeft="54dp"
-        android:layout_marginStart="54dp" />
+
+
 
     <TextView
-        android:layout_width="40dp"
-        android:layout_height="60dp"
+        app:layout_widthPercent="5%"
+        app:layout_heightPercent="14%"
         android:text="0"
-        android:textSize="10dp"
+        android:textSize="14dp"
         android:textColor="#ffffff"
         android:paddingLeft="2dp"
         android:id="@+id/doorIdRed"
@@ -172,10 +161,10 @@
 
 
     <TextView
-        android:layout_width="40dp"
-        android:layout_height="60dp"
+        app:layout_widthPercent="5%"
+        app:layout_heightPercent="14%"
         android:text="0"
-        android:textSize="10dp"
+        android:textSize="14dp"
         android:textColor="#ffffff"
         android:paddingLeft="2dp"
         android:id="@+id/doorIdBlue"
@@ -185,37 +174,40 @@
         android:layout_alignParentStart="true" />
 
     <TextView
-        android:layout_width="40dp"
-        android:layout_height="60dp"
+        app:layout_widthPercent="5%"
+        app:layout_heightPercent="14%"
         android:text="0"
-        android:textSize="10dp"
+        android:textSize="14dp"
         android:textColor="#ffffff"
         android:paddingLeft="2dp"
         android:id="@+id/doorIdGreen"
         android:background="@drawable/greendoor"
-        android:layout_above="@+id/LabId0"
-        android:layout_toRightOf="@+id/LabId0"
-        android:layout_toEndOf="@+id/LabId0" />
+        android:layout_below="@+id/doorIdBrown"
+        android:layout_toRightOf="@+id/doorIdRed"
+        android:layout_toEndOf="@+id/doorIdRed" />
 
     <TextView
-        android:layout_width="40dp"
-        android:layout_height="60dp"
+        app:layout_widthPercent="5%"
+        app:layout_heightPercent="14%"
         android:text="0"
-        android:textSize="10dp"
+        android:textSize="14dp"
         android:textColor="#ffffff"
         android:paddingLeft="2dp"
         android:background="@drawable/browndoor"
         android:id="@+id/doorIdBrown"
-        android:layout_alignEnd="@+id/doorIdGreen" />
+        android:layout_below="@+id/linearLayout"
+        android:layout_toRightOf="@+id/doorIdRed"
+        android:layout_toEndOf="@+id/doorIdRed" />
 
 
     <TextView
-        android:layout_width="40dp"
-        android:layout_height="60dp"
+
+        app:layout_widthPercent="5%"
+        app:layout_heightPercent="14%"
         android:id="@+id/nightmareId"
         android:background="@drawable/nightmare"
         android:text="0"
-        android:textSize="10dp"
+        android:textSize="14dp"
         android:textColor="#ffffff"
         android:paddingLeft="2dp"
         android:layout_alignTop="@+id/doorIdBrown"
@@ -223,26 +215,44 @@
         android:layout_toEndOf="@+id/doorIdGreen" />
 
     <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        app:layout_widthPercent="22%"
+        app:layout_aspectRatio="100%"
+        app:layout_marginLeftPercent="40%"
         android:id="@+id/crystalBall"
-        android:background="@drawable/crystalball"
-        android:layout_below="@+id/discardPileId"
-        android:layout_alignLeft="@+id/Deck"
-        android:layout_alignStart="@+id/Deck" />
+        android:background="@drawable/crystalball"/>
+
+
+
+    <TextView
+        app:layout_widthPercent="30%"
+        app:layout_heightPercent="36%"
+        app:layout_marginLeftPercent="69%"
+        app:layout_marginTopPercent="7%"
+        android:id="@+id/dicardPile"
+        android:background="#6EFFF0"
+        android:text="   Discard"
+        android:textStyle="bold"
+        android:gravity="center_vertical"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+
+
+        />
+
 
     <ImageView
-        android:layout_width="150dp"
-        android:layout_height="75dp"
-        android:id="@+id/dicardPile"
-        android:background="@drawable/discardpile"
-        android:layout_alignTop="@+id/crystalBall"
-        android:layout_toRightOf="@+id/LabId7"
-        android:layout_toEndOf="@+id/LabId7" />
+        app:layout_widthPercent="8%"
+        app:layout_heightPercent="25%"
+        app:layout_marginLeftPercent="89%"
+        app:layout_marginTopPercent="13%"
+        android:text=""
+        android:id="@+id/discardPileId"
+        android:background="@drawable/backofcard"/>
 
    <TextView
-        android:layout_width="150dp"
-        android:layout_height="80dp"
+       app:layout_widthPercent="40%"
+       app:layout_heightPercent="36%"
+       app:layout_marginLeftPercent="60%"
+       app:layout_marginTopPercent="60%"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Play Card"
         android:id="@+id/playCardView"
@@ -253,10 +263,7 @@
         android:singleLine="false"
         android:capitalize="characters"
         android:gravity="center_vertical|center_horizontal"
-
-       android:layout_below="@+id/LabId7"
-       android:layout_toRightOf="@+id/LabId7"
-       android:layout_toEndOf="@+id/LabId7" />
+     />
 
 
-</RelativeLayout>
+</android.support.percent.PercentRelativeLayout>
